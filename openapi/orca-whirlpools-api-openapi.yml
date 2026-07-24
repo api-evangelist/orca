@@ -1,0 +1,1409 @@
+openapi: 3.1.0
+info:
+  title: Orca Public protocol whirlpools API
+  description: A list of public endpoints for Orca protocol
+  contact:
+    name: Orca Team
+    url: https://www.orca.so
+    email: team@orca.so
+  license:
+    name: ''
+  version: 1.0.0
+servers:
+- url: https://api.orca.so/v2/{chain}
+  variables:
+    chain:
+      default: solana
+      description: Chain identifier for the API path
+      enum:
+      - solana
+tags:
+- name: whirlpools
+  description: Whirlpool information endpoints
+paths:
+  /lock/{address}:
+    get:
+      tags:
+      - whirlpools
+      summary: Get locked liquidity for a given whirlpool
+      description: This endpoint returns the locked liquidity for a given whirlpool.
+      operationId: get_lock_percentage
+      parameters:
+      - name: address
+        in: path
+        description: The Solana account address of the whirlpool.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Locked liquidity for the whirlpool
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LockInfo'
+        '400':
+          description: Invalid address format
+        '404':
+          description: Whirlpool not found
+        '500':
+          description: Internal server error
+  /pools:
+    get:
+      tags:
+      - whirlpools
+      summary: List whirlpools with optional filtering and pagination
+      operationId: get_whirlpools
+      parameters:
+      - name: sortBy
+        in: query
+        description: Field to sort whirlpools by
+        required: false
+        schema:
+          $ref: '#/components/schemas/SortField'
+      - name: sortDirection
+        in: query
+        description: Direction to sort whirlpools in
+        required: false
+        schema:
+          $ref: '#/components/schemas/SortDirection'
+      - name: next
+        in: query
+        description: Cursor to start the next page of results
+        required: false
+        schema:
+          type: string
+      - name: previous
+        in: query
+        description: Cursor to start the previous page of results
+        required: false
+        schema:
+          type: string
+      - name: hasRewards
+        in: query
+        description: Filter whirlpools that must have rewards
+        required: false
+        schema:
+          type: boolean
+      - name: hasWarning
+        in: query
+        description: Filter whirlpools that must have a warning
+        required: false
+        schema:
+          type: boolean
+      - name: hasAdaptiveFee
+        in: query
+        description: Whether a whirlpool must be using adaptive fee
+        required: false
+        schema:
+          type: boolean
+      - name: isWavebreak
+        in: query
+        description: Whether a whirlpool must have graduated from wavebreak
+        required: false
+        schema:
+          type: boolean
+      - name: minTvl
+        in: query
+        description: Minimum TVL of a whirlpool in USDC
+        required: false
+        schema:
+          $ref: '#/components/schemas/Decimal'
+      - name: minVolume
+        in: query
+        description: Minimum volume of a whirlpool in USDC
+        required: false
+        schema:
+          $ref: '#/components/schemas/Decimal'
+      - name: minLockedLiquidityPercent
+        in: query
+        description: Minimum locked liquidity percentage of a whirlpool
+        required: false
+        schema:
+          $ref: '#/components/schemas/Decimal'
+      - name: size
+        in: query
+        description: Number of results to return
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimum: 0
+      - name: token
+        in: query
+        description: Filter whirlpools containing this token
+        required: false
+        schema:
+          $ref: '#/components/schemas/Pubkey'
+      - name: tokensBothOf
+        in: query
+        description: Filter whirlpools containing both specified tokens
+        required: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pubkey'
+      - name: addresses
+        in: query
+        description: Filter whirlpools with these addresses
+        required: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pubkey'
+      - name: stats
+        in: query
+        description: Filter whirlpools with stats for these time periods
+        required: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimePeriod'
+      - name: includeBlocked
+        in: query
+        description: Include blocked whirlpools if true
+        required: false
+        schema:
+          type: boolean
+      - name: pairInsightsWindow
+        in: query
+        description: 'Pair-insights windows to include. Accepts a single window or a
+
+          comma-separated list. Pair metrics and token price trend arrays are
+
+          returned per-window in the response.'
+        required: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricWindow'
+      - name: whirlpoolConfigs
+        in: query
+        description: Whirlpool configs to filter by. An empty list returns pools from all configs.
+        required: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pubkey'
+      - name: categories
+        in: query
+        description: 'Asset categories to filter by (pools where at least one token matches). Accepts a
+
+          comma-separated list of category names (e.g. `stablecoin,memecoin`).'
+        required: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssetCategory'
+      responses:
+        '200':
+          description: List of whirlpools
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UtoipaApiResponse_Vec_PublicWhirlpool'
+        '400':
+          description: Invalid query parameters
+        '500':
+          description: Internal server error
+  /pools/search:
+    get:
+      tags:
+      - whirlpools
+      summary: Search for whirlpools by token symbols or address
+      description: 'This endpoint allows searching for whirlpools by:
+
+        - Token symbols (e.g., "SOL USDC" to find pools with both tokens)
+
+        - Single token symbol (e.g., "SOL" to find all pools containing SOL)
+
+        - Whirlpool address (single address exact match)
+
+
+        The search is case-insensitive and supports partial matching for token symbols.'
+      operationId: search_whirlpools
+      parameters:
+      - name: q
+        in: query
+        description: Query text to search by
+        required: false
+        schema:
+          type: string
+      - name: next
+        in: query
+        description: Cursor to start the next page of results
+        required: false
+        schema:
+          type: string
+      - name: size
+        in: query
+        description: Maximum number of results to return
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimum: 0
+      - name: sortBy
+        in: query
+        description: Field to sort by
+        required: false
+        schema:
+          $ref: '#/components/schemas/SortField'
+      - name: sortDirection
+        in: query
+        description: Sort direction
+        required: false
+        schema:
+          $ref: '#/components/schemas/SortDirection'
+      - name: minTvl
+        in: query
+        description: Minimum TVL of a whirlpool in USDC
+        required: false
+        schema:
+          $ref: '#/components/schemas/Decimal'
+      - name: minVolume
+        in: query
+        description: Minimum volume of a whirlpool in USDC
+        required: false
+        schema:
+          $ref: '#/components/schemas/Decimal'
+      - name: stats
+        in: query
+        description: Filter whirlpools with stats for these time periods
+        required: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimePeriod'
+      - name: userTokens
+        in: query
+        description: Comma-separated list of token addresses owned by the user
+        required: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pubkey'
+      - name: hasRewards
+        in: query
+        description: Filter for pools with rewards
+        required: false
+        schema:
+          type: boolean
+      - name: verifiedOnly
+        in: query
+        description: Filter for pools with verified tokens
+        required: false
+        schema:
+          type: boolean
+      - name: hasLockedLiquidity
+        in: query
+        description: Filter for pools with locked liquidity
+        required: false
+        schema:
+          type: boolean
+      - name: whirlpoolConfigs
+        in: query
+        description: Whirlpool configs to filter by. An empty list returns pools from all configs.
+        required: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pubkey'
+      - name: categories
+        in: query
+        description: 'Asset categories to filter by (pools where at least one token matches). Accepts a
+
+          comma-separated list of category names (e.g. `stablecoin,memecoin`).'
+        required: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssetCategory'
+      responses:
+        '200':
+          description: List of matching whirlpools
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UtoipaApiResponse_Vec_PublicWhirlpool'
+        '400':
+          description: Invalid query parameters
+        '500':
+          description: Internal server error
+  /pools/{address}:
+    get:
+      tags:
+      - whirlpools
+      summary: Get whirlpool data by address
+      operationId: get_whirlpool
+      parameters:
+      - name: address
+        in: path
+        description: Whirlpool address
+        required: true
+        schema:
+          type: string
+      - name: sortBy
+        in: query
+        description: Field to sort whirlpools by
+        required: false
+        schema:
+          $ref: '#/components/schemas/SortField'
+      - name: sortDirection
+        in: query
+        description: Direction to sort whirlpools in
+        required: false
+        schema:
+          $ref: '#/components/schemas/SortDirection'
+      - name: next
+        in: query
+        description: Cursor to start the next page of results
+        required: false
+        schema:
+          type: string
+      - name: previous
+        in: query
+        description: Cursor to start the previous page of results
+        required: false
+        schema:
+          type: string
+      - name: hasRewards
+        in: query
+        description: Filter whirlpools that must have rewards
+        required: false
+        schema:
+          type: boolean
+      - name: hasWarning
+        in: query
+        description: Filter whirlpools that must have a warning
+        required: false
+        schema:
+          type: boolean
+      - name: hasAdaptiveFee
+        in: query
+        description: Whether a whirlpool must be using adaptive fee
+        required: false
+        schema:
+          type: boolean
+      - name: isWavebreak
+        in: query
+        description: Whether a whirlpool must have graduated from wavebreak
+        required: false
+        schema:
+          type: boolean
+      - name: minTvl
+        in: query
+        description: Minimum TVL of a whirlpool in USDC
+        required: false
+        schema:
+          $ref: '#/components/schemas/Decimal'
+      - name: minVolume
+        in: query
+        description: Minimum volume of a whirlpool in USDC
+        required: false
+        schema:
+          $ref: '#/components/schemas/Decimal'
+      - name: minLockedLiquidityPercent
+        in: query
+        description: Minimum locked liquidity percentage of a whirlpool
+        required: false
+        schema:
+          $ref: '#/components/schemas/Decimal'
+      - name: size
+        in: query
+        description: Number of results to return
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimum: 0
+      - name: token
+        in: query
+        description: Filter whirlpools containing this token
+        required: false
+        schema:
+          $ref: '#/components/schemas/Pubkey'
+      - name: tokensBothOf
+        in: query
+        description: Filter whirlpools containing both specified tokens
+        required: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pubkey'
+      - name: addresses
+        in: query
+        description: Filter whirlpools with these addresses
+        required: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pubkey'
+      - name: stats
+        in: query
+        description: Filter whirlpools with stats for these time periods
+        required: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimePeriod'
+      - name: includeBlocked
+        in: query
+        description: Include blocked whirlpools if true
+        required: false
+        schema:
+          type: boolean
+      - name: pairInsightsWindow
+        in: query
+        description: 'Pair-insights windows to include. Accepts a single window or a
+
+          comma-separated list. Pair metrics and token price trend arrays are
+
+          returned per-window in the response.'
+        required: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricWindow'
+      - name: whirlpoolConfigs
+        in: query
+        description: Whirlpool configs to filter by. An empty list returns pools from all configs.
+        required: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pubkey'
+      - name: categories
+        in: query
+        description: 'Asset categories to filter by (pools where at least one token matches). Accepts a
+
+          comma-separated list of category names (e.g. `stablecoin,memecoin`).'
+        required: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssetCategory'
+      responses:
+        '200':
+          description: Whirlpool data retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UtoipaApiResponse_PublicWhirlpool'
+        '400':
+          description: Invalid whirlpool address
+        '404':
+          description: Whirlpool not found
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    UtoipaCursorMeta:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+        previous:
+          type:
+          - string
+          - 'null'
+    Decimal:
+      type: string
+      format: float
+    AdaptiveFeeConstants:
+      type: object
+      required:
+      - filterPeriod
+      - decayPeriod
+      - reductionFactor
+      - adaptiveFeeControlFactor
+      - maxVolatilityAccumulator
+      - tickGroupSize
+      - majorSwapThresholdTicks
+      properties:
+        adaptiveFeeControlFactor:
+          type: integer
+          format: int32
+          minimum: 0
+        decayPeriod:
+          type: integer
+          format: int32
+          minimum: 0
+        filterPeriod:
+          type: integer
+          format: int32
+          minimum: 0
+        majorSwapThresholdTicks:
+          type: integer
+          format: int32
+          minimum: 0
+        maxVolatilityAccumulator:
+          type: integer
+          format: int32
+          minimum: 0
+        reductionFactor:
+          type: integer
+          format: int32
+          minimum: 0
+        tickGroupSize:
+          type: integer
+          format: int32
+          minimum: 0
+      additionalProperties: false
+    SortField:
+      type: string
+      description: Field to sort the whirlpools by
+      enum:
+      - volume
+      - volume5m
+      - volume15m
+      - volume30m
+      - volume1h
+      - volume2h
+      - volume4h
+      - volume8h
+      - volume24h
+      - volume7d
+      - volume30d
+      - tvl
+      - fees
+      - fees5m
+      - fees15m
+      - fees30m
+      - fees1h
+      - fees2h
+      - fees4h
+      - fees8h
+      - fees24h
+      - fees7d
+      - fees30d
+      - feesearned
+      - feesearned5m
+      - feesearned15m
+      - feesearned30m
+      - feesearned1h
+      - feesearned2h
+      - feesearned4h
+      - feesearned8h
+      - feesearned24h
+      - feesearned7d
+      - feesearned30d
+      - rewards
+      - rewards5m
+      - rewards15m
+      - rewards30m
+      - rewards1h
+      - rewards2h
+      - rewards4h
+      - rewards8h
+      - rewards24h
+      - rewards7d
+      - rewards30d
+      - yieldovertvl
+      - yieldovertvl5m
+      - yieldovertvl15m
+      - yieldovertvl30m
+      - yieldovertvl1h
+      - yieldovertvl2h
+      - yieldovertvl4h
+      - yieldovertvl8h
+      - yieldovertvl24h
+      - yieldovertvl7d
+      - yieldovertvl30d
+      - lockedliquiditypercent
+    PairCategory:
+      type: string
+      enum:
+      - volatile_volatile
+      - stable_volatile
+      - stable_stable
+      - unknown
+    AssetCategory:
+      type: string
+      enum:
+      - ai
+      - governance
+      - utility
+      - stablecoin
+      - liquid_staking_token
+      - memecoin
+      - currency
+      - security
+      - nft
+      - wrapped_token
+      - bridged_token
+      - restaked_token
+      - synthetic_asset
+      - digital_reward_asset
+      - yield_bearing
+    PoolType:
+      type: string
+      description: Type of pool
+      enum:
+      - splashpool
+      - whirlpool
+    WhirlpoolRewardInfoExtDb:
+      type: object
+      description: 'The actual reward info returned by the db, retaining snake-case field names
+
+
+        Note that we can''t make use of `#[serde(flatten)]` here because of some underlying bugs in
+
+        how serde handles `rename_all` for flattened struct fields.
+
+
+        Also note that we use [`String`] for the [`Pubkey`] types since the only use for this
+
+        struct is to serialize it to a string anyway, so better to take what the db gives us
+
+        directly for performance reasons'
+      required:
+      - mint
+      - vault
+      - authority
+      - emissions_per_second_x64
+      - growth_global_x64
+      properties:
+        authority:
+          type: string
+        emissions_per_second_x64:
+          type: string
+        growth_global_x64:
+          type: string
+        mint:
+          type: string
+        vault:
+          type: string
+    PublicToken:
+      type: object
+      description: Token information for a whirlpool
+      required:
+      - address
+      - programId
+      - decimals
+      - tags
+      properties:
+        address:
+          type: string
+          description: Token address
+          example: So11111111111111111111111111111111111111112
+        decimals:
+          type: integer
+          format: int32
+          description: Token Decimals for token amount
+          example: 6
+          minimum: 0
+        imageUrl:
+          type:
+          - string
+          - 'null'
+          description: URL to token image
+          example: https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png
+        name:
+          type:
+          - string
+          - 'null'
+          description: Token name
+          example: Solana
+        programId:
+          type: string
+          description: Token program ID
+          example: TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA
+        symbol:
+          type:
+          - string
+          - 'null'
+          description: Token symbol
+          example: SOL
+        tags:
+          type: string
+          description: Token extensions tags
+          example: '["confidentialTransferFeeConfig", "confidentialTransferMint", "metadataPointer", "mintCloseAuthority", "permanentDelegate", "tokenMetadata", "transferFeeConfig", "transferHook"]'
+    AdaptiveFee:
+      type: object
+      required:
+      - currentRate
+      - maxRate
+      - constants
+      - variables
+      properties:
+        constants:
+          $ref: '#/components/schemas/AdaptiveFeeConstants'
+        currentRate:
+          type: integer
+          format: int32
+          minimum: 0
+        maxRate:
+          type: integer
+          format: int32
+          minimum: 0
+        variables:
+          $ref: '#/components/schemas/AdaptiveFeeVariables'
+      additionalProperties: false
+    SortDirection:
+      type: string
+      description: Direction to sort results
+      enum:
+      - asc
+      - desc
+    WhirlpoolRewardInfoExt:
+      allOf:
+      - $ref: '#/components/schemas/WhirlpoolRewardInfoExtDb'
+      - type: object
+        required:
+        - active
+        - emissionsPerSecond
+        properties:
+          active:
+            type: boolean
+            description: Whether the reward is active
+            example: false
+          emissionsPerSecond:
+            type: string
+            format: float
+            description: Emissions per second
+            example: '0'
+      description: Reward information for a whirlpool
+    Pubkey:
+      type: array
+      items:
+        type: integer
+        format: int32
+        minimum: 0
+      description: A Solana pubkey
+    MintPriceTrend:
+      type: object
+      required:
+      - normalizedPoints
+      properties:
+        normalizedPoints:
+          type: array
+          items:
+            oneOf:
+            - type: 'null'
+            - $ref: '#/components/schemas/Decimal'
+      additionalProperties: false
+    PairMetrics:
+      type: object
+      required:
+      - pairCategory
+      properties:
+        correlation:
+          oneOf:
+          - type: 'null'
+          - $ref: '#/components/schemas/Decimal'
+        pairCategory:
+          $ref: '#/components/schemas/PairCategory'
+        pairDrift:
+          oneOf:
+          - type: 'null'
+          - $ref: '#/components/schemas/Decimal'
+        pairFitScore:
+          oneOf:
+          - type: 'null'
+          - $ref: '#/components/schemas/Decimal'
+        ratioVolatility:
+          oneOf:
+          - type: 'null'
+          - $ref: '#/components/schemas/Decimal'
+      additionalProperties: false
+    LockInfo:
+      type: object
+      required:
+      - name
+      properties:
+        lockedPercentage:
+          type:
+          - string
+          - 'null'
+          example: '0.7'
+        name:
+          type: string
+          example: Whirlpool-Lock
+    UtoipaApiResponse_Vec_PublicWhirlpool:
+      type: object
+      required:
+      - data
+      - meta
+      properties:
+        data:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/Whirlpool'
+            - type: object
+              required:
+              - hasWarning
+              - poolType
+              - tokenA
+              - tokenB
+              - stats
+              - rewards
+              - lockedLiquidityPercent
+              - feeTierIndex
+              - adaptiveFeeEnabled
+              properties:
+                adaptiveFee:
+                  oneOf:
+                  - type: 'null'
+                  - $ref: '#/components/schemas/AdaptiveFee'
+                    description: Parameters for adaptive fee calculation if enabled
+                adaptiveFeeEnabled:
+                  type: boolean
+                  description: Indicates if the pool uses adaptive fees
+                  example: false
+                addressLookupTable:
+                  oneOf:
+                  - type: 'null'
+                  - $ref: '#/components/schemas/Pubkey'
+                    description: Address of the pool's address lookup table, if it exists
+                feeTierIndex:
+                  type: integer
+                  format: int32
+                  description: The fee tier index of the pool
+                  example: 4
+                  minimum: 0
+                hasWarning:
+                  type: boolean
+                  description: Whether the whirlpool has a warning
+                  example: false
+                lockedLiquidityPercent:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/LockInfo'
+                  description: Locked liquidity information
+                pairMetrics:
+                  type: object
+                  description: 'Pool stability metrics keyed by pair-insights window. Empty if no
+
+                    window was requested; entries are omitted for windows whose cache row
+
+                    is missing.'
+                  additionalProperties:
+                    $ref: '#/components/schemas/PairMetrics'
+                  propertyNames:
+                    type: string
+                    enum:
+                    - 7d
+                    - 30d
+                poolType:
+                  $ref: '#/components/schemas/PoolType'
+                  description: The type of pool (whirlpool or splashpool)
+                price:
+                  type:
+                  - string
+                  - 'null'
+                  format: float
+                  description: The current price of token A denominated in token B
+                  example: '162.17758715438083504000'
+                priceHistory7d:
+                  type:
+                  - array
+                  - 'null'
+                  items:
+                    type:
+                    - string
+                    - 'null'
+                  description: Historical prices for the past 7 days (oldest to newest, one per 12 hours, 14 data points)
+                rewards:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/WhirlpoolRewardInfoExt'
+                  description: Information about rewards available in the pool
+                stats:
+                  type: object
+                  description: Statistics for the pool over different time periods
+                  additionalProperties:
+                    $ref: '#/components/schemas/PublicWhirlpoolStats'
+                  propertyNames:
+                    type: string
+                    description: Time period for the whirlpool stats
+                    enum:
+                    - 5m
+                    - 15m
+                    - 30m
+                    - 1h
+                    - 2h
+                    - 4h
+                    - 8h
+                    - 24h
+                    - 7d
+                    - 30d
+                tokenA:
+                  $ref: '#/components/schemas/PublicToken'
+                  description: Information about token A in the pool
+                tokenATrend:
+                  type: object
+                  description: Token A normalized price trend keyed by pair-insights window.
+                  additionalProperties:
+                    $ref: '#/components/schemas/MintPriceTrend'
+                  propertyNames:
+                    type: string
+                    enum:
+                    - 7d
+                    - 30d
+                tokenB:
+                  $ref: '#/components/schemas/PublicToken'
+                  description: Information about token B in the pool
+                tokenBTrend:
+                  type: object
+                  description: Token B normalized price trend keyed by pair-insights window.
+                  additionalProperties:
+                    $ref: '#/components/schemas/MintPriceTrend'
+                  propertyNames:
+                    type: string
+                    enum:
+                    - 7d
+                    - 30d
+                tokenBalanceA:
+                  type:
+                  - string
+                  - 'null'
+                  format: float
+                  description: The current balance of token A in the pool
+                  example: '105580027977071'
+                tokenBalanceB:
+                  type:
+                  - string
+                  - 'null'
+                  format: float
+                  description: The current balance of token B in the pool
+                  example: '18616923791931'
+                tradeEnableTimestamp:
+                  type:
+                  - string
+                  - 'null'
+                  format: date-time
+                  description: The timestamp when trading was enabled for this pool
+                  example: '1970-01-01T00:00:00Z'
+                tvlUsdc:
+                  type:
+                  - string
+                  - 'null'
+                  format: float
+                  description: The total value locked in the pool, denominated in USDC
+                  example: '35735886.7176539739861592478846702700'
+                yieldOverTvl:
+                  type:
+                  - string
+                  - 'null'
+                  format: float
+                  description: The yield generated by the pool relative to its TVL
+                  example: '0.00305562472377327000'
+            description: A public whirlpool with additional metadata and statistics
+        meta:
+          $ref: '#/components/schemas/UtoipaCursorMeta'
+    Whirlpool:
+      type: object
+      description: A concentrated liquidity pool belonging to the Whirlpools program
+      required:
+      - address
+      - whirlpoolsConfig
+      - whirlpoolBump
+      - tickSpacing
+      - tickSpacingSeed
+      - feeRate
+      - protocolFeeRate
+      - liquidity
+      - sqrtPrice
+      - tickCurrentIndex
+      - protocolFeeOwedA
+      - protocolFeeOwedB
+      - tokenMintA
+      - tokenVaultA
+      - feeGrowthGlobalA
+      - tokenMintB
+      - tokenVaultB
+      - feeGrowthGlobalB
+      - rewardLastUpdatedTimestamp
+      - updatedAt
+      - updatedSlot
+      - writeVersion
+      properties:
+        address:
+          type: string
+          description: Account address
+          example: Czfq3xZZDmsdGdUyrNLtRhGc47cXcZtLG4crryfu44zE
+        feeGrowthGlobalA:
+          type: string
+          description: Fee growth global for token A
+          example: '9554655121161208077'
+        feeGrowthGlobalB:
+          type: string
+          description: Fee growth global for token B
+          example: '1228285739014669796'
+        feeRate:
+          type: integer
+          format: int32
+          description: 'Stored as hundredths of a basis point
+
+            u16::MAX corresponds to ~6.5%'
+          example: 400
+          minimum: 0
+        liquidity:
+          type: string
+          description: Liquidity value for the pool
+          example: '748079040958583'
+        protocolFeeOwedA:
+          type: string
+          description: Protocol fees owed for token A
+          example: '167818699'
+        protocolFeeOwedB:
+          type: string
+          description: Protocol fees owed for token B
+          example: '13808875'
+        protocolFeeRate:
+          type: integer
+          format: int32
+          description: Portion of fee rate taken stored as basis points
+          example: 1300
+          minimum: 0
+        rewardLastUpdatedTimestamp:
+          type: string
+          description: Last time rewards were updated
+          example: '2025-05-09T03:40:08Z'
+        sqrtPrice:
+          type: string
+          description: MAX/MIN at Q32.64, but using Q64.64 for rounder bytes
+          example: '7428739679004743247'
+        tickCurrentIndex:
+          type: integer
+          format: int32
+          description: Current tick index
+          example: -18192
+        tickSpacing:
+          type: integer
+          format: int32
+          description: The desired tick spacing for the pool
+          example: 4
+          minimum: 0
+        tickSpacingSeed:
+          type: string
+          description: Seed for the pool's tick spacing -- fee_tier_index_seed
+          example: '[4, 0]'
+        tokenMintA:
+          type: string
+          description: Token A mint address
+          example: So11111111111111111111111111111111111111112
+        tokenMintB:
+          type: string
+          description: Token B mint address
+          example: EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
+        tokenVaultA:
+          $ref: '#/components/schemas/Pubkey'
+          description: Token A vault address
+        tokenVaultB:
+          type: string
+          description: Token B vault address
+          example: 2WLWEuKDgkDUccTpbwYp1GToYktiSB1cXvreHUwiSUVP
+        updatedAt:
+          type: string
+          description: Last time the pool was updated
+          example: '2025-05-09T03:40:22.210625Z'
+        updatedSlot:
+          type: integer
+          format: int64
+          description: Slot when the pool was last updated
+          example: 338786229
+        whirlpoolBump:
+          type: string
+          description: The bump value when deriving the PDA of the Whirlpool address
+          example: '[255]'
+        whirlpoolsConfig:
+          type: string
+          description: WhirlpoolsConfig account address
+          example: 2LecshUwdy9xi7meFgHtFJQNSKk4KdTrcpvaB56dP2NQ
+        writeVersion:
+          type: string
+          description: Write version for optimistic concurrency control
+          example: '1459165811157'
+    PublicWhirlpoolStats:
+      type: object
+      description: Statistics for a whirlpool over a time period
+      properties:
+        fees:
+          type:
+          - string
+          - 'null'
+          format: float
+          description: Fees earned in USDC
+          example: '109195.458980424000'
+        feesDelta:
+          type:
+          - string
+          - 'null'
+          format: float
+          description: Percentage change in fees vs previous window (e.g. -0.10 = -10%)
+          example: '-0.10'
+        priceDelta:
+          type:
+          - string
+          - 'null'
+          format: float
+          description: Percentage change in pool price vs previous window (e.g. -0.05 = -5%)
+          example: '-0.05'
+        rewards:
+          type:
+          - string
+          - 'null'
+          format: float
+          description: Rewards earned in USDC
+          example: '0'
+        rewardsDelta:
+          type:
+          - string
+          - 'null'
+          format: float
+          description: Percentage change in rewards vs previous window (currently populated for 24h only)
+          example: '0.40'
+        tvlDelta:
+          type:
+          - string
+          - 'null'
+          format: float
+          description: Percentage change in TVL vs previous window (e.g. 0.15 = +15%)
+          example: '0.15'
+        volume:
+          type:
+          - string
+          - 'null'
+          format: float
+          description: Trading volume in USDC
+          example: '272988647.45106000'
+        volumeDelta:
+          type:
+          - string
+          - 'null'
+          format: float
+          description: Percentage change in volume vs previous window (e.g. 0.25 = +25%)
+          example: '0.25'
+        yieldOverTvl:
+          type:
+          - string
+          - 'null'
+          format: float
+          description: Yield over TVL
+          example: '0.00305562472380393000'
+        yieldOverTvlDelta:
+          type:
+          - string
+          - 'null'
+          format: float
+          description: Percentage change in yield/TVL vs previous window (e.g. 0.50 = +50%)
+          example: '0.50'
+    AdaptiveFeeVariables:
+      type: object
+      required:
+      - lastReferenceUpdateTimestamp
+      - lastMajorSwapTimestamp
+      - volatilityReference
+      - tickGroupIndexReference
+      - volatilityAccumulator
+      properties:
+        lastMajorSwapTimestamp:
+          type: string
+          format: date-time
+        lastReferenceUpdateTimestamp:
+          type: string
+          format: date-time
+        tickGroupIndexReference:
+          type: integer
+          format: int32
+        volatilityAccumulator:
+          type: integer
+          format: int32
+          minimum: 0
+        volatilityReference:
+          type: integer
+          format: int32
+          minimum: 0
+      additionalProperties: false
+    TimePeriod:
+      type: string
+      description: Time period for the whirlpool stats
+      enum:
+      - 5m
+      - 15m
+      - 30m
+      - 1h
+      - 2h
+      - 4h
+      - 8h
+      - 24h
+      - 7d
+      - 30d
+    UtoipaApiResponse_PublicWhirlpool:
+      type: object
+      required:
+      - data
+      - meta
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/Whirlpool'
+          - type: object
+            required:
+            - hasWarning
+            - poolType
+            - tokenA
+            - tokenB
+            - stats
+            - rewards
+            - lockedLiquidityPercent
+            - feeTierIndex
+            - adaptiveFeeEnabled
+            properties:
+              adaptiveFee:
+                oneOf:
+                - type: 'null'
+                - $ref: '#/components/schemas/AdaptiveFee'
+                  description: Parameters for adaptive fee calculation if enabled
+              adaptiveFeeEnabled:
+                type: boolean
+                description: Indicates if the pool uses adaptive fees
+                example: false
+              addressLookupTable:
+                oneOf:
+                - type: 'null'
+                - $ref: '#/components/schemas/Pubkey'
+                  description: Address of the pool's address lookup table, if it exists
+              feeTierIndex:
+                type: integer
+                format: int32
+                description: The fee tier index of the pool
+                example: 4
+                minimum: 0
+              hasWarning:
+                type: boolean
+                description: Whether the whirlpool has a warning
+                example: false
+              lockedLiquidityPercent:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LockInfo'
+                description: Locked liquidity information
+              pairMetrics:
+                type: object
+                description: 'Pool stability metrics keyed by pair-insights window. Empty if no
+
+                  window was requested; entries are omitted for windows whose cache row
+
+                  is missing.'
+                additionalProperties:
+                  $ref: '#/components/schemas/PairMetrics'
+                propertyNames:
+                  type: string
+                  enum:
+                  - 7d
+                  - 30d
+              poolType:
+                $ref: '#/components/schemas/PoolType'
+                description: The type of pool (whirlpool or splashpool)
+              price:
+                type:
+                - string
+                - 'null'
+                format: float
+                description: The current price of token A denominated in token B
+                example: '162.17758715438083504000'
+              priceHistory7d:
+                type:
+                - array
+                - 'null'
+                items:
+                  type:
+                  - string
+                  - 'null'
+                description: Historical prices for the past 7 days (oldest to newest, one per 12 hours, 14 data points)
+              rewards:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WhirlpoolRewardInfoExt'
+                description: Information about rewards available in the pool
+              stats:
+                type: object
+                description: Statistics for the pool over different time periods
+                additionalProperties:
+                  $ref: '#/components/schemas/PublicWhirlpoolStats'
+                propertyNames:
+                  type: string
+                  description: Time period for the whirlpool stats
+                  enum:
+                  - 5m
+                  - 15m
+                  - 30m
+                  - 1h
+                  - 2h
+                  - 4h
+                  - 8h
+                  - 24h
+                  - 7d
+                  - 30d
+              tokenA:
+                $ref: '#/components/schemas/PublicToken'
+                description: Information about token A in the pool
+              tokenATrend:
+                type: object
+                description: Token A normalized price trend keyed by pair-insights window.
+                additionalProperties:
+                  $ref: '#/components/schemas/MintPriceTrend'
+                propertyNames:
+                  type: string
+                  enum:
+                  - 7d
+                  - 30d
+              tokenB:
+                $ref: '#/components/schemas/PublicToken'
+                description: Information about token B in the pool
+              tokenBTrend:
+                type: object
+                description: Token B normalized price trend keyed by pair-insights window.
+                additionalProperties:
+                  $ref: '#/components/schemas/MintPriceTrend'
+                propertyNames:
+                  type: string
+                  enum:
+                  - 7d
+                  - 30d
+              tokenBalanceA:
+                type:
+                - string
+                - 'null'
+                format: float
+                description: The current balance of token A in the pool
+                example: '105580027977071'
+              tokenBalanceB:
+                type:
+                - string
+                - 'null'
+                format: float
+                description: The current balance of token B in the pool
+                example: '18616923791931'
+              tradeEnableTimestamp:
+                type:
+                - string
+                - 'null'
+                format: date-time
+                description: The timestamp when trading was enabled for this pool
+                example: '1970-01-01T00:00:00Z'
+              tvlUsdc:
+                type:
+                - string
+                - 'null'
+                format: float
+                description: The total value locked in the pool, denominated in USDC
+                example: '35735886.7176539739861592478846702700'
+              yieldOverTvl:
+                type:
+                - string
+                - 'null'
+                format: float
+                description: The yield generated by the pool relative to its TVL
+                example: '0.00305562472377327000'
+          description: A public whirlpool with additional metadata and statistics
+        meta:
+          $ref: '#/components/schemas/UtoipaCursorMeta'

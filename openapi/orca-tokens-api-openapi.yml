@@ -1,0 +1,398 @@
+openapi: 3.1.0
+info:
+  title: Orca Public protocol tokens API
+  description: A list of public endpoints for Orca protocol
+  contact:
+    name: Orca Team
+    url: https://www.orca.so
+    email: team@orca.so
+  license:
+    name: ''
+  version: 1.0.0
+servers:
+- url: https://api.orca.so/v2/{chain}
+  variables:
+    chain:
+      default: solana
+      description: Chain identifier for the API path
+      enum:
+      - solana
+tags:
+- name: tokens
+  description: Token information endpoints
+paths:
+  /tokens:
+    get:
+      tags:
+      - tokens
+      summary: List tokens with pagination and filtering options
+      description: Returns a paginated list of tokens with optional filtering and sorting.
+      operationId: get_tokens
+      parameters:
+      - name: next
+        in: query
+        description: Optional cursor for pagination (next)
+        required: false
+        schema:
+          type: string
+      - name: previous
+        in: query
+        description: Optional cursor for pagination (previous)
+        required: false
+        schema:
+          type: string
+      - name: size
+        in: query
+        description: 'Maximum number of tokens to return (default: 50, max: 3000)'
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimum: 0
+      - name: sort_by
+        in: query
+        description: 'Field to sort by (default: mint_id)'
+        required: false
+        schema:
+          $ref: '#/components/schemas/TokenSortField'
+      - name: sort_direction
+        in: query
+        description: 'Sort direction (default: asc)'
+        required: false
+        schema:
+          $ref: '#/components/schemas/TokenSortDirection'
+      - name: tokens
+        in: query
+        description: Optional filter for specific token addresses
+        required: false
+        schema:
+          type: string
+      - name: categories
+        in: query
+        description: 'Asset categories to filter by (OR semantics). Accepts a comma-separated list
+
+          of category names (e.g. `stablecoin,memecoin`).'
+        required: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssetCategory'
+      responses:
+        '200':
+          description: List of tokens retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UtoipaApiResponse_Vec_PublicToken'
+        '400':
+          description: Bad user parameters
+        '500':
+          description: Internal server error
+  /tokens/search:
+    get:
+      tags:
+      - tokens
+      summary: Search for tokens by query string
+      description: 'Returns a list of tokens that match the query string.
+
+        The query string is matched against the token name, symbol, and address.
+
+
+        '
+      operationId: search_tokens
+      parameters:
+      - name: q
+        in: query
+        description: Query text to search by
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of matching tokens retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UtoipaApiResponse_Vec_PublicToken'
+        '400':
+          description: Bad request - Invalid search parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppError'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppError'
+  /tokens/{mint_address}:
+    get:
+      tags:
+      - tokens
+      summary: Get token details by mint address
+      description: Returns detailed information for a specific token identified by its mint address.
+      operationId: get_token
+      parameters:
+      - name: mint_address
+        in: path
+        description: Token mint address
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Token details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UtoipaApiResponse_PublicToken'
+        '400':
+          description: Invalid mint address format
+        '404':
+          description: Token not found
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    UtoipaCursorMeta:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+        previous:
+          type:
+          - string
+          - 'null'
+    AssetCategory:
+      type: string
+      enum:
+      - ai
+      - governance
+      - utility
+      - stablecoin
+      - liquid_staking_token
+      - memecoin
+      - currency
+      - security
+      - nft
+      - wrapped_token
+      - bridged_token
+      - restaked_token
+      - synthetic_asset
+      - digital_reward_asset
+      - yield_bearing
+    UtoipaApiResponse_Vec_PublicToken:
+      type: object
+      required:
+      - data
+      - meta
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            description: Token information
+            required:
+            - address
+            - mintAuthority
+            - supply
+            - decimals
+            - isInitialized
+            - freezeAuthority
+            - tokenProgram
+            - extensions
+            - tags
+            - updatedEpoch
+            - updatedAt
+            - priceUsdc
+            - metadata
+            - stats
+            properties:
+              address:
+                type: string
+                description: Token address
+                example: So11111111111111111111111111111111111111112
+              decimals:
+                type: integer
+                format: int32
+                description: Token Decimals for token amount
+                example: 6
+                minimum: 0
+              extensions:
+                type: string
+                description: The activated Token Extensions used by this token
+                example: "{\n      \"confidentialTransferFeeConfig\": {\n        \"authority\": \"9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM\",\n        \"harvestToMintEnabled\": true,\n        \"withdrawWithheldAuthorityElgamalPubkey\": \"...\",\n        \"withheldAmount\": \"...\"\n      },\n      \"confidentialTransferMint\": {\n        \"auditorElgamalPubkey\": null,\n        \"authority\": \"...\",\n        \"autoApproveNewAccounts\": false\n      },\n      \"metadataPointer\": {\n        \"authority\": \"...\",\n        \"metadataAddress\": \"...\"\n      },\n      \"mintCloseAuthority\": {\n        \"closeAuthority\": \"...\"\n      },\n      \"permanentDelegate\": {\n        \"delegate\": \"...\"\n      },\n      \"tokenMetadata\": {\n        \"additionalMetadata\": [],\n        \"mint\": \"...\",\n        \"name\": \"Name of Coin\",\n        \"symbol\": \"Coin\",\n        \"updateAuthority\": \"...\",\n        \"uri\": \"https://example.com/image.json\"\n      },\n      \"transferFeeConfig\": {\n        \"newerTransferFee\": {\n          \"epoch\": 605,\n          \"maximumFee\": 0,\n          \"transferFeeBasisPoints\": 0\n        },\n        \"olderTransferFee\": {\n          \"epoch\": 605,\n          \"maximumFee\": 0,\n          \"transferFeeBasisPoints\": 0\n        },\n        \"transferFeeConfigAuthority\": \"...\",\n        \"withdrawWithheldAuthority\": \"...\",\n        \"withheldAmount\": 0\n      },\n      \"transferHook\": {\n        \"authority\": \"...\",\n        \"programId\": null\n      }\n    }"
+              freezeAuthority:
+                type: string
+                description: Freeze authority
+                example: 9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM
+              isInitialized:
+                type: boolean
+                description: Whether the token mint has been initialized
+                example: true
+              metadata:
+                type: string
+                description: Token Metadata
+                example: "{\n      \"description\": \"Description about the token\",\n      \"image\": \"https://example.com/image.png\",\n      \"name\": \"Name of Token\",\n      \"risk\": 2,\n      \"symbol\": \"TKN\"\n    }"
+              mintAuthority:
+                type: string
+                description: Mint authority
+                example: 9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM
+              priceUsdc:
+                type: number
+                format: double
+                description: Price in USD
+                example: '0.9998715445029346189836299351'
+              stats:
+                type: string
+                description: Stats for different time periods
+                example: '{"24h": {"volume": 1197647.1678154785}}'
+              supply:
+                type: integer
+                format: int64
+                description: Token Supply
+                example: '154400747126297'
+                minimum: 0
+              tags:
+                type: string
+                description: Token extensions tags
+                example: '["confidentialTransferFeeConfig", "confidentialTransferMint", "metadataPointer", "mintCloseAuthority", "permanentDelegate", "tokenMetadata", "transferFeeConfig", "transferHook"]'
+              tokenProgram:
+                type: string
+                description: Address for the Token program
+                example: TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb
+              updatedAt:
+                type: string
+                format: date-time
+                description: The timestamp the token extension was last updated
+                example: '2025-05-09T00:04:50.745163Z'
+              updatedEpoch:
+                type: integer
+                format: int64
+                description: The epoch the token extension was last updated
+                example: 784
+                minimum: 0
+        meta:
+          $ref: '#/components/schemas/UtoipaCursorMeta'
+    TokenSortDirection:
+      type: string
+      description: Direction to sort tokens
+      enum:
+      - asc
+      - desc
+    UtoipaApiResponse_PublicToken:
+      type: object
+      required:
+      - data
+      - meta
+      properties:
+        data:
+          type: object
+          description: Token information
+          required:
+          - address
+          - mintAuthority
+          - supply
+          - decimals
+          - isInitialized
+          - freezeAuthority
+          - tokenProgram
+          - extensions
+          - tags
+          - updatedEpoch
+          - updatedAt
+          - priceUsdc
+          - metadata
+          - stats
+          properties:
+            address:
+              type: string
+              description: Token address
+              example: So11111111111111111111111111111111111111112
+            decimals:
+              type: integer
+              format: int32
+              description: Token Decimals for token amount
+              example: 6
+              minimum: 0
+            extensions:
+              type: string
+              description: The activated Token Extensions used by this token
+              example: "{\n      \"confidentialTransferFeeConfig\": {\n        \"authority\": \"9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM\",\n        \"harvestToMintEnabled\": true,\n        \"withdrawWithheldAuthorityElgamalPubkey\": \"...\",\n        \"withheldAmount\": \"...\"\n      },\n      \"confidentialTransferMint\": {\n        \"auditorElgamalPubkey\": null,\n        \"authority\": \"...\",\n        \"autoApproveNewAccounts\": false\n      },\n      \"metadataPointer\": {\n        \"authority\": \"...\",\n        \"metadataAddress\": \"...\"\n      },\n      \"mintCloseAuthority\": {\n        \"closeAuthority\": \"...\"\n      },\n      \"permanentDelegate\": {\n        \"delegate\": \"...\"\n      },\n      \"tokenMetadata\": {\n        \"additionalMetadata\": [],\n        \"mint\": \"...\",\n        \"name\": \"Name of Coin\",\n        \"symbol\": \"Coin\",\n        \"updateAuthority\": \"...\",\n        \"uri\": \"https://example.com/image.json\"\n      },\n      \"transferFeeConfig\": {\n        \"newerTransferFee\": {\n          \"epoch\": 605,\n          \"maximumFee\": 0,\n          \"transferFeeBasisPoints\": 0\n        },\n        \"olderTransferFee\": {\n          \"epoch\": 605,\n          \"maximumFee\": 0,\n          \"transferFeeBasisPoints\": 0\n        },\n        \"transferFeeConfigAuthority\": \"...\",\n        \"withdrawWithheldAuthority\": \"...\",\n        \"withheldAmount\": 0\n      },\n      \"transferHook\": {\n        \"authority\": \"...\",\n        \"programId\": null\n      }\n    }"
+            freezeAuthority:
+              type: string
+              description: Freeze authority
+              example: 9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM
+            isInitialized:
+              type: boolean
+              description: Whether the token mint has been initialized
+              example: true
+            metadata:
+              type: string
+              description: Token Metadata
+              example: "{\n      \"description\": \"Description about the token\",\n      \"image\": \"https://example.com/image.png\",\n      \"name\": \"Name of Token\",\n      \"risk\": 2,\n      \"symbol\": \"TKN\"\n    }"
+            mintAuthority:
+              type: string
+              description: Mint authority
+              example: 9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM
+            priceUsdc:
+              type: number
+              format: double
+              description: Price in USD
+              example: '0.9998715445029346189836299351'
+            stats:
+              type: string
+              description: Stats for different time periods
+              example: '{"24h": {"volume": 1197647.1678154785}}'
+            supply:
+              type: integer
+              format: int64
+              description: Token Supply
+              example: '154400747126297'
+              minimum: 0
+            tags:
+              type: string
+              description: Token extensions tags
+              example: '["confidentialTransferFeeConfig", "confidentialTransferMint", "metadataPointer", "mintCloseAuthority", "permanentDelegate", "tokenMetadata", "transferFeeConfig", "transferHook"]'
+            tokenProgram:
+              type: string
+              description: Address for the Token program
+              example: TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb
+            updatedAt:
+              type: string
+              format: date-time
+              description: The timestamp the token extension was last updated
+              example: '2025-05-09T00:04:50.745163Z'
+            updatedEpoch:
+              type: integer
+              format: int64
+              description: The epoch the token extension was last updated
+              example: 784
+              minimum: 0
+        meta:
+          $ref: '#/components/schemas/UtoipaCursorMeta'
+    TokenSortField:
+      type: string
+      description: Field to sort tokens by
+      enum:
+      - address
+      - mint_id
+      - volume_24h
+    AppError:
+      type: object
+      description: Application error returned by API endpoints
+      required:
+      - inner
+      - status
+      properties:
+        inner:
+          type: string
+          description: The underlying error
+        status:
+          type: integer
+          format: int32
+          description: HTTP status code
+          minimum: 0

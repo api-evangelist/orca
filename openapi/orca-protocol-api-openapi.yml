@@ -1,0 +1,272 @@
+openapi: 3.1.0
+info:
+  title: Orca Public protocol API
+  description: A list of public endpoints for Orca protocol
+  contact:
+    name: Orca Team
+    url: https://www.orca.so
+    email: team@orca.so
+  license:
+    name: ''
+  version: 1.0.0
+servers:
+- url: https://api.orca.so/v2/{chain}
+  variables:
+    chain:
+      default: solana
+      description: Chain identifier for the API path
+      enum:
+      - solana
+tags:
+- name: protocol
+  description: Orca protocol information endpoints
+paths:
+  /protocol:
+    get:
+      tags:
+      - protocol
+      summary: Recent protocol stats for the Orca
+      description: 'This endpoint returns general information about the Orca protocol including:
+
+        - Total Value Locked (TVL) in USDC
+
+        - 24-hour trading volume in USDC
+
+        - 24-hour fees collected in USDC
+
+        - 24-hour protocol revenue in USDC'
+      operationId: get_protocol_info
+      responses:
+        '200':
+          description: Protocol information retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProtocolInfo'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppError'
+  /protocol/token:
+    get:
+      tags:
+      - protocol
+      summary: Information about the Orca token
+      description: 'This endpoint returns detailed information about the Orca token, including:
+
+        - Token symbol, name, and description
+
+        - Token image URL
+
+        - Current price in USDC
+
+        - Circulating and total supply
+
+        - 24-hour trading volume statistics
+
+
+        The circulating supply is calculated as the total supply minus tokens held in excluded addresses
+
+        (treasury, grants, etc.). The data is cached to reduce RPC and database load.'
+      operationId: get_token_info
+      responses:
+        '200':
+          description: Token information retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProtocolInfoOrcaToken'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppError'
+  /protocol/token/circulating_supply:
+    get:
+      tags:
+      - protocol
+      summary: Circulating supply of the Orca protocol's token
+      description: 'This endpoint returns the circulating supply of the protocol''s token.
+
+        The circulating supply is calculated as the total supply minus the tokens
+
+        held in excluded addresses (treasury, grants, etc.).'
+      operationId: get_circulating_supply
+      responses:
+        '200':
+          description: Circulating supply retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CirculatingSupplyResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppError'
+  /protocol/token/total_supply:
+    get:
+      tags:
+      - protocol
+      summary: Total supply of the Orca token
+      description: 'This endpoint returns the total supply of the protocol''s token.
+
+        The total supply represents all tokens that have been minted, including those
+
+        held in excluded addresses (treasury, grants, etc.).
+
+
+        The response is adjusted for token decimals (6 decimal places) and rounded up
+
+        to the nearest whole number.'
+      operationId: get_total_supply
+      responses:
+        '200':
+          description: Total supply retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TotalSupplyResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppError'
+components:
+  schemas:
+    TotalSupplyResponse:
+      type: object
+      description: Total supply for the Orca token
+      required:
+      - total_supply
+      properties:
+        total_supply:
+          type: string
+          description: Total supply for the Orca token
+          example: '99999713'
+    ProtocolInfoOrcaToken:
+      type: object
+      description: Detailed information about the protocol's token
+      required:
+      - symbol
+      - name
+      - description
+      - imageUrl
+      - price
+      - circulatingSupply
+      - totalSupply
+      - stats
+      properties:
+        circulatingSupply:
+          type: string
+          format: float
+          description: Current circulating supply
+          example: '53275182.419413'
+        description:
+          type: string
+          description: Token description
+          example: Orca Token
+        imageUrl:
+          type: string
+          description: URL to the token's image
+          example: https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/orcaEKTdK7LKz57vaAYr9QeNsVEPfiu6QeMU1kektZE/logo.png
+        name:
+          type: string
+          description: Token name (e.g., "Orca")
+          example: Orca
+        price:
+          type: string
+          format: float
+          description: Current token price in USD
+          example: '1.6767140'
+        stats:
+          $ref: '#/components/schemas/ProtocolInfoOrcaTokenStats'
+          description: Token statistics
+        symbol:
+          type: string
+          description: Token symbol (e.g., "ORCA")
+          example: ORCA
+        totalSupply:
+          type: string
+          format: float
+          description: Total token supply
+          example: '99999712.243267'
+    CirculatingSupplyResponse:
+      type: object
+      description: Circulating supply response
+      required:
+      - circulating_supply
+      properties:
+        circulating_supply:
+          type: string
+          description: Circulating supply for the Orca token
+          example: '53275183'
+    ProtocolInfoOrcaTokenStats:
+      type: object
+      description: Statistics for the protocol's token
+      required:
+      - 24h
+      properties:
+        24h:
+          $ref: '#/components/schemas/ProtocolInfoOrcaTokenStatsData'
+          description: 24-hour statistics
+    ProtocolInfoOrcaTokenStatsData:
+      type: object
+      description: Daily statistics data for the protocol's token
+      required:
+      - volume
+      properties:
+        volume:
+          type: string
+          format: float
+          description: 24-hour trading volume in USD
+          example: '594947.6898176792'
+    AppError:
+      type: object
+      description: Application error returned by API endpoints
+      required:
+      - inner
+      - status
+      properties:
+        inner:
+          type: string
+          description: The underlying error
+        status:
+          type: integer
+          format: int32
+          description: HTTP status code
+          minimum: 0
+    ProtocolInfo:
+      type: object
+      description: Protocol information including TVL, volume, fees, and revenue
+      required:
+      - volume24hUsdc
+      - fees24hUsdc
+      - revenue24hUsdc
+      - tvl
+      properties:
+        fees24hUsdc:
+          type: string
+          format: float
+          description: 24-hour fees in USDC
+          example: '317428.0521046'
+        revenue24hUsdc:
+          type: string
+          format: float
+          description: 24-hour revenue in USDC
+          example: '41265.646773'
+        tvl:
+          type: string
+          format: float
+          description: Total Value Locked in USDC
+          example: '230551269.0085'
+        volume24hUsdc:
+          type: string
+          format: float
+          description: 24-hour volume in USDC
+          example: '552567794.7830'
