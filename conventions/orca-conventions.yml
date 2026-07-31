@@ -1,0 +1,44 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.orca.so/api-reference/overview + openapi/orca-openapi-original.json
+description: >-
+  Cross-cutting request/response semantics for the Orca Public REST API
+  (api.orca.so). The API is read-only (GET-only), so there is no idempotency or
+  write-retry contract.
+authentication:
+  style: none
+  detail: Open, read-only API. No authentication required for read access.
+  see: authentication/orca-authentication.yml
+versioning:
+  scheme: uri-path
+  current: v2
+  base_url: https://api.orca.so/v2/{chain}
+  chains: [solana]
+pagination:
+  style: cursor
+  request_params: [next, previous, size]
+  response_fields:
+    envelope: meta
+    next: meta.next
+    previous: meta.previous
+  note: Cursors are opaque strings; size varies by endpoint.
+response_envelope:
+  shape: '{ data: <object|array>, meta: { next, previous } }'
+  data_field: data
+  meta_field: meta
+error_envelope:
+  shape: '{ inner: string, status: integer }'
+  schema: AppError
+  format: custom
+  see: errors/orca-problem-types.yml
+rate_limiting:
+  signaled_via: HTTP 429
+  detail: >-
+    The API rate-limits to ensure fair usage. On a 429, reduce request
+    frequency. No documented rate-limit response headers.
+idempotency:
+  supported: false
+  reason: API is read-only (all operations are GET); no state-changing requests.
+sorting:
+  params: [sortBy, sortDirection]
+  note: search/list endpoints accept sortBy + sortDirection (asc/desc).

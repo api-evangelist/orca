@@ -1,0 +1,43 @@
+generated: '2026-07-20'
+method: searched
+source: https://github.com/orca-so/whirlpools/releases
+description: >-
+  Orca's Whirlpools SDK monorepo is versioned and released on GitHub. Releases
+  are tagged as "SDK - vX.Y.Z" and cover the TypeScript and Rust SDK packages
+  together. The on-chain Whirlpools program itself is versioned via deployed
+  program upgrades. Recent window only; the live releases page is the source of
+  truth.
+scheme: semver
+release_tag_format: "SDK - vX.Y.Z"
+current: SDK - v1.0.2
+entries:
+  - version: SDK - v1.0.2
+    highlights: Fix a bug with the cyclic fee/rewards quote calculation; moved common-sdk into the monorepo.
+    breaking: false
+  - version: SDK - v1.0.1
+    highlights: Introduced the LP Repositioning Bot example project; Rust SDK testing support.
+    breaking: false
+  - version: SDK - v1.0.0
+    highlights: Major stable release; documentation for the high-level Rust SDK.
+    breaking: true
+  - version: SDK - v0.3.3
+    highlights: Bug fix release.
+    breaking: false
+  - version: SDK - v0.3.2
+    highlights: Fix a bug using the WASM bundle in the browser.
+    breaking: false
+  - version: SDK - v0.3.1
+    highlights: Fix a potential overflow issue in calculations.
+    breaking: false
+  - version: SDK - v0.3.0
+    highlights: Added the Whirlpools CLI package and Eclipse chain configuration support.
+    breaking: false
+  - version: SDK - v0.2.3
+    highlights: Introduced fetch-positions-by-whirlpool functionality.
+    breaking: false
+  - version: SDK - v0.2.2
+    highlights: Upgraded to web3.js v2.0.0 with documentation improvements.
+    breaking: false
+  - version: SDK - v0.2.1
+    highlights: High-level TypeScript SDK fixes and dependency updates.
+    breaking: false

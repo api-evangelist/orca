@@ -1,0 +1,20 @@
+{
+  "provider": "orca",
+  "sources": [
+    "orca-protocol-api-openapi.yml",
+    "orca-tokens-api-openapi.yml",
+    "orca-whirlpools-api-openapi.yml"
+  ],
+  "outputs": [
+    "orca-protocol-api-openapi.yml",
+    "orca-tokens-api-openapi.yml",
+    "orca-whirlpools-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [
+    "orca-whirlpools-api-openapi.yml: dangling $ref: #/components/schemas/MetricWindow"
+  ],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

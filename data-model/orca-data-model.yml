@@ -1,0 +1,52 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/orca-openapi-original.json + https://docs.orca.so/llms.txt
+description: >-
+  Entity-relationship graph for the Orca Public REST API and Whirlpools protocol,
+  derived from the OpenAPI component schemas and the docs. Identifiers are Solana
+  public keys (base58 addresses / mints).
+entities:
+  - name: Whirlpool
+    schema: PublicWhirlpool
+    id: address
+    id_type: solana-pubkey
+    description: A concentrated-liquidity AMM pool (CLMM or Splash) for a token pair.
+    stats: PublicWhirlpoolStats
+  - name: Token
+    schema: PublicToken
+    id: address
+    id_type: solana-mint
+    fields: [address, decimals, imageUrl, name, programId, symbol, tags]
+    description: An SPL token that can be a side of a Whirlpool.
+  - name: ProtocolInfo
+    schema: ProtocolInfo
+    description: Protocol-wide stats (TVL, 24h volume, fees, revenue) and ORCA token stats.
+  - name: LockInfo
+    schema: LockInfo
+    id: address
+    fields: [lockedPercentage, name]
+    description: Liquidity-lock information for a pool/position address.
+relationships:
+  - from: Whirlpool
+    to: Token
+    type: has_one
+    via: tokenMintA
+    cardinality: token A side of the pair
+  - from: Whirlpool
+    to: Token
+    type: has_one
+    via: tokenMintB
+    cardinality: token B side of the pair
+  - from: LockInfo
+    to: Whirlpool
+    type: belongs_to
+    via: address
+  - from: ProtocolInfo
+    to: Whirlpool
+    type: has_many
+    via: aggregation
+    note: Protocol stats aggregate across all Whirlpools.
+id_domains:
+  - domain: whirlpools-program
+    program_id: whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc
+    note: All pool/position accounts are owned by the Whirlpools program.

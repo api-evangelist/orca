@@ -1,0 +1,47 @@
+arazzo: 1.0.1
+info:
+  title: Find an Orca pool by token pair and read its stats
+  version: 1.0.0
+  description: >-
+    Search Orca Whirlpools for a token pair, then fetch full state for the
+    top-matching pool. Read-only; runs against the open Orca Public REST API.
+sourceDescriptions:
+  - name: orca
+    url: ../openapi/orca-openapi-original.json
+    type: openapi
+workflows:
+  - workflowId: find-pool-by-pair
+    summary: Search pools by pair, then read the top pool.
+    description: Uses search_whirlpools to resolve a pool address, then get_whirlpool.
+    inputs:
+      type: object
+      properties:
+        q:
+          type: string
+          description: Token pair or symbol query, e.g. "SOL-USDC".
+      required: [q]
+    steps:
+      - stepId: searchPools
+        description: Search Whirlpools by token pair.
+        operationId: search_whirlpools
+        parameters:
+          - name: q
+            in: query
+            value: $inputs.q
+        successCriteria:
+          - condition: $statusCode == 200
+        outputs:
+          firstAddress: $response.body#/data/0/address
+      - stepId: getPool
+        description: Fetch the top-matching pool by address.
+        operationId: get_whirlpool
+        parameters:
+          - name: address
+            in: path
+            value: $steps.searchPools.outputs.firstAddress
+        successCriteria:
+          - condition: $statusCode == 200
+        outputs:
+          pool: $response.body#/data
+    outputs:
+      pool: $steps.getPool.outputs.pool

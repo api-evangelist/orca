@@ -1,0 +1,17 @@
+generated: '2026-07-20'
+method: searched
+source: >-
+  https://github.com/orca-so/whirlpools/releases (SDK - v0.3.0: "Added the
+  Whirlpools CLI package") + https://github.com/orca-so/whirlpools
+description: >-
+  Orca ships a first-party Whirlpools CLI, added to the SDK monorepo in the
+  "SDK - v0.3.0" release. The CLI is published from the orca-so/whirlpools
+  monorepo. Command surface is not fully captured here (documentation was not
+  fetched in this pass); this artifact records the CLI's existence and source.
+name: Whirlpools CLI
+repo: https://github.com/orca-so/whirlpools
+added_in: SDK - v0.3.0
+distribution: npm (from the orca-so/whirlpools monorepo)
+notes:
+  - Introduced alongside Eclipse chain configuration support.
+  - Command/flag surface pending a docs fetch on a future enrichment pass.

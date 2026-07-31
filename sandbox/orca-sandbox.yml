@@ -1,0 +1,32 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.orca.so/llms.txt
+description: >-
+  Orca is an on-chain protocol; testing is done against Solana Devnet rather than
+  a hosted API sandbox. The Public REST API (api.orca.so) is read-only and needs
+  no keys. All values below are published verbatim in the Orca docs and are safe
+  for testing.
+network_separation:
+  live: Solana Mainnet
+  test: Solana Devnet
+  rpc_test: https://api.devnet.solana.com
+program_constants:
+  whirlpools_program_id: whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc
+  whirlpools_config:
+    mainnet: 2LecshUwdy9xi7meFgHtFJQNSKk4KdTrcpvaB56dP2NQ
+    devnet: FcrweFY1G9HJAHG5inkGB6pKg1HZ6x9UC2WioAfWrGkR
+test_values:
+  - kind: devnet-pool
+    label: SOL/devUSDC (tick spacing 8) — used in all SDK examples, safe for testing
+    address: 3KBZiL2g8C7tiJ32hTv5v3KM7aK9htpqTw4cTXz1HvPt
+  - kind: token-mint
+    label: devUSDC (Solana Devnet)
+    address: BRjpCHtyQLNCo8gqRUr8jtdAj5AjPYQaoqbvcZiHok1k
+  - kind: token-mint
+    label: Wrapped SOL (all networks)
+    address: So11111111111111111111111111111111111111112
+sdk_config:
+  deployment_flag: WhirlpoolDeployment.devnet
+  note: >-
+    SDK operations accept a whirlpoolDeployment option (.devnet | .mainnet) to
+    target the test vs live protocol deployment.

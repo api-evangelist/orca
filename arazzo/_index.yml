@@ -1,0 +1,8 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/orca-openapi-original.json
+workflows:
+  - file: orca-find-pool.yml
+    workflowId: find-pool-by-pair
+    title: Find an Orca pool by token pair and read its stats
+    summary: Search Whirlpools by pair, then fetch the top pool's full state.

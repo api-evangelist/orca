@@ -1,0 +1,37 @@
+generated: '2026-07-20'
+method: searched
+status: published
+source: https://docs.orca.so/llms.txt (### MCP Server) + https://docs.orca.so/mcp
+description: >-
+  Orca operates a live, hosted MCP (Model Context Protocol) server for native AI
+  tool-use access to its documentation. No API key required; connect via any
+  MCP-compatible client (Claude Desktop, Cursor, custom agent frameworks).
+server:
+  name: orca-docs
+  transport: http
+  url: https://docs.orca.so/mcp
+tools:
+  - name: SearchOrcaDocumentation
+    description: >-
+      Semantic search across all Orca documentation. Returns titles, content
+      excerpts, and direct page links.
+    auth: none
+# The Orca Public REST API (openapi/orca-openapi-original.json) could also back a
+# data-plane MCP server; the following are candidate tools derived from its
+# operations (not an official Orca MCP surface).
+candidate_tools:
+  - name: get_protocol_info
+    description: Protocol-wide stats (TVL, 24h volume, fees, revenue).
+    source_operation: openapi/orca-openapi-original.json#get_protocol_info
+  - name: search_whirlpools
+    description: Search liquidity pools by token pair or symbol.
+    source_operation: openapi/orca-openapi-original.json#search_whirlpools
+  - name: get_whirlpool
+    description: Fetch a single pool by address.
+    source_operation: openapi/orca-openapi-original.json#get_whirlpool
+  - name: search_tokens
+    description: Search tokens by symbol.
+    source_operation: openapi/orca-openapi-original.json#search_tokens
+  - name: get_token
+    description: Fetch a token by mint address.
+    source_operation: openapi/orca-openapi-original.json#get_token

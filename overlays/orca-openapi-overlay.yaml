@@ -1,0 +1,25 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Orca Public API
+  version: 1.0.0
+extends: openapi/orca-openapi-original.json
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-rating: 4
+      x-apievangelist-notes: >-
+        Open, read-only DEX data API (OpenAPI 3.1.0, 11 GET operations, no auth).
+        Cursor pagination, custom AppError envelope, 429 rate-limit signaling.
+      x-api-kind: read-only
+      x-provider: orca
+  - target: $.info
+    update:
+      x-onchain-protocol:
+        program_id: whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc
+        chain: solana
+        note: >-
+          State changes are on-chain Solana transactions signed client-side;
+          this REST API is data/read-only.
+  - target: $.servers[0]
+    update:
+      x-live-base-url: https://api.orca.so/v2/solana

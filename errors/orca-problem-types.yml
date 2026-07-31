@@ -1,0 +1,49 @@
+generated: '2026-07-20'
+method: derived
+format: custom
+source: openapi/orca-openapi-original.json + https://docs.orca.so/api-reference/overview
+description: >-
+  API-level errors for the Orca Public REST API, derived from the OpenAPI 4xx/5xx
+  responses. Errors use a custom envelope (AppError), not RFC 9457
+  problem+json.
+error_envelope:
+  schema: AppError
+  shape: '{ inner: string, status: integer }'
+problems:
+  - status: 400
+    title: Bad Request
+    description: Invalid query parameters or malformed request.
+    source_operations:
+      - get_lock_percentage
+      - get_whirlpools
+      - search_whirlpools
+      - get_whirlpool
+      - get_tokens
+      - search_tokens
+      - get_token
+  - status: 404
+    title: Not Found
+    description: The requested pool, token, or lock address does not exist.
+    source_operations:
+      - get_lock_percentage
+      - get_whirlpool
+      - get_token
+  - status: 429
+    title: Too Many Requests
+    description: Rate limit exceeded; reduce request frequency.
+    remediation: Back off and retry with lower request frequency.
+  - status: 500
+    title: Internal Server Error
+    description: Unexpected server-side error.
+    source_operations:
+      - get_lock_percentage
+      - get_whirlpools
+      - search_whirlpools
+      - get_whirlpool
+      - get_protocol_info
+      - get_token_info
+      - get_circulating_supply
+      - get_total_supply
+      - get_tokens
+      - search_tokens
+      - get_token

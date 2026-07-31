@@ -1,0 +1,19 @@
+generated: '2026-07-20'
+method: searched
+format: solana-anchor-error-codes
+source: >-
+  https://docs.orca.so/llms.txt +
+  https://github.com/orca-so/whirlpools/blob/main/programs/whirlpool/src/errors.rs
+description: >-
+  On-chain Whirlpool program error codes (Anchor custom errors), distinct from
+  the REST API HTTP errors in orca-problem-types.yml. These surface as
+  hex-coded transaction failures on Solana. Only the codes explicitly published
+  in the Orca docs are captured verbatim; the full registry lives in errors.rs.
+full_reference: https://github.com/orca-so/whirlpools/blob/main/programs/whirlpool/src/errors.rs
+errors:
+  - code: '0x177a'
+    name: InvalidTickIndex
+    cause: Tick index is not a multiple of tick spacing, or is out of bounds.
+  - code: '0x0'
+    name: NotRentExempt
+    cause: The TickArray containing your tick range has not been initialized.

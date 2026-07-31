@@ -1,0 +1,12 @@
+generated: '2026-07-20'
+method: generated
+source: openapi/orca-openapi-original.json
+skills:
+  - file: orca-find-pool.md
+    name: Find and inspect an Orca liquidity pool
+    api: openapi/orca-openapi-original.json
+    operations: [search_whirlpools, get_whirlpool, get_protocol_info]
+  - file: orca-token-lookup.md
+    name: Look up an Orca-listed token
+    api: openapi/orca-openapi-original.json
+    operations: [search_tokens, get_token, get_tokens, get_circulating_supply, get_total_supply]

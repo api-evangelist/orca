@@ -1,0 +1,32 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/orca-openapi-original.json + https://docs.orca.so/api-reference/overview
+description: >-
+  Cross-cutting standards conformance for the Orca Public REST API, derived from
+  the OpenAPI and the API reference docs. Orca is a decentralized on-chain
+  protocol; it publishes no enterprise compliance certifications (SOC 2 / ISO /
+  PCI), so no Compliance pointer is asserted.
+standards:
+  - id: openapi-3.1
+    conforms: true
+    evidence: Published OpenAPI 3.1.0 document served at api.orca.so/docs (utoipa-generated).
+  - id: oauth2
+    conforms: false
+    evidence: No securitySchemes; API is open read-only.
+  - id: oidc
+    conforms: false
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: Errors use a custom AppError envelope ({ inner, status }), not application/problem+json.
+  - id: cursor-pagination
+    conforms: true
+    evidence: Cursor-based pagination via next/previous/size with meta.next/meta.previous.
+  - id: rest-json
+    conforms: true
+    evidence: JSON request/response over HTTPS with a consistent { data, meta } envelope.
+  - id: fhir-r4
+    conforms: false
+  - id: fapi
+    conforms: false
+  - id: scim
+    conforms: false

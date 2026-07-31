@@ -1,8 +1,27 @@
 aid: orca
 name: Orca
-description: 'Orca is a company surfaced as a portfolio company of polychain and added to the API Evangelist
-  network as a stub for enrichment. Sector: defi-dex. This profile is a lead awaiting the enrichment pipeline.'
+description: >-
+  Orca is the leading user-friendly concentrated-liquidity automated market maker
+  (AMM) on Solana, built around Whirlpools. Liquidity providers concentrate
+  capital within custom price ranges for higher capital efficiency, traders swap
+  tokens with dynamic Adaptive Fees, and creators launch tokens and lock
+  liquidity for launches. Developers and autonomous agents integrate via the open
+  Whirlpools SDKs (TypeScript, Rust, and a Python option) and the read-only Orca
+  Public REST API (api.orca.so) for pool, token, lock, and protocol-wide data.
 url: https://raw.githubusercontent.com/api-evangelist/orca/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://mintcdn.com/orca-ccf67c1f/K618mEucxJ6w73gh/logo/orca-logo.png
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
@@ -11,16 +30,120 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
 tags:
 - Company
 - Defi Dex
-apis: []
+- DeFi
+- DEX
+- Solana
+- AMM
+- Liquidity
+- Concentrated Liquidity
+- Blockchain
+- Crypto
+apis:
+- aid: orca:orca-protocol-api
+  name: Orca protocol API
+  description: Orca protocol information endpoints
+  humanURL: https://docs.orca.so/api-reference/overview
+  baseURL: https://api.orca.so/v2/solana
+  tags:
+  - protocol
+  properties:
+  - type: OpenAPI
+    url: openapi/orca-protocol-api-openapi.yml
+  - type: Documentation
+    url: https://docs.orca.so/api-reference/overview
+  - type: APIReference
+    url: https://docs.orca.so/api-reference/whirlpools
+- aid: orca:orca-tokens-api
+  name: Orca tokens API
+  description: Token information endpoints
+  humanURL: https://docs.orca.so/api-reference/overview
+  baseURL: https://api.orca.so/v2/solana
+  tags:
+  - tokens
+  properties:
+  - type: OpenAPI
+    url: openapi/orca-tokens-api-openapi.yml
+  - type: Documentation
+    url: https://docs.orca.so/api-reference/overview
+  - type: APIReference
+    url: https://docs.orca.so/api-reference/whirlpools
+- aid: orca:orca-whirlpools-api
+  name: Orca whirlpools API
+  description: Whirlpool information endpoints
+  humanURL: https://docs.orca.so/api-reference/overview
+  baseURL: https://api.orca.so/v2/solana
+  tags:
+  - whirlpools
+  properties:
+  - type: OpenAPI
+    url: openapi/orca-whirlpools-api-openapi.yml
+  - type: Documentation
+    url: https://docs.orca.so/api-reference/overview
+  - type: APIReference
+    url: https://docs.orca.so/api-reference/whirlpools
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: AgenticAccess
+  url: agentic-access/orca-agentic-access.yml
+- type: DomainSecurity
+  url: security/orca-domain-security.yml
 - type: Website
   url: https://orca.so
+- type: DeveloperPortal
+  url: https://docs.orca.so/developers/overview
+- type: Documentation
+  url: https://docs.orca.so
+- type: APIReference
+  url: https://docs.orca.so/api-reference/overview
+- type: GettingStarted
+  url: https://docs.orca.so/liquidity/getting-started/beginner-guide
+- type: GitHubOrganization
+  url: https://github.com/orca-so
+- type: Support
+  url: https://docs.orca.so/support/faqs
+- type: Authentication
+  url: authentication/orca-authentication.yml
+- type: Packages
+  url: packages/orca-packages.yml
+- type: SDKs
+  url: packages/orca-packages.yml
+- type: MCPServer
+  url: mcp/orca-mcp.yml
+- type: LLMsTxt
+  url: llms/orca-llms.txt
+- type: Sandbox
+  url: sandbox/orca-sandbox.yml
+- type: Conventions
+  url: conventions/orca-conventions.yml
+- type: ChangeLog
+  url: changelog/orca-changelog.yml
+- type: Lifecycle
+  url: lifecycle/orca-lifecycle.yml
+- type: Conformance
+  url: conformance/orca-conformance.yml
+- type: ErrorCatalog
+  url: errors/orca-problem-types.yml
+- type: DataModel
+  url: data-model/orca-data-model.yml
+- type: CLI
+  url: cli/orca-cli.yml
+- type: Overlay
+  url: overlays/orca-openapi-overlay.yaml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Arazzo
+  name: Find an Orca pool by token pair
+  url: arazzo/orca-find-pool.yml
+x-enrichment:
+  date: '2026-07-20'
+  status: enriched
+  artifacts_added: 22
+  pass: local-v1

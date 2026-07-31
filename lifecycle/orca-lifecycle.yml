@@ -1,0 +1,21 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.orca.so/api-reference/overview + https://github.com/orca-so/whirlpools/releases
+description: >-
+  Lifecycle posture for the Orca Public REST API and the Whirlpools SDK. The API
+  is versioned in the URL path (/v2/). No public status page or formal
+  deprecation/sunset-header policy was found for the DEX (note: unrelated
+  "Orca Security" status pages exist but are a different company).
+versioning:
+  scheme: uri-path
+  current: v2
+  base_url: https://api.orca.so/v2/{chain}
+sdk_releases: https://github.com/orca-so/whirlpools/releases
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No documented deprecation policy or RFC 8594 Sunset/Deprecation header support found.
+status_page: null
+sla:
+  url: null
+deprecated_operations: []

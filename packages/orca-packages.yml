@@ -1,0 +1,67 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.orca.so/llms.txt + npm + crates.io
+description: >-
+  First-party client libraries for the Orca Whirlpools protocol on Solana. The
+  high-level SDKs are @orca-so/whirlpools (TypeScript) and orca_whirlpools (Rust);
+  lower-level client and core/math packages are auto-generated from the on-chain
+  program. Package names captured verbatim from the official docs SDK table.
+packages:
+  - language: javascript
+    registry: npm
+    name: "@orca-so/whirlpools"
+    url: https://www.npmjs.com/package/@orca-so/whirlpools
+    install: npm install @orca-so/whirlpools @solana/kit
+    description: High-level TypeScript (Kit) SDK for swaps, liquidity, and pool management.
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@orca-so/whirlpools-sdk"
+    url: https://www.npmjs.com/package/@orca-so/whirlpools-sdk
+    install: npm install @orca-so/whirlpools-sdk
+    description: Legacy TypeScript SDK for use with Solana Web3.js.
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@orca-so/whirlpools-client"
+    url: https://www.npmjs.com/package/@orca-so/whirlpools-client
+    install: npm install @orca-so/whirlpools-client
+    description: Auto-generated low-level client for the Whirlpool program.
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@orca-so/whirlpools-core"
+    url: https://www.npmjs.com/package/@orca-so/whirlpools-core
+    install: npm install @orca-so/whirlpools-core
+    description: Math, quoting, and utility functions (WASM) shared by the SDKs.
+    official: true
+  - language: rust
+    registry: crates.io
+    name: orca_whirlpools
+    url: https://crates.io/crates/orca_whirlpools
+    install: cargo add orca_whirlpools
+    description: High-level Rust SDK for the Whirlpools protocol.
+    official: true
+  - language: rust
+    registry: crates.io
+    name: orca_whirlpools_client
+    url: https://crates.io/crates/orca_whirlpools_client
+    install: cargo add orca_whirlpools_client
+    description: Low-level Rust client for interacting with the Whirlpool program.
+    official: true
+  - language: rust
+    registry: crates.io
+    name: orca_whirlpools_core
+    url: https://crates.io/crates/orca_whirlpools_core
+    install: cargo add orca_whirlpools_core
+    description: Rust math/quote/utility core for liquidity and swap calculations.
+    official: true
+  - language: python
+    registry: pypi
+    name: whirlpool-essentials
+    url: https://pypi.org/project/whirlpool-essentials/
+    install: pip install whirlpool-essentials
+    description: >-
+      Python library recommended in the official docs for interacting with
+      Whirlpools; community-maintained (not published under the orca-so org).
+    official: false

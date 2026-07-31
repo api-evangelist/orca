@@ -1,0 +1,408 @@
+# Orca
+
+> Orca is the most user-friendly concentrated liquidity AMM (Automated Market Maker) on Solana. Users can provide liquidity to earn trading fees, swap tokens, and create token pools and liquidity locks. Developers and autonomous agents can interact with Orca programmatically via the Whirlpools SDK (TypeScript and Rust) or the public REST API.
+
+Important notes:
+
+- Orca uses Whirlpools, a concentrated liquidity protocol that allows LPs to concentrate capital within custom price ranges for higher capital efficiency
+- Orca operates on Solana mainnet
+- Trading fees are dynamic with Adaptive Fees that adjust based on market volatility
+- All smart contracts are open-source and audited
+
+## Protocol Constants
+
+### Whirlpools Program ID (all networks)
+
+```
+whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc
+```
+
+### WhirlpoolsConfig Addresses
+
+| Network | Address |
+|---------|---------|
+| Solana Mainnet | `2LecshUwdy9xi7meFgHtFJQNSKk4KdTrcpvaB56dP2NQ` |
+| Solana Devnet | `FcrweFY1G9HJAHG5inkGB6pKg1HZ6x9UC2WioAfWrGkR` |
+
+### Fee Tiers (Solana Mainnet)
+
+| Tick Spacing | Fee Rate | Best for |
+|-------------|----------|---------|
+| 1 | 0.01% | Pegged stable pairs |
+| 2 | 0.02% | Tight stable pairs |
+| 4 | 0.04% | Stable pairs |
+| 8 | 0.05% | Correlated assets |
+| 16 | 0.16% | Moderately correlated assets |
+| 64 | 0.30% | Standard volatile pairs |
+| 96 | 0.65% | Volatile pairs |
+| 128 | 1.00% | High-volatility pairs |
+| 256 | 2.00% | Exotic pairs |
+| 32896 | 1.00% | Splash Pools (full-range, passive) |
+
+Adaptive Fee pools use any of the above as a base rate, with the actual fee increasing automatically during periods of elevated market volatility.
+
+### Trading Fee Distribution
+
+For every trade against a Whirlpool:
+- 87% goes to liquidity providers
+- 12% goes to the Orca DAO treasury
+- 1% goes to the Climate Fund
+
+### Network Transaction Fees (Solana)
+
+| Operation | Typical SOL cost | Refundable |
+|-----------|-----------------|------------|
+| Position creation (rent) | 0.0088 SOL | Yes, on close |
+| Standard transaction (no SOL token) | 0.000010 SOL | No |
+| Standard transaction (SOL as token) | 0.000005 SOL | No |
+| TickArray initialization (uncommon) | 0.07 SOL | No |
+
+### Known Error Codes
+
+| Code | Name | Common cause |
+|------|------|-------------|
+| `0x177a` | `InvalidTickIndex` | Tick index is not a multiple of tick spacing, or is out of bounds |
+| `0x0` | `NotRentExempt` | The TickArray containing your tick range has not been initialized |
+
+Full error reference: https://github.com/orca-so/whirlpools/blob/main/programs/whirlpool/src/errors.rs
+
+### Common Token Mints
+
+| Token | Network | Mint Address |
+|-------|---------|--------------|
+| SOL (wrapped) | Solana (all) | `So11111111111111111111111111111111111111112` |
+| devUSDC | Solana Devnet | `BRjpCHtyQLNCo8gqRUr8jtdAj5AjPYQaoqbvcZiHok1k` |
+
+### Devnet Test Pool
+
+The following devnet pool is used in all SDK examples and is safe for testing:
+
+- Pool address (SOL/devUSDC, tick spacing 8): `3KBZiL2g8C7tiJ32hTv5v3KM7aK9htpqTw4cTXz1HvPt`
+- devUSDC mint: `BRjpCHtyQLNCo8gqRUr8jtdAj5AjPYQaoqbvcZiHok1k`
+
+### MCP Server
+
+Orca provides a live MCP (Model Context Protocol) server for native AI tool-use access to documentation:
+
+```
+https://docs.orca.so/mcp
+```
+
+Available tool: `SearchOrcaDocumentation` — semantic search across all Orca docs, returns titles, content excerpts, and direct page links. No API key required. Connect via any MCP-compatible client (Claude Desktop, Cursor, custom agent frameworks).
+
+### REST API
+
+| Chain | Base URL |
+|-------|----------|
+| Solana | `https://api.orca.so/v2/solana` |
+
+Common endpoints:
+- `GET /protocol` — protocol-wide stats (TVL, volume)
+- `GET /pools/search?q=SOL-USDC` — search pools by token pair
+- `GET /tokens/search?q=ORCA` — search tokens by symbol
+
+Interactive API explorer: https://api.orca.so/docs
+
+### SDK Packages
+
+| Language | Package | Install |
+|----------|---------|---------|
+| TypeScript (Kit) | `@orca-so/whirlpools` | `npm install @orca-so/whirlpools @solana/kit` |
+| TypeScript (Legacy) | `@orca-so/whirlpools-sdk` | `npm install @orca-so/whirlpools-sdk` |
+| Rust | `orca_whirlpools` | `cargo add orca_whirlpools` |
+| Python | `whirlpool-essentials` | `pip install whirlpool-essentials` |
+
+## Key Concepts
+
+### Position
+A position is a liquidity deposit within a specific price range in a Whirlpool, represented by an NFT mint in the owner's wallet. The NFT is required to adjust, harvest, or close the position. A position only earns trading fees when the current pool price is within its range.
+
+**In range:** `tickLowerIndex <= tickCurrentIndex < tickUpperIndex` → position is active, earning fees
+**Out of range:** current price is outside the position's bounds → position earns no fees until price returns
+
+### Tick
+The smallest unit of price measurement in Whirlpools. Each tick represents a 1 basis point (0.01%) price change from the adjacent tick. Formula:
+
+```
+sqrtPrice(i) = sqrt(1.0001)^i
+```
+
+Valid tick range: `[-443636, 443636]`. The Whirlpool account stores both `sqrtPrice` (current price as a Q64.64 fixed-point number) and `tickCurrentIndex` (current tick).
+
+### sqrtPrice → human-readable price
+
+`sqrtPrice` is stored as a Q64.64 fixed-point integer (multiply the real value by 2^64). To convert to a human-readable price adjusted for token decimals:
+
+```
+price = (sqrtPrice / 2^64)^2 * (10^decimalsA / 10^decimalsB)
+```
+
+To convert a price to its nearest valid tick index:
+
+```
+tickIndex = floor(log(price * 10^(decimalsB - decimalsA)) / log(1.0001))
+```
+
+The result must be rounded to the nearest multiple of the pool's tick spacing before use.
+
+### Tick Spacing
+Each pool has a fixed tick spacing that defines the minimum gap between initializable ticks — i.e. ticks where liquidity can actually be deposited. Tick spacing correlates directly with fee tier (larger spacing = higher fee tier). Position tick bounds must be multiples of the pool's tick spacing.
+
+### Splash Pool vs Concentrated Liquidity Pool (CLMM)
+
+| | Splash Pool | CLMM |
+|--|-------------|------|
+| Price range | Full range (passive, no bounds needed) | Custom lower and upper price bounds |
+| Tick spacing | 32896 | 1–256 depending on fee tier |
+| Fee tier | 1% | 0.01%–2% |
+| Capital efficiency | Low (liquidity spread across all prices) | High (liquidity concentrated where trades happen) |
+| SDK function | `openFullRangePosition` | `openConcentratedPosition` |
+| Best for | Token launches, passive LPs | Active LPs, capital-efficient yield |
+
+### Position Lifecycle
+
+```
+openFullRangePosition / openConcentratedPosition  →  returns positionMint (NFT address)
+         ↓
+fetchPositionsForOwner                →  monitor in-range status, fees owed
+         ↓
+harvestPosition                       →  collect fees without closing (repeatable)
+         ↓
+closePosition                         →  collect fees + remove liquidity + burn NFT
+```
+
+## SDK Function Reference (TypeScript Kit)
+
+The following signatures are for `@orca-so/whirlpools` (TypeScript Kit). All async functions require an RPC URL set via `setRpc` and (typically) a default funder set via `setDefaultFunder` — see Setup below.
+
+### Setup
+```typescript
+import { setRpc, setPayerFromBytes, setDefaultFunder } from '@orca-so/whirlpools';
+import secret from "wallet.json";
+
+await setRpc('https://api.devnet.solana.com'); // or your mainnet RPC URL
+const signer = await setPayerFromBytes(new Uint8Array(secret));
+setDefaultFunder(signer.address); // makes signer the default funder for all subsequent calls
+```
+
+### Swap
+```typescript
+// Returns instructions, quote, and a sendTx callback
+const { instructions, quote, callback: sendTx } = await swap(
+  { inputAmount: bigint, mint: address },  // or { outputAmount: bigint, mint: address }
+  poolAddress,
+  {
+    slippageToleranceBps: 100, // e.g. 100 = 1%
+    whirlpoolDeployment: WhirlpoolDeployment.devnet, // or .mainnet
+  },
+);
+const txId = await sendTx();
+```
+
+### Fetch pool state
+```typescript
+// Returns pool data including sqrtPrice, tickCurrentIndex, liquidity, feeRate
+const pool = await fetchWhirlpool(rpc, poolAddress);
+```
+
+### Fetch a Splash Pool by token pair
+```typescript
+// Returns pool info — check poolInfo.initialized before use
+const poolInfo = await fetchSplashPool(rpc, tokenMintA, tokenMintB, WhirlpoolDeployment.devnet);
+```
+
+### Fetch a CLMM pool by token pair and tick spacing
+```typescript
+// tickSpacing determines fee tier — see Fee Tiers table above
+const poolInfo = await fetchConcentratedLiquidityPool(rpc, tokenMintA, tokenMintB, tickSpacing, WhirlpoolDeployment.devnet);
+```
+
+### Fetch positions for a wallet
+```typescript
+// Returns all positions owned by the wallet with their current state
+const positions = await fetchPositionsForOwner(rpc, ownerAddress, WhirlpoolDeployment.devnet);
+```
+
+### Open a Splash Pool position (full range)
+```typescript
+// param: { tokenMaxA: bigint } or { tokenMaxB: bigint } or { liquidity: bigint }
+const { positionMint, quote, instructions, initializationCost, callback: sendTx } = await openFullRangePosition(
+  poolAddress,
+  param,
+  {
+    slippageToleranceBps: 100,
+    withTokenMetadataExtension: true,
+    whirlpoolDeployment: WhirlpoolDeployment.devnet,
+  },
+);
+```
+
+### Open a CLMM position (custom range)
+```typescript
+// lowerPrice and upperPrice are human-readable prices (e.g. 0.009, 0.011)
+const { positionMint, quote, instructions, initializationCost, callback: sendTx } = await openConcentratedPosition(
+  poolAddress,
+  param,
+  lowerPrice,
+  upperPrice,
+  {
+    slippageToleranceBps: 100,
+    withTokenMetadataExtension: true,
+    whirlpoolDeployment: WhirlpoolDeployment.devnet,
+  },
+);
+```
+
+### Adjust liquidity (increase or decrease)
+```typescript
+// param: { tokenA: bigint } or { tokenB: bigint } or { liquidity: bigint }
+const { instructions, callback: sendTx } = await increaseLiquidity(
+  positionMint,
+  param,
+  {
+    slippageToleranceBps: 100,
+    whirlpoolDeployment: WhirlpoolDeployment.devnet,
+  },
+);
+
+const { feesQuote, instructions, callback: sendTx } = await decreaseLiquidity(
+  positionMint,
+  param,
+  {
+    slippageToleranceBps: 100,
+    whirlpoolDeployment: WhirlpoolDeployment.devnet,
+  },
+);
+```
+
+### Harvest fees and rewards
+```typescript
+// Collects fees without closing the position
+const { feesQuote, rewardsQuote, instructions, callback: sendTx } = await harvestPosition(
+  positionMint,
+  {
+    whirlpoolDeployment: WhirlpoolDeployment.devnet,
+  },
+);
+// feesQuote.feeOwedA and feesQuote.feeOwedB show amounts claimable
+```
+
+### Close a position
+```typescript
+// Collects fees + rewards, removes all liquidity, burns NFT — all in one transaction
+const { instructions, quote, feesQuote, rewardsQuote, callback: sendTx } = await closePosition(
+  positionMint,
+  {
+    slippageToleranceBps: 100,
+    whirlpoolDeployment: WhirlpoolDeployment.devnet,
+  },
+);
+const txId = await sendTx();
+```
+
+### Create a Splash Pool
+```typescript
+const { poolAddress, instructions, initializationCost, callback: sendTx } = await createSplashPool(
+  tokenMintA,
+  tokenMintB,
+  {
+    initialPrice: 0.01,
+    whirlpoolDeployment: WhirlpoolDeployment.devnet,
+  },
+);
+```
+
+### Create a Concentrated Liquidity Pool
+```typescript
+const { poolAddress, instructions, initializationCost, callback: sendTx } = await createConcentratedLiquidityPool(
+  tokenMintA,
+  tokenMintB,
+  tickSpacing,
+  {
+    initialPrice: 0.01,
+    whirlpoolDeployment: WhirlpoolDeployment.devnet,
+  },
+);
+```
+
+## Getting Started
+
+- [Beginner Guide](https://docs.orca.so/liquidity/getting-started/beginner-guide): Complete introduction to providing liquidity on Orca
+- [Full-Range Positions](https://docs.orca.so/liquidity/getting-started/full-range): How to open passive full-range liquidity positions
+- [Custom Range Positions](https://docs.orca.so/liquidity/getting-started/custom-range): How to open concentrated liquidity positions with custom price ranges
+- [How to Swap](https://docs.orca.so/trade/how-to-swap): Guide to swapping tokens on Orca
+
+## Liquidity Concepts
+
+- [Impermanent Loss](https://docs.orca.so/liquidity/concepts/impermanent-loss): Understanding IL and how it affects LP returns
+- [Ticks and Fees](https://docs.orca.so/liquidity/concepts/ticks-and-fees): How tick spacing and fee tiers work in concentrated liquidity
+- [Trading Fees](https://docs.orca.so/liquidity/concepts/trading-fees): How fees are calculated and distributed to LPs
+- [Adaptive Fees](https://docs.orca.so/liquidity/concepts/adaptive-fees): Dynamic fee adjustment based on market volatility
+
+## Managing Positions
+
+- [Add Liquidity](https://docs.orca.so/liquidity/manage/add): How to add more liquidity to existing positions
+- [Withdraw Liquidity](https://docs.orca.so/liquidity/manage/withdraw): How to withdraw liquidity from positions
+- [Harvest Fees](https://docs.orca.so/liquidity/manage/harvest): How to claim earned trading fees
+- [Close Position](https://docs.orca.so/liquidity/manage/close): How to close positions and withdraw all funds
+- [Portfolio Dashboard](https://docs.orca.so/liquidity/manage/portfolio): Managing all your positions in one place
+
+## Developers
+
+- [Developer Overview](https://docs.orca.so/developers/overview): Introduction to building on Orca
+- [Whirlpools SDK](https://docs.orca.so/developers/sdks/whirlpools-sdk): TypeScript SDK for interacting with Whirlpools
+- [Rust SDK](https://docs.orca.so/developers/sdks/rust-sdk): Rust SDK for on-chain program development
+- [Architecture Overview](https://docs.orca.so/developers/architecture/overview): Understanding Whirlpools smart contract architecture
+- [Code Examples](https://docs.orca.so/developers/examples/overview): Practical code examples for common operations
+
+## AI Agents & Autonomous Bots
+
+Orca's Whirlpools SDK is well-suited for autonomous agents that manage LP positions or execute swaps programmatically. The key SDK operations an agent needs are:
+
+- [Executing a Token Swap](https://docs.orca.so/developers/sdks/trade): Swap tokens — use as the execution step in arbitrage bots or portfolio rebalancing agents
+- [Monitor Positions](https://docs.orca.so/developers/sdks/positions/monitor-positions): Fetch all positions for a wallet, check in-range status and fees owed — the decision layer of any LP management agent
+- [Open Position](https://docs.orca.so/developers/sdks/positions/open-position): Open a new liquidity position at a given price range — use after a rebalance decision
+- [Harvest Fees](https://docs.orca.so/developers/sdks/positions/harvest): Collect accumulated trading fees from a position
+- [Close Position](https://docs.orca.so/developers/sdks/positions/close-position): Close a position and withdraw all funds — use when exiting or rebalancing
+- [Monitor Pools](https://docs.orca.so/developers/sdks/pools/monitor-pools): Fetch pool state including current price and tick index — needed to evaluate whether a position is in range
+- [Python Integration](https://docs.orca.so/developers/resources/python-devs): Using Orca from Python via whirlpool-essentials or the REST API — suitable for AI/ML agent frameworks
+
+A minimal autonomous LP agent loop:
+1. Fetch pool state (current price, tick index)
+2. Fetch wallet positions (in-range status, fees owed)
+3. Decide: harvest if fees exceed threshold; rebalance if out of range
+4. Execute: call harvest, close, and/or open position instructions
+5. Submit transaction and repeat on interval
+
+## API Reference
+
+- [API Overview](https://docs.orca.so/api-reference/overview): REST API for accessing Orca data
+- [Whirlpools Endpoints](https://docs.orca.so/api-reference/whirlpools): Pool data and statistics
+- [Tokens Endpoints](https://docs.orca.so/api-reference/tokens): Token information and prices
+
+## Token & Pool Creation
+
+- [Create Overview](https://docs.orca.so/create/overview): Overview of token and pool creation tools
+- [Create Token](https://docs.orca.so/create/pools/create-token): How to create and launch tokens on Orca
+- [Create Pool](https://docs.orca.so/create/pools/create-pool): How to create liquidity pools
+- [Liquidity Locking](https://docs.orca.so/create/pools/lock-liquidity): How to lock liquidity for token launches
+
+## Governance
+
+- [Governance Overview](https://docs.orca.so/governance/overview): How Orca governance works
+- [xORCA](https://docs.orca.so/governance/xorca): Staking ORCA for governance participation
+- [Proposals](https://docs.orca.so/governance/proposals): How to create and vote on proposals
+
+## Support & Reference
+
+- [FAQs](https://docs.orca.so/support/faqs): Frequently asked questions
+- [User Research at Orca](https://docs.orca.so/support/user-research): Join the User Research Panel — early access, perks, and direct influence on Orca
+- [Glossary](https://docs.orca.so/reference/glossary): Definitions of key terms
+- [Fees Reference](https://docs.orca.so/reference/fees): Complete fee structure documentation
+- [LLM & AI Access](https://docs.orca.so/reference/llm-access): How to load Orca docs into AI tools and LLMs
+- [AI Agents on Orca](https://docs.orca.so/reference/ai-agents): Guide to building autonomous LP agents and trading bots on Orca
+
+## Optional
+
+- [Brand Assets](https://docs.orca.so/reference/brand): Orca logos and brand guidelines
+- [Blocked Regions](https://docs.orca.so/support/blocked-regions): Geographic restrictions information

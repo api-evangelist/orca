@@ -1,0 +1,19 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.orca.so/api-reference/overview
+description: >-
+  Authentication posture for the Orca Public REST API. The API is deliberately
+  open: "The Orca Public API is open and does not require authentication for read
+  access." There are no OpenAPI securitySchemes. Write access to the protocol is
+  not via this API — it happens on-chain by signing Solana transactions with the
+  user's own wallet keypair (client-side, via the SDKs).
+summary:
+  types: [none]
+  api_key_in: []
+  oauth2_flows: []
+schemes: []
+onchain_authorization:
+  model: wallet-signature
+  detail: >-
+    State changes (swaps, opening/closing positions) are Solana transactions
+    signed locally by the wallet keypair; there is no server-side API credential.
