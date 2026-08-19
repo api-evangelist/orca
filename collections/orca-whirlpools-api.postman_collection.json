@@ -1,0 +1,2232 @@
+{
+  "item": [
+    {
+      "id": "93578c9e-2946-4f36-b1b1-d6f59f7bc9e1",
+      "name": "whirlpools",
+      "description": {
+        "content": "Whirlpool information endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a55f504a-981d-43b8-b1ad-f63c4fc9a358",
+          "name": "Get locked liquidity for a given whirlpool",
+          "request": {
+            "name": "Get locked liquidity for a given whirlpool",
+            "description": {
+              "content": "This endpoint returns the locked liquidity for a given whirlpool.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lock",
+                ":address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The Solana account address of the whirlpool."
+                },
+                {
+                  "description": "Chain identifier for the API path (This can only be one of solana)",
+                  "type": "any",
+                  "value": "{{chain}}",
+                  "key": "chain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "266f40b2-bd4b-4861-a9ab-61feac927609",
+              "name": "Locked liquidity for the whirlpool",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lock",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The Solana account address of the whirlpool."
+                    },
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"Whirlpool-Lock\",\n    \"lockedPercentage\": \"0.7\"\n  },\n  {\n    \"name\": \"Whirlpool-Lock\",\n    \"lockedPercentage\": \"0.7\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d3d73718-0686-4039-a442-6185695530f5",
+              "name": "Invalid address format",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lock",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The Solana account address of the whirlpool."
+                    },
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6bbb177a-af34-4742-9832-c8329a6d9b25",
+              "name": "Whirlpool not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lock",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The Solana account address of the whirlpool."
+                    },
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9f48efbe-af23-45ac-8e42-8d7be91aa749",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lock",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The Solana account address of the whirlpool."
+                    },
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7b2cbfe3-31dd-4f44-9954-b299364459fa",
+          "name": "List whirlpools with optional filtering and pagination",
+          "request": {
+            "name": "List whirlpools with optional filtering and pagination",
+            "description": {},
+            "url": {
+              "path": [
+                "pools"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sortBy",
+                  "value": "<string>",
+                  "description": "Field to sort whirlpools by"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortDirection",
+                  "value": "<string>",
+                  "description": "Direction to sort whirlpools in"
+                },
+                {
+                  "disabled": false,
+                  "key": "next",
+                  "value": "<string>",
+                  "description": "Cursor to start the next page of results"
+                },
+                {
+                  "disabled": false,
+                  "key": "previous",
+                  "value": "<string>",
+                  "description": "Cursor to start the previous page of results"
+                },
+                {
+                  "disabled": false,
+                  "key": "hasRewards",
+                  "value": "<boolean>",
+                  "description": "Filter whirlpools that must have rewards"
+                },
+                {
+                  "disabled": false,
+                  "key": "hasWarning",
+                  "value": "<boolean>",
+                  "description": "Filter whirlpools that must have a warning"
+                },
+                {
+                  "disabled": false,
+                  "key": "hasAdaptiveFee",
+                  "value": "<boolean>",
+                  "description": "Whether a whirlpool must be using adaptive fee"
+                },
+                {
+                  "disabled": false,
+                  "key": "isWavebreak",
+                  "value": "<boolean>",
+                  "description": "Whether a whirlpool must have graduated from wavebreak"
+                },
+                {
+                  "disabled": false,
+                  "key": "minTvl",
+                  "value": "<float>",
+                  "description": "Minimum TVL of a whirlpool in USDC"
+                },
+                {
+                  "disabled": false,
+                  "key": "minVolume",
+                  "value": "<float>",
+                  "description": "Minimum volume of a whirlpool in USDC"
+                },
+                {
+                  "disabled": false,
+                  "key": "minLockedLiquidityPercent",
+                  "value": "<float>",
+                  "description": "Minimum locked liquidity percentage of a whirlpool"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "Number of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<integer>",
+                  "description": "Filter whirlpools containing this token"
+                },
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<integer>",
+                  "description": "Filter whirlpools containing this token"
+                },
+                {
+                  "disabled": false,
+                  "key": "tokensBothOf",
+                  "value": "[\"<integer>\",\"<integer>\"]",
+                  "description": "Filter whirlpools containing both specified tokens"
+                },
+                {
+                  "disabled": false,
+                  "key": "tokensBothOf",
+                  "value": "[\"<integer>\",\"<integer>\"]",
+                  "description": "Filter whirlpools containing both specified tokens"
+                },
+                {
+                  "disabled": false,
+                  "key": "addresses",
+                  "value": "[\"<integer>\",\"<integer>\"]",
+                  "description": "Filter whirlpools with these addresses"
+                },
+                {
+                  "disabled": false,
+                  "key": "addresses",
+                  "value": "[\"<integer>\",\"<integer>\"]",
+                  "description": "Filter whirlpools with these addresses"
+                },
+                {
+                  "disabled": false,
+                  "key": "stats",
+                  "value": "<string>",
+                  "description": "Filter whirlpools with stats for these time periods"
+                },
+                {
+                  "disabled": false,
+                  "key": "stats",
+                  "value": "<string>",
+                  "description": "Filter whirlpools with stats for these time periods"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeBlocked",
+                  "value": "<boolean>",
+                  "description": "Include blocked whirlpools if true"
+                },
+                {
+                  "disabled": false,
+                  "key": "pairInsightsWindow",
+                  "value": "{\"value\":\"reference #/components/schemas/MetricWindow not found in the OpenAPI spec\"}",
+                  "description": "Pair-insights windows to include. Accepts a single window or a\ncomma-separated list. Pair metrics and token price trend arrays are\nreturned per-window in the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "pairInsightsWindow",
+                  "value": "{\"value\":\"reference #/components/schemas/MetricWindow not found in the OpenAPI spec\"}",
+                  "description": "Pair-insights windows to include. Accepts a single window or a\ncomma-separated list. Pair metrics and token price trend arrays are\nreturned per-window in the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "whirlpoolConfigs",
+                  "value": "[\"<integer>\",\"<integer>\"]",
+                  "description": "Whirlpool configs to filter by. An empty list returns pools from all configs."
+                },
+                {
+                  "disabled": false,
+                  "key": "whirlpoolConfigs",
+                  "value": "[\"<integer>\",\"<integer>\"]",
+                  "description": "Whirlpool configs to filter by. An empty list returns pools from all configs."
+                },
+                {
+                  "disabled": false,
+                  "key": "categories",
+                  "value": "<string>",
+                  "description": "Asset categories to filter by (pools where at least one token matches). Accepts a\ncomma-separated list of category names (e.g. `stablecoin,memecoin`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "categories",
+                  "value": "<string>",
+                  "description": "Asset categories to filter by (pools where at least one token matches). Accepts a\ncomma-separated list of category names (e.g. `stablecoin,memecoin`)."
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Chain identifier for the API path (This can only be one of solana)",
+                  "type": "any",
+                  "value": "{{chain}}",
+                  "key": "chain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "14d91f29-9f7a-4897-8102-5285f03e9c50",
+              "name": "List of whirlpools",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pools"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sortBy",
+                      "value": "lockedliquiditypercent"
+                    },
+                    {
+                      "key": "sortDirection",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "next",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "previous",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hasRewards",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "hasWarning",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "hasAdaptiveFee",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "isWavebreak",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "minTvl",
+                      "value": "string"
+                    },
+                    {
+                      "key": "minVolume",
+                      "value": "string"
+                    },
+                    {
+                      "key": "minLockedLiquidityPercent",
+                      "value": "string"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "3374"
+                    },
+                    {
+                      "key": "token",
+                      "value": "340"
+                    },
+                    {
+                      "key": "tokensBothOf",
+                      "value": "5707,8987"
+                    },
+                    {
+                      "key": "tokensBothOf",
+                      "value": "40,8893"
+                    },
+                    {
+                      "key": "addresses",
+                      "value": "5707,8987"
+                    },
+                    {
+                      "key": "addresses",
+                      "value": "40,8893"
+                    },
+                    {
+                      "key": "stats",
+                      "value": "5m"
+                    },
+                    {
+                      "key": "stats",
+                      "value": "4h"
+                    },
+                    {
+                      "key": "includeBlocked",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "pairInsightsWindow",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "pairInsightsWindow",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "whirlpoolConfigs",
+                      "value": "5707,8987"
+                    },
+                    {
+                      "key": "whirlpoolConfigs",
+                      "value": "40,8893"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "synthetic_asset"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "nft"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"adaptiveFeeEnabled\": false,\n      \"address\": \"Czfq3xZZDmsdGdUyrNLtRhGc47cXcZtLG4crryfu44zE\",\n      \"feeGrowthGlobalA\": \"9554655121161208077\",\n      \"feeGrowthGlobalB\": \"1228285739014669796\",\n      \"feeRate\": 400,\n      \"feeTierIndex\": 4,\n      \"hasWarning\": false,\n      \"liquidity\": \"748079040958583\",\n      \"lockedLiquidityPercent\": [\n        {\n          \"name\": \"Whirlpool-Lock\",\n          \"lockedPercentage\": \"0.7\"\n        },\n        {\n          \"name\": \"Whirlpool-Lock\",\n          \"lockedPercentage\": \"0.7\"\n        }\n      ],\n      \"poolType\": \"whirlpool\",\n      \"protocolFeeOwedA\": \"167818699\",\n      \"protocolFeeOwedB\": \"13808875\",\n      \"protocolFeeRate\": 1300,\n      \"rewardLastUpdatedTimestamp\": \"2025-05-09T03:40:08Z\",\n      \"rewards\": [\n        {\n          \"active\": false,\n          \"authority\": \"string\",\n          \"emissionsPerSecond\": \"0\",\n          \"emissions_per_second_x64\": \"string\",\n          \"growth_global_x64\": \"string\",\n          \"mint\": \"string\",\n          \"vault\": \"string\"\n        },\n        {\n          \"active\": false,\n          \"authority\": \"string\",\n          \"emissionsPerSecond\": \"0\",\n          \"emissions_per_second_x64\": \"string\",\n          \"growth_global_x64\": \"string\",\n          \"mint\": \"string\",\n          \"vault\": \"string\"\n        }\n      ],\n      \"sqrtPrice\": \"7428739679004743247\",\n      \"stats\": {\n        \"key_0\": {\n          \"fees\": \"109195.458980424000\",\n          \"feesDelta\": \"-0.10\",\n          \"priceDelta\": \"-0.05\",\n          \"rewards\": \"0\",\n          \"rewardsDelta\": \"0.40\",\n          \"tvlDelta\": \"0.15\",\n          \"volume\": \"272988647.45106000\",\n          \"volumeDelta\": \"0.25\",\n          \"yieldOverTvl\": \"0.00305562472380393000\",\n          \"yieldOverTvlDelta\": \"0.50\"\n        },\n        \"key_1\": {\n          \"fees\": \"109195.458980424000\",\n          \"feesDelta\": \"-0.10\",\n          \"priceDelta\": \"-0.05\",\n          \"rewards\": \"0\",\n          \"rewardsDelta\": \"0.40\",\n          \"tvlDelta\": \"0.15\",\n          \"volume\": \"272988647.45106000\",\n          \"volumeDelta\": \"0.25\",\n          \"yieldOverTvl\": \"0.00305562472380393000\",\n          \"yieldOverTvlDelta\": \"0.50\"\n        },\n        \"key_2\": {\n          \"fees\": \"109195.458980424000\",\n          \"feesDelta\": \"-0.10\",\n          \"priceDelta\": \"-0.05\",\n          \"rewards\": \"0\",\n          \"rewardsDelta\": \"0.40\",\n          \"tvlDelta\": \"0.15\",\n          \"volume\": \"272988647.45106000\",\n          \"volumeDelta\": \"0.25\",\n          \"yieldOverTvl\": \"0.00305562472380393000\",\n          \"yieldOverTvlDelta\": \"0.50\"\n        },\n        \"key_3\": {\n          \"fees\": \"109195.458980424000\",\n          \"feesDelta\": \"-0.10\",\n          \"priceDelta\": \"-0.05\",\n          \"rewards\": \"0\",\n          \"rewardsDelta\": \"0.40\",\n          \"tvlDelta\": \"0.15\",\n          \"volume\": \"272988647.45106000\",\n          \"volumeDelta\": \"0.25\",\n          \"yieldOverTvl\": \"0.00305562472380393000\",\n          \"yieldOverTvlDelta\": \"0.50\"\n        }\n      },\n      \"tickCurrentIndex\": -18192,\n      \"tickSpacing\": 4,\n      \"tickSpacingSeed\": \"[4, 0]\",\n      \"tokenA\": {\n        \"address\": \"So11111111111111111111111111111111111111112\",\n        \"programId\": \"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA\",\n        \"decimals\": 6,\n        \"tags\": \"[\\\"confidentialTransferFeeConfig\\\", \\\"confidentialTransferMint\\\", \\\"metadataPointer\\\", \\\"mintCloseAuthority\\\", \\\"permanentDelegate\\\", \\\"tokenMetadata\\\", \\\"transferFeeConfig\\\", \\\"transferHook\\\"]\",\n        \"imageUrl\": \"https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png\",\n        \"name\": \"Solana\",\n        \"symbol\": \"SOL\"\n      },\n      \"tokenB\": {\n        \"address\": \"So11111111111111111111111111111111111111112\",\n        \"programId\": \"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA\",\n        \"decimals\": 6,\n        \"tags\": \"[\\\"confidentialTransferFeeConfig\\\", \\\"confidentialTransferMint\\\", \\\"metadataPointer\\\", \\\"mintCloseAuthority\\\", \\\"permanentDelegate\\\", \\\"tokenMetadata\\\", \\\"transferFeeConfig\\\", \\\"transferHook\\\"]\",\n        \"imageUrl\": \"https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png\",\n        \"name\": \"Solana\",\n        \"symbol\": \"SOL\"\n      },\n      \"tokenMintA\": \"So11111111111111111111111111111111111111112\",\n      \"tokenMintB\": \"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\n      \"tokenVaultA\": [\n        5477,\n        9813\n      ],\n      \"tokenVaultB\": \"2WLWEuKDgkDUccTpbwYp1GToYktiSB1cXvreHUwiSUVP\",\n      \"updatedAt\": \"2025-05-09T03:40:22.210625Z\",\n      \"updatedSlot\": 338786229,\n      \"whirlpoolBump\": \"[255]\",\n      \"whirlpoolsConfig\": \"2LecshUwdy9xi7meFgHtFJQNSKk4KdTrcpvaB56dP2NQ\",\n      \"writeVersion\": \"1459165811157\",\n      \"adaptiveFee\": null,\n      \"addressLookupTable\": null,\n      \"pairMetrics\": {\n        \"key_0\": {\n          \"pairCategory\": \"volatile_volatile\",\n          \"correlation\": null,\n          \"pairDrift\": null,\n          \"pairFitScore\": null,\n          \"ratioVolatility\": null\n        }\n      },\n      \"price\": \"162.17758715438083504000\",\n      \"priceHistory7d\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tokenATrend\": {\n        \"key_0\": {\n          \"normalizedPoints\": [\n            null,\n            null\n          ]\n        },\n        \"key_1\": {\n          \"normalizedPoints\": [\n            null,\n            null\n          ]\n        }\n      },\n      \"tokenBTrend\": {\n        \"key_0\": {\n          \"normalizedPoints\": [\n            null,\n            null\n          ]\n        },\n        \"key_1\": {\n          \"normalizedPoints\": [\n            null,\n            null\n          ]\n        },\n        \"key_2\": {\n          \"normalizedPoints\": [\n            null,\n            null\n          ]\n        }\n      },\n      \"tokenBalanceA\": \"105580027977071\",\n      \"tokenBalanceB\": \"18616923791931\",\n      \"tradeEnableTimestamp\": \"1970-01-01T00:00:00Z\",\n      \"tvlUsdc\": \"35735886.7176539739861592478846702700\",\n      \"yieldOverTvl\": \"0.00305562472377327000\"\n    },\n    {\n      \"adaptiveFeeEnabled\": false,\n      \"address\": \"Czfq3xZZDmsdGdUyrNLtRhGc47cXcZtLG4crryfu44zE\",\n      \"feeGrowthGlobalA\": \"9554655121161208077\",\n      \"feeGrowthGlobalB\": \"1228285739014669796\",\n      \"feeRate\": 400,\n      \"feeTierIndex\": 4,\n      \"hasWarning\": false,\n      \"liquidity\": \"748079040958583\",\n      \"lockedLiquidityPercent\": [\n        {\n          \"name\": \"Whirlpool-Lock\",\n          \"lockedPercentage\": \"0.7\"\n        },\n        {\n          \"name\": \"Whirlpool-Lock\",\n          \"lockedPercentage\": \"0.7\"\n        }\n      ],\n      \"poolType\": \"splashpool\",\n      \"protocolFeeOwedA\": \"167818699\",\n      \"protocolFeeOwedB\": \"13808875\",\n      \"protocolFeeRate\": 1300,\n      \"rewardLastUpdatedTimestamp\": \"2025-05-09T03:40:08Z\",\n      \"rewards\": [\n        {\n          \"active\": false,\n          \"authority\": \"string\",\n          \"emissionsPerSecond\": \"0\",\n          \"emissions_per_second_x64\": \"string\",\n          \"growth_global_x64\": \"string\",\n          \"mint\": \"string\",\n          \"vault\": \"string\"\n        },\n        {\n          \"active\": false,\n          \"authority\": \"string\",\n          \"emissionsPerSecond\": \"0\",\n          \"emissions_per_second_x64\": \"string\",\n          \"growth_global_x64\": \"string\",\n          \"mint\": \"string\",\n          \"vault\": \"string\"\n        }\n      ],\n      \"sqrtPrice\": \"7428739679004743247\",\n      \"stats\": {\n        \"key_0\": {\n          \"fees\": \"109195.458980424000\",\n          \"feesDelta\": \"-0.10\",\n          \"priceDelta\": \"-0.05\",\n          \"rewards\": \"0\",\n          \"rewardsDelta\": \"0.40\",\n          \"tvlDelta\": \"0.15\",\n          \"volume\": \"272988647.45106000\",\n          \"volumeDelta\": \"0.25\",\n          \"yieldOverTvl\": \"0.00305562472380393000\",\n          \"yieldOverTvlDelta\": \"0.50\"\n        },\n        \"key_1\": {\n          \"fees\": \"109195.458980424000\",\n          \"feesDelta\": \"-0.10\",\n          \"priceDelta\": \"-0.05\",\n          \"rewards\": \"0\",\n          \"rewardsDelta\": \"0.40\",\n          \"tvlDelta\": \"0.15\",\n          \"volume\": \"272988647.45106000\",\n          \"volumeDelta\": \"0.25\",\n          \"yieldOverTvl\": \"0.00305562472380393000\",\n          \"yieldOverTvlDelta\": \"0.50\"\n        }\n      },\n      \"tickCurrentIndex\": -18192,\n      \"tickSpacing\": 4,\n      \"tickSpacingSeed\": \"[4, 0]\",\n      \"tokenA\": {\n        \"address\": \"So11111111111111111111111111111111111111112\",\n        \"programId\": \"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA\",\n        \"decimals\": 6,\n        \"tags\": \"[\\\"confidentialTransferFeeConfig\\\", \\\"confidentialTransferMint\\\", \\\"metadataPointer\\\", \\\"mintCloseAuthority\\\", \\\"permanentDelegate\\\", \\\"tokenMetadata\\\", \\\"transferFeeConfig\\\", \\\"transferHook\\\"]\",\n        \"imageUrl\": \"https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png\",\n        \"name\": \"Solana\",\n        \"symbol\": \"SOL\"\n      },\n      \"tokenB\": {\n        \"address\": \"So11111111111111111111111111111111111111112\",\n        \"programId\": \"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA\",\n        \"decimals\": 6,\n        \"tags\": \"[\\\"confidentialTransferFeeConfig\\\", \\\"confidentialTransferMint\\\", \\\"metadataPointer\\\", \\\"mintCloseAuthority\\\", \\\"permanentDelegate\\\", \\\"tokenMetadata\\\", \\\"transferFeeConfig\\\", \\\"transferHook\\\"]\",\n        \"imageUrl\": \"https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png\",\n        \"name\": \"Solana\",\n        \"symbol\": \"SOL\"\n      },\n      \"tokenMintA\": \"So11111111111111111111111111111111111111112\",\n      \"tokenMintB\": \"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\n      \"tokenVaultA\": [\n        7169,\n        2385\n      ],\n      \"tokenVaultB\": \"2WLWEuKDgkDUccTpbwYp1GToYktiSB1cXvreHUwiSUVP\",\n      \"updatedAt\": \"2025-05-09T03:40:22.210625Z\",\n      \"updatedSlot\": 338786229,\n      \"whirlpoolBump\": \"[255]\",\n      \"whirlpoolsConfig\": \"2LecshUwdy9xi7meFgHtFJQNSKk4KdTrcpvaB56dP2NQ\",\n      \"writeVersion\": \"1459165811157\",\n      \"adaptiveFee\": null,\n      \"addressLookupTable\": null,\n      \"pairMetrics\": {\n        \"key_0\": {\n          \"pairCategory\": \"stable_volatile\",\n          \"correlation\": null,\n          \"pairDrift\": null,\n          \"pairFitScore\": null,\n          \"ratioVolatility\": null\n        },\n        \"key_1\": {\n          \"pairCategory\": \"volatile_volatile\",\n          \"correlation\": null,\n          \"pairDrift\": null,\n          \"pairFitScore\": null,\n          \"ratioVolatility\": null\n        }\n      },\n      \"price\": \"162.17758715438083504000\",\n      \"priceHistory7d\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tokenATrend\": {\n        \"key_0\": {\n          \"normalizedPoints\": [\n            null,\n            null\n          ]\n        },\n        \"key_1\": {\n          \"normalizedPoints\": [\n            null,\n            null\n          ]\n        },\n        \"key_2\": {\n          \"normalizedPoints\": [\n            null,\n            null\n          ]\n        }\n      },\n      \"tokenBTrend\": {\n        \"key_0\": {\n          \"normalizedPoints\": [\n            null,\n            null\n          ]\n        }\n      },\n      \"tokenBalanceA\": \"105580027977071\",\n      \"tokenBalanceB\": \"18616923791931\",\n      \"tradeEnableTimestamp\": \"1970-01-01T00:00:00Z\",\n      \"tvlUsdc\": \"35735886.7176539739861592478846702700\",\n      \"yieldOverTvl\": \"0.00305562472377327000\"\n    }\n  ],\n  \"meta\": {\n    \"next\": \"string\",\n    \"previous\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bb907e82-799c-401d-b73b-09d589c7428f",
+              "name": "Invalid query parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pools"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sortBy",
+                      "value": "lockedliquiditypercent"
+                    },
+                    {
+                      "key": "sortDirection",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "next",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "previous",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hasRewards",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "hasWarning",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "hasAdaptiveFee",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "isWavebreak",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "minTvl",
+                      "value": "string"
+                    },
+                    {
+                      "key": "minVolume",
+                      "value": "string"
+                    },
+                    {
+                      "key": "minLockedLiquidityPercent",
+                      "value": "string"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "3374"
+                    },
+                    {
+                      "key": "token",
+                      "value": "340"
+                    },
+                    {
+                      "key": "tokensBothOf",
+                      "value": "5707,8987"
+                    },
+                    {
+                      "key": "tokensBothOf",
+                      "value": "40,8893"
+                    },
+                    {
+                      "key": "addresses",
+                      "value": "5707,8987"
+                    },
+                    {
+                      "key": "addresses",
+                      "value": "40,8893"
+                    },
+                    {
+                      "key": "stats",
+                      "value": "5m"
+                    },
+                    {
+                      "key": "stats",
+                      "value": "4h"
+                    },
+                    {
+                      "key": "includeBlocked",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "pairInsightsWindow",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "pairInsightsWindow",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "whirlpoolConfigs",
+                      "value": "5707,8987"
+                    },
+                    {
+                      "key": "whirlpoolConfigs",
+                      "value": "40,8893"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "synthetic_asset"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "nft"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d15bc4ca-4054-4301-90a8-a24580aecbb1",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pools"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sortBy",
+                      "value": "lockedliquiditypercent"
+                    },
+                    {
+                      "key": "sortDirection",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "next",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "previous",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hasRewards",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "hasWarning",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "hasAdaptiveFee",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "isWavebreak",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "minTvl",
+                      "value": "string"
+                    },
+                    {
+                      "key": "minVolume",
+                      "value": "string"
+                    },
+                    {
+                      "key": "minLockedLiquidityPercent",
+                      "value": "string"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "3374"
+                    },
+                    {
+                      "key": "token",
+                      "value": "340"
+                    },
+                    {
+                      "key": "tokensBothOf",
+                      "value": "5707,8987"
+                    },
+                    {
+                      "key": "tokensBothOf",
+                      "value": "40,8893"
+                    },
+                    {
+                      "key": "addresses",
+                      "value": "5707,8987"
+                    },
+                    {
+                      "key": "addresses",
+                      "value": "40,8893"
+                    },
+                    {
+                      "key": "stats",
+                      "value": "5m"
+                    },
+                    {
+                      "key": "stats",
+                      "value": "4h"
+                    },
+                    {
+                      "key": "includeBlocked",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "pairInsightsWindow",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "pairInsightsWindow",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "whirlpoolConfigs",
+                      "value": "5707,8987"
+                    },
+                    {
+                      "key": "whirlpoolConfigs",
+                      "value": "40,8893"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "synthetic_asset"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "nft"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9a5600ae-26bf-475d-b5c7-d39f428e0d4a",
+          "name": "Search for whirlpools by token symbols or address",
+          "request": {
+            "name": "Search for whirlpools by token symbols or address",
+            "description": {
+              "content": "This endpoint allows searching for whirlpools by:\n- Token symbols (e.g., \"SOL USDC\" to find pools with both tokens)\n- Single token symbol (e.g., \"SOL\" to find all pools containing SOL)\n- Whirlpool address (single address exact match)\n\nThe search is case-insensitive and supports partial matching for token symbols.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pools",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "Query text to search by"
+                },
+                {
+                  "disabled": false,
+                  "key": "next",
+                  "value": "<string>",
+                  "description": "Cursor to start the next page of results"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "Maximum number of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortBy",
+                  "value": "<string>",
+                  "description": "Field to sort by"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortDirection",
+                  "value": "<string>",
+                  "description": "Sort direction"
+                },
+                {
+                  "disabled": false,
+                  "key": "minTvl",
+                  "value": "<float>",
+                  "description": "Minimum TVL of a whirlpool in USDC"
+                },
+                {
+                  "disabled": false,
+                  "key": "minVolume",
+                  "value": "<float>",
+                  "description": "Minimum volume of a whirlpool in USDC"
+                },
+                {
+                  "disabled": false,
+                  "key": "stats",
+                  "value": "<string>",
+                  "description": "Filter whirlpools with stats for these time periods"
+                },
+                {
+                  "disabled": false,
+                  "key": "stats",
+                  "value": "<string>",
+                  "description": "Filter whirlpools with stats for these time periods"
+                },
+                {
+                  "disabled": false,
+                  "key": "userTokens",
+                  "value": "[\"<integer>\",\"<integer>\"]",
+                  "description": "Comma-separated list of token addresses owned by the user"
+                },
+                {
+                  "disabled": false,
+                  "key": "userTokens",
+                  "value": "[\"<integer>\",\"<integer>\"]",
+                  "description": "Comma-separated list of token addresses owned by the user"
+                },
+                {
+                  "disabled": false,
+                  "key": "hasRewards",
+                  "value": "<boolean>",
+                  "description": "Filter for pools with rewards"
+                },
+                {
+                  "disabled": false,
+                  "key": "verifiedOnly",
+                  "value": "<boolean>",
+                  "description": "Filter for pools with verified tokens"
+                },
+                {
+                  "disabled": false,
+                  "key": "hasLockedLiquidity",
+                  "value": "<boolean>",
+                  "description": "Filter for pools with locked liquidity"
+                },
+                {
+                  "disabled": false,
+                  "key": "whirlpoolConfigs",
+                  "value": "[\"<integer>\",\"<integer>\"]",
+                  "description": "Whirlpool configs to filter by. An empty list returns pools from all configs."
+                },
+                {
+                  "disabled": false,
+                  "key": "whirlpoolConfigs",
+                  "value": "[\"<integer>\",\"<integer>\"]",
+                  "description": "Whirlpool configs to filter by. An empty list returns pools from all configs."
+                },
+                {
+                  "disabled": false,
+                  "key": "categories",
+                  "value": "<string>",
+                  "description": "Asset categories to filter by (pools where at least one token matches). Accepts a\ncomma-separated list of category names (e.g. `stablecoin,memecoin`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "categories",
+                  "value": "<string>",
+                  "description": "Asset categories to filter by (pools where at least one token matches). Accepts a\ncomma-separated list of category names (e.g. `stablecoin,memecoin`)."
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Chain identifier for the API path (This can only be one of solana)",
+                  "type": "any",
+                  "value": "{{chain}}",
+                  "key": "chain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f826c09f-dc58-4987-ba9d-9e540471f8e9",
+              "name": "List of matching whirlpools",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pools",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "next",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "lockedliquiditypercent"
+                    },
+                    {
+                      "key": "sortDirection",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "minTvl",
+                      "value": "string"
+                    },
+                    {
+                      "key": "minVolume",
+                      "value": "string"
+                    },
+                    {
+                      "key": "stats",
+                      "value": "5m"
+                    },
+                    {
+                      "key": "stats",
+                      "value": "4h"
+                    },
+                    {
+                      "key": "userTokens",
+                      "value": "5707,8987"
+                    },
+                    {
+                      "key": "userTokens",
+                      "value": "40,8893"
+                    },
+                    {
+                      "key": "hasRewards",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "verifiedOnly",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "hasLockedLiquidity",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "whirlpoolConfigs",
+                      "value": "5707,8987"
+                    },
+                    {
+                      "key": "whirlpoolConfigs",
+                      "value": "40,8893"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "synthetic_asset"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "nft"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"adaptiveFeeEnabled\": false,\n      \"address\": \"Czfq3xZZDmsdGdUyrNLtRhGc47cXcZtLG4crryfu44zE\",\n      \"feeGrowthGlobalA\": \"9554655121161208077\",\n      \"feeGrowthGlobalB\": \"1228285739014669796\",\n      \"feeRate\": 400,\n      \"feeTierIndex\": 4,\n      \"hasWarning\": false,\n      \"liquidity\": \"748079040958583\",\n      \"lockedLiquidityPercent\": [\n        {\n          \"name\": \"Whirlpool-Lock\",\n          \"lockedPercentage\": \"0.7\"\n        },\n        {\n          \"name\": \"Whirlpool-Lock\",\n          \"lockedPercentage\": \"0.7\"\n        }\n      ],\n      \"poolType\": \"whirlpool\",\n      \"protocolFeeOwedA\": \"167818699\",\n      \"protocolFeeOwedB\": \"13808875\",\n      \"protocolFeeRate\": 1300,\n      \"rewardLastUpdatedTimestamp\": \"2025-05-09T03:40:08Z\",\n      \"rewards\": [\n        {\n          \"active\": false,\n          \"authority\": \"string\",\n          \"emissionsPerSecond\": \"0\",\n          \"emissions_per_second_x64\": \"string\",\n          \"growth_global_x64\": \"string\",\n          \"mint\": \"string\",\n          \"vault\": \"string\"\n        },\n        {\n          \"active\": false,\n          \"authority\": \"string\",\n          \"emissionsPerSecond\": \"0\",\n          \"emissions_per_second_x64\": \"string\",\n          \"growth_global_x64\": \"string\",\n          \"mint\": \"string\",\n          \"vault\": \"string\"\n        }\n      ],\n      \"sqrtPrice\": \"7428739679004743247\",\n      \"stats\": {\n        \"key_0\": {\n          \"fees\": \"109195.458980424000\",\n          \"feesDelta\": \"-0.10\",\n          \"priceDelta\": \"-0.05\",\n          \"rewards\": \"0\",\n          \"rewardsDelta\": \"0.40\",\n          \"tvlDelta\": \"0.15\",\n          \"volume\": \"272988647.45106000\",\n          \"volumeDelta\": \"0.25\",\n          \"yieldOverTvl\": \"0.00305562472380393000\",\n          \"yieldOverTvlDelta\": \"0.50\"\n        },\n        \"key_1\": {\n          \"fees\": \"109195.458980424000\",\n          \"feesDelta\": \"-0.10\",\n          \"priceDelta\": \"-0.05\",\n          \"rewards\": \"0\",\n          \"rewardsDelta\": \"0.40\",\n          \"tvlDelta\": \"0.15\",\n          \"volume\": \"272988647.45106000\",\n          \"volumeDelta\": \"0.25\",\n          \"yieldOverTvl\": \"0.00305562472380393000\",\n          \"yieldOverTvlDelta\": \"0.50\"\n        },\n        \"key_2\": {\n          \"fees\": \"109195.458980424000\",\n          \"feesDelta\": \"-0.10\",\n          \"priceDelta\": \"-0.05\",\n          \"rewards\": \"0\",\n          \"rewardsDelta\": \"0.40\",\n          \"tvlDelta\": \"0.15\",\n          \"volume\": \"272988647.45106000\",\n          \"volumeDelta\": \"0.25\",\n          \"yieldOverTvl\": \"0.00305562472380393000\",\n          \"yieldOverTvlDelta\": \"0.50\"\n        },\n        \"key_3\": {\n          \"fees\": \"109195.458980424000\",\n          \"feesDelta\": \"-0.10\",\n          \"priceDelta\": \"-0.05\",\n          \"rewards\": \"0\",\n          \"rewardsDelta\": \"0.40\",\n          \"tvlDelta\": \"0.15\",\n          \"volume\": \"272988647.45106000\",\n          \"volumeDelta\": \"0.25\",\n          \"yieldOverTvl\": \"0.00305562472380393000\",\n          \"yieldOverTvlDelta\": \"0.50\"\n        }\n      },\n      \"tickCurrentIndex\": -18192,\n      \"tickSpacing\": 4,\n      \"tickSpacingSeed\": \"[4, 0]\",\n      \"tokenA\": {\n        \"address\": \"So11111111111111111111111111111111111111112\",\n        \"programId\": \"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA\",\n        \"decimals\": 6,\n        \"tags\": \"[\\\"confidentialTransferFeeConfig\\\", \\\"confidentialTransferMint\\\", \\\"metadataPointer\\\", \\\"mintCloseAuthority\\\", \\\"permanentDelegate\\\", \\\"tokenMetadata\\\", \\\"transferFeeConfig\\\", \\\"transferHook\\\"]\",\n        \"imageUrl\": \"https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png\",\n        \"name\": \"Solana\",\n        \"symbol\": \"SOL\"\n      },\n      \"tokenB\": {\n        \"address\": \"So11111111111111111111111111111111111111112\",\n        \"programId\": \"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA\",\n        \"decimals\": 6,\n        \"tags\": \"[\\\"confidentialTransferFeeConfig\\\", \\\"confidentialTransferMint\\\", \\\"metadataPointer\\\", \\\"mintCloseAuthority\\\", \\\"permanentDelegate\\\", \\\"tokenMetadata\\\", \\\"transferFeeConfig\\\", \\\"transferHook\\\"]\",\n        \"imageUrl\": \"https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png\",\n        \"name\": \"Solana\",\n        \"symbol\": \"SOL\"\n      },\n      \"tokenMintA\": \"So11111111111111111111111111111111111111112\",\n      \"tokenMintB\": \"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\n      \"tokenVaultA\": [\n        5477,\n        9813\n      ],\n      \"tokenVaultB\": \"2WLWEuKDgkDUccTpbwYp1GToYktiSB1cXvreHUwiSUVP\",\n      \"updatedAt\": \"2025-05-09T03:40:22.210625Z\",\n      \"updatedSlot\": 338786229,\n      \"whirlpoolBump\": \"[255]\",\n      \"whirlpoolsConfig\": \"2LecshUwdy9xi7meFgHtFJQNSKk4KdTrcpvaB56dP2NQ\",\n      \"writeVersion\": \"1459165811157\",\n      \"adaptiveFee\": null,\n      \"addressLookupTable\": null,\n      \"pairMetrics\": {\n        \"key_0\": {\n          \"pairCategory\": \"volatile_volatile\",\n          \"correlation\": null,\n          \"pairDrift\": null,\n          \"pairFitScore\": null,\n          \"ratioVolatility\": null\n        }\n      },\n      \"price\": \"162.17758715438083504000\",\n      \"priceHistory7d\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tokenATrend\": {\n        \"key_0\": {\n          \"normalizedPoints\": [\n            null,\n            null\n          ]\n        },\n        \"key_1\": {\n          \"normalizedPoints\": [\n            null,\n            null\n          ]\n        }\n      },\n      \"tokenBTrend\": {\n        \"key_0\": {\n          \"normalizedPoints\": [\n            null,\n            null\n          ]\n        },\n        \"key_1\": {\n          \"normalizedPoints\": [\n            null,\n            null\n          ]\n        },\n        \"key_2\": {\n          \"normalizedPoints\": [\n            null,\n            null\n          ]\n        }\n      },\n      \"tokenBalanceA\": \"105580027977071\",\n      \"tokenBalanceB\": \"18616923791931\",\n      \"tradeEnableTimestamp\": \"1970-01-01T00:00:00Z\",\n      \"tvlUsdc\": \"35735886.7176539739861592478846702700\",\n      \"yieldOverTvl\": \"0.00305562472377327000\"\n    },\n    {\n      \"adaptiveFeeEnabled\": false,\n      \"address\": \"Czfq3xZZDmsdGdUyrNLtRhGc47cXcZtLG4crryfu44zE\",\n      \"feeGrowthGlobalA\": \"9554655121161208077\",\n      \"feeGrowthGlobalB\": \"1228285739014669796\",\n      \"feeRate\": 400,\n      \"feeTierIndex\": 4,\n      \"hasWarning\": false,\n      \"liquidity\": \"748079040958583\",\n      \"lockedLiquidityPercent\": [\n        {\n          \"name\": \"Whirlpool-Lock\",\n          \"lockedPercentage\": \"0.7\"\n        },\n        {\n          \"name\": \"Whirlpool-Lock\",\n          \"lockedPercentage\": \"0.7\"\n        }\n      ],\n      \"poolType\": \"splashpool\",\n      \"protocolFeeOwedA\": \"167818699\",\n      \"protocolFeeOwedB\": \"13808875\",\n      \"protocolFeeRate\": 1300,\n      \"rewardLastUpdatedTimestamp\": \"2025-05-09T03:40:08Z\",\n      \"rewards\": [\n        {\n          \"active\": false,\n          \"authority\": \"string\",\n          \"emissionsPerSecond\": \"0\",\n          \"emissions_per_second_x64\": \"string\",\n          \"growth_global_x64\": \"string\",\n          \"mint\": \"string\",\n          \"vault\": \"string\"\n        },\n        {\n          \"active\": false,\n          \"authority\": \"string\",\n          \"emissionsPerSecond\": \"0\",\n          \"emissions_per_second_x64\": \"string\",\n          \"growth_global_x64\": \"string\",\n          \"mint\": \"string\",\n          \"vault\": \"string\"\n        }\n      ],\n      \"sqrtPrice\": \"7428739679004743247\",\n      \"stats\": {\n        \"key_0\": {\n          \"fees\": \"109195.458980424000\",\n          \"feesDelta\": \"-0.10\",\n          \"priceDelta\": \"-0.05\",\n          \"rewards\": \"0\",\n          \"rewardsDelta\": \"0.40\",\n          \"tvlDelta\": \"0.15\",\n          \"volume\": \"272988647.45106000\",\n          \"volumeDelta\": \"0.25\",\n          \"yieldOverTvl\": \"0.00305562472380393000\",\n          \"yieldOverTvlDelta\": \"0.50\"\n        },\n        \"key_1\": {\n          \"fees\": \"109195.458980424000\",\n          \"feesDelta\": \"-0.10\",\n          \"priceDelta\": \"-0.05\",\n          \"rewards\": \"0\",\n          \"rewardsDelta\": \"0.40\",\n          \"tvlDelta\": \"0.15\",\n          \"volume\": \"272988647.45106000\",\n          \"volumeDelta\": \"0.25\",\n          \"yieldOverTvl\": \"0.00305562472380393000\",\n          \"yieldOverTvlDelta\": \"0.50\"\n        }\n      },\n      \"tickCurrentIndex\": -18192,\n      \"tickSpacing\": 4,\n      \"tickSpacingSeed\": \"[4, 0]\",\n      \"tokenA\": {\n        \"address\": \"So11111111111111111111111111111111111111112\",\n        \"programId\": \"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA\",\n        \"decimals\": 6,\n        \"tags\": \"[\\\"confidentialTransferFeeConfig\\\", \\\"confidentialTransferMint\\\", \\\"metadataPointer\\\", \\\"mintCloseAuthority\\\", \\\"permanentDelegate\\\", \\\"tokenMetadata\\\", \\\"transferFeeConfig\\\", \\\"transferHook\\\"]\",\n        \"imageUrl\": \"https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png\",\n        \"name\": \"Solana\",\n        \"symbol\": \"SOL\"\n      },\n      \"tokenB\": {\n        \"address\": \"So11111111111111111111111111111111111111112\",\n        \"programId\": \"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA\",\n        \"decimals\": 6,\n        \"tags\": \"[\\\"confidentialTransferFeeConfig\\\", \\\"confidentialTransferMint\\\", \\\"metadataPointer\\\", \\\"mintCloseAuthority\\\", \\\"permanentDelegate\\\", \\\"tokenMetadata\\\", \\\"transferFeeConfig\\\", \\\"transferHook\\\"]\",\n        \"imageUrl\": \"https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png\",\n        \"name\": \"Solana\",\n        \"symbol\": \"SOL\"\n      },\n      \"tokenMintA\": \"So11111111111111111111111111111111111111112\",\n      \"tokenMintB\": \"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\n      \"tokenVaultA\": [\n        7169,\n        2385\n      ],\n      \"tokenVaultB\": \"2WLWEuKDgkDUccTpbwYp1GToYktiSB1cXvreHUwiSUVP\",\n      \"updatedAt\": \"2025-05-09T03:40:22.210625Z\",\n      \"updatedSlot\": 338786229,\n      \"whirlpoolBump\": \"[255]\",\n      \"whirlpoolsConfig\": \"2LecshUwdy9xi7meFgHtFJQNSKk4KdTrcpvaB56dP2NQ\",\n      \"writeVersion\": \"1459165811157\",\n      \"adaptiveFee\": null,\n      \"addressLookupTable\": null,\n      \"pairMetrics\": {\n        \"key_0\": {\n          \"pairCategory\": \"stable_volatile\",\n          \"correlation\": null,\n          \"pairDrift\": null,\n          \"pairFitScore\": null,\n          \"ratioVolatility\": null\n        },\n        \"key_1\": {\n          \"pairCategory\": \"volatile_volatile\",\n          \"correlation\": null,\n          \"pairDrift\": null,\n          \"pairFitScore\": null,\n          \"ratioVolatility\": null\n        }\n      },\n      \"price\": \"162.17758715438083504000\",\n      \"priceHistory7d\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tokenATrend\": {\n        \"key_0\": {\n          \"normalizedPoints\": [\n            null,\n            null\n          ]\n        },\n        \"key_1\": {\n          \"normalizedPoints\": [\n            null,\n            null\n          ]\n        },\n        \"key_2\": {\n          \"normalizedPoints\": [\n            null,\n            null\n          ]\n        }\n      },\n      \"tokenBTrend\": {\n        \"key_0\": {\n          \"normalizedPoints\": [\n            null,\n            null\n          ]\n        }\n      },\n      \"tokenBalanceA\": \"105580027977071\",\n      \"tokenBalanceB\": \"18616923791931\",\n      \"tradeEnableTimestamp\": \"1970-01-01T00:00:00Z\",\n      \"tvlUsdc\": \"35735886.7176539739861592478846702700\",\n      \"yieldOverTvl\": \"0.00305562472377327000\"\n    }\n  ],\n  \"meta\": {\n    \"next\": \"string\",\n    \"previous\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ab0ecdd8-da2b-431a-895b-731fc4225ea2",
+              "name": "Invalid query parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pools",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "next",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "lockedliquiditypercent"
+                    },
+                    {
+                      "key": "sortDirection",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "minTvl",
+                      "value": "string"
+                    },
+                    {
+                      "key": "minVolume",
+                      "value": "string"
+                    },
+                    {
+                      "key": "stats",
+                      "value": "5m"
+                    },
+                    {
+                      "key": "stats",
+                      "value": "4h"
+                    },
+                    {
+                      "key": "userTokens",
+                      "value": "5707,8987"
+                    },
+                    {
+                      "key": "userTokens",
+                      "value": "40,8893"
+                    },
+                    {
+                      "key": "hasRewards",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "verifiedOnly",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "hasLockedLiquidity",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "whirlpoolConfigs",
+                      "value": "5707,8987"
+                    },
+                    {
+                      "key": "whirlpoolConfigs",
+                      "value": "40,8893"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "synthetic_asset"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "nft"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b050129c-b918-41b8-866c-c81840006769",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pools",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "next",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "lockedliquiditypercent"
+                    },
+                    {
+                      "key": "sortDirection",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "minTvl",
+                      "value": "string"
+                    },
+                    {
+                      "key": "minVolume",
+                      "value": "string"
+                    },
+                    {
+                      "key": "stats",
+                      "value": "5m"
+                    },
+                    {
+                      "key": "stats",
+                      "value": "4h"
+                    },
+                    {
+                      "key": "userTokens",
+                      "value": "5707,8987"
+                    },
+                    {
+                      "key": "userTokens",
+                      "value": "40,8893"
+                    },
+                    {
+                      "key": "hasRewards",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "verifiedOnly",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "hasLockedLiquidity",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "whirlpoolConfigs",
+                      "value": "5707,8987"
+                    },
+                    {
+                      "key": "whirlpoolConfigs",
+                      "value": "40,8893"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "synthetic_asset"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "nft"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "46b58b45-ddb4-4538-88d4-b1630a821a60",
+          "name": "Get whirlpool data by address",
+          "request": {
+            "name": "Get whirlpool data by address",
+            "description": {},
+            "url": {
+              "path": [
+                "pools",
+                ":address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sortBy",
+                  "value": "<string>",
+                  "description": "Field to sort whirlpools by"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortDirection",
+                  "value": "<string>",
+                  "description": "Direction to sort whirlpools in"
+                },
+                {
+                  "disabled": false,
+                  "key": "next",
+                  "value": "<string>",
+                  "description": "Cursor to start the next page of results"
+                },
+                {
+                  "disabled": false,
+                  "key": "previous",
+                  "value": "<string>",
+                  "description": "Cursor to start the previous page of results"
+                },
+                {
+                  "disabled": false,
+                  "key": "hasRewards",
+                  "value": "<boolean>",
+                  "description": "Filter whirlpools that must have rewards"
+                },
+                {
+                  "disabled": false,
+                  "key": "hasWarning",
+                  "value": "<boolean>",
+                  "description": "Filter whirlpools that must have a warning"
+                },
+                {
+                  "disabled": false,
+                  "key": "hasAdaptiveFee",
+                  "value": "<boolean>",
+                  "description": "Whether a whirlpool must be using adaptive fee"
+                },
+                {
+                  "disabled": false,
+                  "key": "isWavebreak",
+                  "value": "<boolean>",
+                  "description": "Whether a whirlpool must have graduated from wavebreak"
+                },
+                {
+                  "disabled": false,
+                  "key": "minTvl",
+                  "value": "<float>",
+                  "description": "Minimum TVL of a whirlpool in USDC"
+                },
+                {
+                  "disabled": false,
+                  "key": "minVolume",
+                  "value": "<float>",
+                  "description": "Minimum volume of a whirlpool in USDC"
+                },
+                {
+                  "disabled": false,
+                  "key": "minLockedLiquidityPercent",
+                  "value": "<float>",
+                  "description": "Minimum locked liquidity percentage of a whirlpool"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "Number of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<integer>",
+                  "description": "Filter whirlpools containing this token"
+                },
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<integer>",
+                  "description": "Filter whirlpools containing this token"
+                },
+                {
+                  "disabled": false,
+                  "key": "tokensBothOf",
+                  "value": "[\"<integer>\",\"<integer>\"]",
+                  "description": "Filter whirlpools containing both specified tokens"
+                },
+                {
+                  "disabled": false,
+                  "key": "tokensBothOf",
+                  "value": "[\"<integer>\",\"<integer>\"]",
+                  "description": "Filter whirlpools containing both specified tokens"
+                },
+                {
+                  "disabled": false,
+                  "key": "addresses",
+                  "value": "[\"<integer>\",\"<integer>\"]",
+                  "description": "Filter whirlpools with these addresses"
+                },
+                {
+                  "disabled": false,
+                  "key": "addresses",
+                  "value": "[\"<integer>\",\"<integer>\"]",
+                  "description": "Filter whirlpools with these addresses"
+                },
+                {
+                  "disabled": false,
+                  "key": "stats",
+                  "value": "<string>",
+                  "description": "Filter whirlpools with stats for these time periods"
+                },
+                {
+                  "disabled": false,
+                  "key": "stats",
+                  "value": "<string>",
+                  "description": "Filter whirlpools with stats for these time periods"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeBlocked",
+                  "value": "<boolean>",
+                  "description": "Include blocked whirlpools if true"
+                },
+                {
+                  "disabled": false,
+                  "key": "pairInsightsWindow",
+                  "value": "{\"value\":\"reference #/components/schemas/MetricWindow not found in the OpenAPI spec\"}",
+                  "description": "Pair-insights windows to include. Accepts a single window or a\ncomma-separated list. Pair metrics and token price trend arrays are\nreturned per-window in the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "pairInsightsWindow",
+                  "value": "{\"value\":\"reference #/components/schemas/MetricWindow not found in the OpenAPI spec\"}",
+                  "description": "Pair-insights windows to include. Accepts a single window or a\ncomma-separated list. Pair metrics and token price trend arrays are\nreturned per-window in the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "whirlpoolConfigs",
+                  "value": "[\"<integer>\",\"<integer>\"]",
+                  "description": "Whirlpool configs to filter by. An empty list returns pools from all configs."
+                },
+                {
+                  "disabled": false,
+                  "key": "whirlpoolConfigs",
+                  "value": "[\"<integer>\",\"<integer>\"]",
+                  "description": "Whirlpool configs to filter by. An empty list returns pools from all configs."
+                },
+                {
+                  "disabled": false,
+                  "key": "categories",
+                  "value": "<string>",
+                  "description": "Asset categories to filter by (pools where at least one token matches). Accepts a\ncomma-separated list of category names (e.g. `stablecoin,memecoin`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "categories",
+                  "value": "<string>",
+                  "description": "Asset categories to filter by (pools where at least one token matches). Accepts a\ncomma-separated list of category names (e.g. `stablecoin,memecoin`)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) Whirlpool address"
+                },
+                {
+                  "description": "Chain identifier for the API path (This can only be one of solana)",
+                  "type": "any",
+                  "value": "{{chain}}",
+                  "key": "chain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "143fa73a-fb6c-4390-8458-aad9d01231ea",
+              "name": "Whirlpool data retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pools",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sortBy",
+                      "value": "lockedliquiditypercent"
+                    },
+                    {
+                      "key": "sortDirection",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "next",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "previous",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hasRewards",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "hasWarning",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "hasAdaptiveFee",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "isWavebreak",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "minTvl",
+                      "value": "string"
+                    },
+                    {
+                      "key": "minVolume",
+                      "value": "string"
+                    },
+                    {
+                      "key": "minLockedLiquidityPercent",
+                      "value": "string"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "3374"
+                    },
+                    {
+                      "key": "token",
+                      "value": "340"
+                    },
+                    {
+                      "key": "tokensBothOf",
+                      "value": "5707,8987"
+                    },
+                    {
+                      "key": "tokensBothOf",
+                      "value": "40,8893"
+                    },
+                    {
+                      "key": "addresses",
+                      "value": "5707,8987"
+                    },
+                    {
+                      "key": "addresses",
+                      "value": "40,8893"
+                    },
+                    {
+                      "key": "stats",
+                      "value": "5m"
+                    },
+                    {
+                      "key": "stats",
+                      "value": "4h"
+                    },
+                    {
+                      "key": "includeBlocked",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "pairInsightsWindow",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "pairInsightsWindow",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "whirlpoolConfigs",
+                      "value": "5707,8987"
+                    },
+                    {
+                      "key": "whirlpoolConfigs",
+                      "value": "40,8893"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "synthetic_asset"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "nft"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) Whirlpool address"
+                    },
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"adaptiveFeeEnabled\": false,\n    \"address\": \"Czfq3xZZDmsdGdUyrNLtRhGc47cXcZtLG4crryfu44zE\",\n    \"feeGrowthGlobalA\": \"9554655121161208077\",\n    \"feeGrowthGlobalB\": \"1228285739014669796\",\n    \"feeRate\": 400,\n    \"feeTierIndex\": 4,\n    \"hasWarning\": false,\n    \"liquidity\": \"748079040958583\",\n    \"lockedLiquidityPercent\": [\n      {\n        \"name\": \"Whirlpool-Lock\",\n        \"lockedPercentage\": \"0.7\"\n      },\n      {\n        \"name\": \"Whirlpool-Lock\",\n        \"lockedPercentage\": \"0.7\"\n      }\n    ],\n    \"poolType\": \"splashpool\",\n    \"protocolFeeOwedA\": \"167818699\",\n    \"protocolFeeOwedB\": \"13808875\",\n    \"protocolFeeRate\": 1300,\n    \"rewardLastUpdatedTimestamp\": \"2025-05-09T03:40:08Z\",\n    \"rewards\": [\n      {\n        \"active\": false,\n        \"authority\": \"string\",\n        \"emissionsPerSecond\": \"0\",\n        \"emissions_per_second_x64\": \"string\",\n        \"growth_global_x64\": \"string\",\n        \"mint\": \"string\",\n        \"vault\": \"string\"\n      },\n      {\n        \"active\": false,\n        \"authority\": \"string\",\n        \"emissionsPerSecond\": \"0\",\n        \"emissions_per_second_x64\": \"string\",\n        \"growth_global_x64\": \"string\",\n        \"mint\": \"string\",\n        \"vault\": \"string\"\n      }\n    ],\n    \"sqrtPrice\": \"7428739679004743247\",\n    \"stats\": {\n      \"key_0\": {\n        \"fees\": \"109195.458980424000\",\n        \"feesDelta\": \"-0.10\",\n        \"priceDelta\": \"-0.05\",\n        \"rewards\": \"0\",\n        \"rewardsDelta\": \"0.40\",\n        \"tvlDelta\": \"0.15\",\n        \"volume\": \"272988647.45106000\",\n        \"volumeDelta\": \"0.25\",\n        \"yieldOverTvl\": \"0.00305562472380393000\",\n        \"yieldOverTvlDelta\": \"0.50\"\n      },\n      \"key_1\": {\n        \"fees\": \"109195.458980424000\",\n        \"feesDelta\": \"-0.10\",\n        \"priceDelta\": \"-0.05\",\n        \"rewards\": \"0\",\n        \"rewardsDelta\": \"0.40\",\n        \"tvlDelta\": \"0.15\",\n        \"volume\": \"272988647.45106000\",\n        \"volumeDelta\": \"0.25\",\n        \"yieldOverTvl\": \"0.00305562472380393000\",\n        \"yieldOverTvlDelta\": \"0.50\"\n      }\n    },\n    \"tickCurrentIndex\": -18192,\n    \"tickSpacing\": 4,\n    \"tickSpacingSeed\": \"[4, 0]\",\n    \"tokenA\": {\n      \"address\": \"So11111111111111111111111111111111111111112\",\n      \"programId\": \"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA\",\n      \"decimals\": 6,\n      \"tags\": \"[\\\"confidentialTransferFeeConfig\\\", \\\"confidentialTransferMint\\\", \\\"metadataPointer\\\", \\\"mintCloseAuthority\\\", \\\"permanentDelegate\\\", \\\"tokenMetadata\\\", \\\"transferFeeConfig\\\", \\\"transferHook\\\"]\",\n      \"imageUrl\": \"https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png\",\n      \"name\": \"Solana\",\n      \"symbol\": \"SOL\"\n    },\n    \"tokenB\": {\n      \"address\": \"So11111111111111111111111111111111111111112\",\n      \"programId\": \"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA\",\n      \"decimals\": 6,\n      \"tags\": \"[\\\"confidentialTransferFeeConfig\\\", \\\"confidentialTransferMint\\\", \\\"metadataPointer\\\", \\\"mintCloseAuthority\\\", \\\"permanentDelegate\\\", \\\"tokenMetadata\\\", \\\"transferFeeConfig\\\", \\\"transferHook\\\"]\",\n      \"imageUrl\": \"https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png\",\n      \"name\": \"Solana\",\n      \"symbol\": \"SOL\"\n    },\n    \"tokenMintA\": \"So11111111111111111111111111111111111111112\",\n    \"tokenMintB\": \"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\n    \"tokenVaultA\": [\n      967,\n      2041\n    ],\n    \"tokenVaultB\": \"2WLWEuKDgkDUccTpbwYp1GToYktiSB1cXvreHUwiSUVP\",\n    \"updatedAt\": \"2025-05-09T03:40:22.210625Z\",\n    \"updatedSlot\": 338786229,\n    \"whirlpoolBump\": \"[255]\",\n    \"whirlpoolsConfig\": \"2LecshUwdy9xi7meFgHtFJQNSKk4KdTrcpvaB56dP2NQ\",\n    \"writeVersion\": \"1459165811157\",\n    \"adaptiveFee\": null,\n    \"addressLookupTable\": null,\n    \"pairMetrics\": {\n      \"key_0\": {\n        \"pairCategory\": \"volatile_volatile\",\n        \"correlation\": null,\n        \"pairDrift\": null,\n        \"pairFitScore\": null,\n        \"ratioVolatility\": null\n      },\n      \"key_1\": {\n        \"pairCategory\": \"volatile_volatile\",\n        \"correlation\": null,\n        \"pairDrift\": null,\n        \"pairFitScore\": null,\n        \"ratioVolatility\": null\n      }\n    },\n    \"price\": \"162.17758715438083504000\",\n    \"priceHistory7d\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tokenATrend\": {\n      \"key_0\": {\n        \"normalizedPoints\": [\n          null,\n          null\n        ]\n      },\n      \"key_1\": {\n        \"normalizedPoints\": [\n          null,\n          null\n        ]\n      }\n    },\n    \"tokenBTrend\": {\n      \"key_0\": {\n        \"normalizedPoints\": [\n          null,\n          null\n        ]\n      }\n    },\n    \"tokenBalanceA\": \"105580027977071\",\n    \"tokenBalanceB\": \"18616923791931\",\n    \"tradeEnableTimestamp\": \"1970-01-01T00:00:00Z\",\n    \"tvlUsdc\": \"35735886.7176539739861592478846702700\",\n    \"yieldOverTvl\": \"0.00305562472377327000\"\n  },\n  \"meta\": {\n    \"next\": \"string\",\n    \"previous\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "499aed33-c19d-4f4a-ad7b-4b3c51b20137",
+              "name": "Invalid whirlpool address",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pools",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sortBy",
+                      "value": "lockedliquiditypercent"
+                    },
+                    {
+                      "key": "sortDirection",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "next",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "previous",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hasRewards",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "hasWarning",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "hasAdaptiveFee",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "isWavebreak",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "minTvl",
+                      "value": "string"
+                    },
+                    {
+                      "key": "minVolume",
+                      "value": "string"
+                    },
+                    {
+                      "key": "minLockedLiquidityPercent",
+                      "value": "string"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "3374"
+                    },
+                    {
+                      "key": "token",
+                      "value": "340"
+                    },
+                    {
+                      "key": "tokensBothOf",
+                      "value": "5707,8987"
+                    },
+                    {
+                      "key": "tokensBothOf",
+                      "value": "40,8893"
+                    },
+                    {
+                      "key": "addresses",
+                      "value": "5707,8987"
+                    },
+                    {
+                      "key": "addresses",
+                      "value": "40,8893"
+                    },
+                    {
+                      "key": "stats",
+                      "value": "5m"
+                    },
+                    {
+                      "key": "stats",
+                      "value": "4h"
+                    },
+                    {
+                      "key": "includeBlocked",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "pairInsightsWindow",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "pairInsightsWindow",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "whirlpoolConfigs",
+                      "value": "5707,8987"
+                    },
+                    {
+                      "key": "whirlpoolConfigs",
+                      "value": "40,8893"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "synthetic_asset"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "nft"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) Whirlpool address"
+                    },
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ddaabcec-a29d-401d-babe-bb6acb15e268",
+              "name": "Whirlpool not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pools",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sortBy",
+                      "value": "lockedliquiditypercent"
+                    },
+                    {
+                      "key": "sortDirection",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "next",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "previous",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hasRewards",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "hasWarning",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "hasAdaptiveFee",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "isWavebreak",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "minTvl",
+                      "value": "string"
+                    },
+                    {
+                      "key": "minVolume",
+                      "value": "string"
+                    },
+                    {
+                      "key": "minLockedLiquidityPercent",
+                      "value": "string"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "3374"
+                    },
+                    {
+                      "key": "token",
+                      "value": "340"
+                    },
+                    {
+                      "key": "tokensBothOf",
+                      "value": "5707,8987"
+                    },
+                    {
+                      "key": "tokensBothOf",
+                      "value": "40,8893"
+                    },
+                    {
+                      "key": "addresses",
+                      "value": "5707,8987"
+                    },
+                    {
+                      "key": "addresses",
+                      "value": "40,8893"
+                    },
+                    {
+                      "key": "stats",
+                      "value": "5m"
+                    },
+                    {
+                      "key": "stats",
+                      "value": "4h"
+                    },
+                    {
+                      "key": "includeBlocked",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "pairInsightsWindow",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "pairInsightsWindow",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "whirlpoolConfigs",
+                      "value": "5707,8987"
+                    },
+                    {
+                      "key": "whirlpoolConfigs",
+                      "value": "40,8893"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "synthetic_asset"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "nft"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) Whirlpool address"
+                    },
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7d65de3f-af5f-47be-a4d7-e3159b20ce7d",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pools",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sortBy",
+                      "value": "lockedliquiditypercent"
+                    },
+                    {
+                      "key": "sortDirection",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "next",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "previous",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hasRewards",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "hasWarning",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "hasAdaptiveFee",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "isWavebreak",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "minTvl",
+                      "value": "string"
+                    },
+                    {
+                      "key": "minVolume",
+                      "value": "string"
+                    },
+                    {
+                      "key": "minLockedLiquidityPercent",
+                      "value": "string"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "3374"
+                    },
+                    {
+                      "key": "token",
+                      "value": "340"
+                    },
+                    {
+                      "key": "tokensBothOf",
+                      "value": "5707,8987"
+                    },
+                    {
+                      "key": "tokensBothOf",
+                      "value": "40,8893"
+                    },
+                    {
+                      "key": "addresses",
+                      "value": "5707,8987"
+                    },
+                    {
+                      "key": "addresses",
+                      "value": "40,8893"
+                    },
+                    {
+                      "key": "stats",
+                      "value": "5m"
+                    },
+                    {
+                      "key": "stats",
+                      "value": "4h"
+                    },
+                    {
+                      "key": "includeBlocked",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "pairInsightsWindow",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "pairInsightsWindow",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "whirlpoolConfigs",
+                      "value": "5707,8987"
+                    },
+                    {
+                      "key": "whirlpoolConfigs",
+                      "value": "40,8893"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "synthetic_asset"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "nft"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) Whirlpool address"
+                    },
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Chain identifier for the API path (This can only be one of solana)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "solana",
+      "key": "chain"
+    },
+    {
+      "type": "string",
+      "value": "https://api.orca.so/v2/{{chain}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4deb11b8-5e23-480a-85a1-547fc31ddb3b",
+    "name": "Orca Public protocol whirlpools API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "A list of public endpoints for Orca protocol\n\nContact Support:\n Name: Orca Team\n Email: team@orca.so",
+      "type": "text/plain"
+    }
+  }
+}

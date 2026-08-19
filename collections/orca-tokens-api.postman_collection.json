@@ -1,0 +1,771 @@
+{
+  "item": [
+    {
+      "id": "6ca145ca-742d-48e0-a435-3cb03c0ee452",
+      "name": "tokens",
+      "description": {
+        "content": "Token information endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bef81bb3-947a-411d-bc06-389326870dce",
+          "name": "List tokens with pagination and filtering options",
+          "request": {
+            "name": "List tokens with pagination and filtering options",
+            "description": {
+              "content": "Returns a paginated list of tokens with optional filtering and sorting.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "next",
+                  "value": "<string>",
+                  "description": "Optional cursor for pagination (next)"
+                },
+                {
+                  "disabled": false,
+                  "key": "previous",
+                  "value": "<string>",
+                  "description": "Optional cursor for pagination (previous)"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "Maximum number of tokens to return (default: 50, max: 3000)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "<string>",
+                  "description": "Field to sort by (default: mint_id)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_direction",
+                  "value": "<string>",
+                  "description": "Sort direction (default: asc)"
+                },
+                {
+                  "disabled": false,
+                  "key": "tokens",
+                  "value": "<string>",
+                  "description": "Optional filter for specific token addresses"
+                },
+                {
+                  "disabled": false,
+                  "key": "categories",
+                  "value": "<string>",
+                  "description": "Asset categories to filter by (OR semantics). Accepts a comma-separated list\nof category names (e.g. `stablecoin,memecoin`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "categories",
+                  "value": "<string>",
+                  "description": "Asset categories to filter by (OR semantics). Accepts a comma-separated list\nof category names (e.g. `stablecoin,memecoin`)."
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Chain identifier for the API path (This can only be one of solana)",
+                  "type": "any",
+                  "value": "{{chain}}",
+                  "key": "chain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2f050ddc-61fc-47e5-ae6a-50b81f319c3e",
+              "name": "List of tokens retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "next",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "previous",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "volume_24h"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "stablecoin"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "liquid_staking_token"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"address\": \"So11111111111111111111111111111111111111112\",\n      \"mintAuthority\": \"9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM\",\n      \"supply\": 4893,\n      \"decimals\": 6,\n      \"isInitialized\": true,\n      \"freezeAuthority\": \"9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM\",\n      \"tokenProgram\": \"TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb\",\n      \"extensions\": \"{\\n      \\\"confidentialTransferFeeConfig\\\": {\\n        \\\"authority\\\": \\\"9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM\\\",\\n        \\\"harvestToMintEnabled\\\": true,\\n        \\\"withdrawWithheldAuthorityElgamalPubkey\\\": \\\"...\\\",\\n        \\\"withheldAmount\\\": \\\"...\\\"\\n      },\\n      \\\"confidentialTransferMint\\\": {\\n        \\\"auditorElgamalPubkey\\\": null,\\n        \\\"authority\\\": \\\"...\\\",\\n        \\\"autoApproveNewAccounts\\\": false\\n      },\\n      \\\"metadataPointer\\\": {\\n        \\\"authority\\\": \\\"...\\\",\\n        \\\"metadataAddress\\\": \\\"...\\\"\\n      },\\n      \\\"mintCloseAuthority\\\": {\\n        \\\"closeAuthority\\\": \\\"...\\\"\\n      },\\n      \\\"permanentDelegate\\\": {\\n        \\\"delegate\\\": \\\"...\\\"\\n      },\\n      \\\"tokenMetadata\\\": {\\n        \\\"additionalMetadata\\\": [],\\n        \\\"mint\\\": \\\"...\\\",\\n        \\\"name\\\": \\\"Name of Coin\\\",\\n        \\\"symbol\\\": \\\"Coin\\\",\\n        \\\"updateAuthority\\\": \\\"...\\\",\\n        \\\"uri\\\": \\\"https://example.com/image.json\\\"\\n      },\\n      \\\"transferFeeConfig\\\": {\\n        \\\"newerTransferFee\\\": {\\n          \\\"epoch\\\": 605,\\n          \\\"maximumFee\\\": 0,\\n          \\\"transferFeeBasisPoints\\\": 0\\n        },\\n        \\\"olderTransferFee\\\": {\\n          \\\"epoch\\\": 605,\\n          \\\"maximumFee\\\": 0,\\n          \\\"transferFeeBasisPoints\\\": 0\\n        },\\n        \\\"transferFeeConfigAuthority\\\": \\\"...\\\",\\n        \\\"withdrawWithheldAuthority\\\": \\\"...\\\",\\n        \\\"withheldAmount\\\": 0\\n      },\\n      \\\"transferHook\\\": {\\n        \\\"authority\\\": \\\"...\\\",\\n        \\\"programId\\\": null\\n      }\\n    }\",\n      \"tags\": \"[\\\"confidentialTransferFeeConfig\\\", \\\"confidentialTransferMint\\\", \\\"metadataPointer\\\", \\\"mintCloseAuthority\\\", \\\"permanentDelegate\\\", \\\"tokenMetadata\\\", \\\"transferFeeConfig\\\", \\\"transferHook\\\"]\",\n      \"updatedEpoch\": 784,\n      \"updatedAt\": \"2025-05-09T00:04:50.745163Z\",\n      \"priceUsdc\": 2180.6421189870293,\n      \"metadata\": \"{\\n      \\\"description\\\": \\\"Description about the token\\\",\\n      \\\"image\\\": \\\"https://example.com/image.png\\\",\\n      \\\"name\\\": \\\"Name of Token\\\",\\n      \\\"risk\\\": 2,\\n      \\\"symbol\\\": \\\"TKN\\\"\\n    }\",\n      \"stats\": \"{\\\"24h\\\": {\\\"volume\\\": 1197647.1678154785}}\"\n    },\n    {\n      \"address\": \"So11111111111111111111111111111111111111112\",\n      \"mintAuthority\": \"9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM\",\n      \"supply\": 3666,\n      \"decimals\": 6,\n      \"isInitialized\": true,\n      \"freezeAuthority\": \"9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM\",\n      \"tokenProgram\": \"TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb\",\n      \"extensions\": \"{\\n      \\\"confidentialTransferFeeConfig\\\": {\\n        \\\"authority\\\": \\\"9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM\\\",\\n        \\\"harvestToMintEnabled\\\": true,\\n        \\\"withdrawWithheldAuthorityElgamalPubkey\\\": \\\"...\\\",\\n        \\\"withheldAmount\\\": \\\"...\\\"\\n      },\\n      \\\"confidentialTransferMint\\\": {\\n        \\\"auditorElgamalPubkey\\\": null,\\n        \\\"authority\\\": \\\"...\\\",\\n        \\\"autoApproveNewAccounts\\\": false\\n      },\\n      \\\"metadataPointer\\\": {\\n        \\\"authority\\\": \\\"...\\\",\\n        \\\"metadataAddress\\\": \\\"...\\\"\\n      },\\n      \\\"mintCloseAuthority\\\": {\\n        \\\"closeAuthority\\\": \\\"...\\\"\\n      },\\n      \\\"permanentDelegate\\\": {\\n        \\\"delegate\\\": \\\"...\\\"\\n      },\\n      \\\"tokenMetadata\\\": {\\n        \\\"additionalMetadata\\\": [],\\n        \\\"mint\\\": \\\"...\\\",\\n        \\\"name\\\": \\\"Name of Coin\\\",\\n        \\\"symbol\\\": \\\"Coin\\\",\\n        \\\"updateAuthority\\\": \\\"...\\\",\\n        \\\"uri\\\": \\\"https://example.com/image.json\\\"\\n      },\\n      \\\"transferFeeConfig\\\": {\\n        \\\"newerTransferFee\\\": {\\n          \\\"epoch\\\": 605,\\n          \\\"maximumFee\\\": 0,\\n          \\\"transferFeeBasisPoints\\\": 0\\n        },\\n        \\\"olderTransferFee\\\": {\\n          \\\"epoch\\\": 605,\\n          \\\"maximumFee\\\": 0,\\n          \\\"transferFeeBasisPoints\\\": 0\\n        },\\n        \\\"transferFeeConfigAuthority\\\": \\\"...\\\",\\n        \\\"withdrawWithheldAuthority\\\": \\\"...\\\",\\n        \\\"withheldAmount\\\": 0\\n      },\\n      \\\"transferHook\\\": {\\n        \\\"authority\\\": \\\"...\\\",\\n        \\\"programId\\\": null\\n      }\\n    }\",\n      \"tags\": \"[\\\"confidentialTransferFeeConfig\\\", \\\"confidentialTransferMint\\\", \\\"metadataPointer\\\", \\\"mintCloseAuthority\\\", \\\"permanentDelegate\\\", \\\"tokenMetadata\\\", \\\"transferFeeConfig\\\", \\\"transferHook\\\"]\",\n      \"updatedEpoch\": 784,\n      \"updatedAt\": \"2025-05-09T00:04:50.745163Z\",\n      \"priceUsdc\": 1810.1373985091452,\n      \"metadata\": \"{\\n      \\\"description\\\": \\\"Description about the token\\\",\\n      \\\"image\\\": \\\"https://example.com/image.png\\\",\\n      \\\"name\\\": \\\"Name of Token\\\",\\n      \\\"risk\\\": 2,\\n      \\\"symbol\\\": \\\"TKN\\\"\\n    }\",\n      \"stats\": \"{\\\"24h\\\": {\\\"volume\\\": 1197647.1678154785}}\"\n    }\n  ],\n  \"meta\": {\n    \"next\": \"string\",\n    \"previous\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "532c0af4-d7b7-47b6-8031-08cdd214bfee",
+              "name": "Bad user parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "next",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "previous",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "volume_24h"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "stablecoin"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "liquid_staking_token"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f26c067f-6db6-4aaa-b82b-a1416aef17b1",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "next",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "previous",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "volume_24h"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "stablecoin"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "liquid_staking_token"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eaaa4ba2-a9a1-4e8b-9b02-2b98aa1da790",
+          "name": "Search for tokens by query string",
+          "request": {
+            "name": "Search for tokens by query string",
+            "description": {
+              "content": "Returns a list of tokens that match the query string.\nThe query string is matched against the token name, symbol, and address.\n\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tokens",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "Query text to search by"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Chain identifier for the API path (This can only be one of solana)",
+                  "type": "any",
+                  "value": "{{chain}}",
+                  "key": "chain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6e0ab21c-10b8-4451-880f-e2fd450f532c",
+              "name": "List of matching tokens retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokens",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"address\": \"So11111111111111111111111111111111111111112\",\n      \"mintAuthority\": \"9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM\",\n      \"supply\": 4893,\n      \"decimals\": 6,\n      \"isInitialized\": true,\n      \"freezeAuthority\": \"9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM\",\n      \"tokenProgram\": \"TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb\",\n      \"extensions\": \"{\\n      \\\"confidentialTransferFeeConfig\\\": {\\n        \\\"authority\\\": \\\"9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM\\\",\\n        \\\"harvestToMintEnabled\\\": true,\\n        \\\"withdrawWithheldAuthorityElgamalPubkey\\\": \\\"...\\\",\\n        \\\"withheldAmount\\\": \\\"...\\\"\\n      },\\n      \\\"confidentialTransferMint\\\": {\\n        \\\"auditorElgamalPubkey\\\": null,\\n        \\\"authority\\\": \\\"...\\\",\\n        \\\"autoApproveNewAccounts\\\": false\\n      },\\n      \\\"metadataPointer\\\": {\\n        \\\"authority\\\": \\\"...\\\",\\n        \\\"metadataAddress\\\": \\\"...\\\"\\n      },\\n      \\\"mintCloseAuthority\\\": {\\n        \\\"closeAuthority\\\": \\\"...\\\"\\n      },\\n      \\\"permanentDelegate\\\": {\\n        \\\"delegate\\\": \\\"...\\\"\\n      },\\n      \\\"tokenMetadata\\\": {\\n        \\\"additionalMetadata\\\": [],\\n        \\\"mint\\\": \\\"...\\\",\\n        \\\"name\\\": \\\"Name of Coin\\\",\\n        \\\"symbol\\\": \\\"Coin\\\",\\n        \\\"updateAuthority\\\": \\\"...\\\",\\n        \\\"uri\\\": \\\"https://example.com/image.json\\\"\\n      },\\n      \\\"transferFeeConfig\\\": {\\n        \\\"newerTransferFee\\\": {\\n          \\\"epoch\\\": 605,\\n          \\\"maximumFee\\\": 0,\\n          \\\"transferFeeBasisPoints\\\": 0\\n        },\\n        \\\"olderTransferFee\\\": {\\n          \\\"epoch\\\": 605,\\n          \\\"maximumFee\\\": 0,\\n          \\\"transferFeeBasisPoints\\\": 0\\n        },\\n        \\\"transferFeeConfigAuthority\\\": \\\"...\\\",\\n        \\\"withdrawWithheldAuthority\\\": \\\"...\\\",\\n        \\\"withheldAmount\\\": 0\\n      },\\n      \\\"transferHook\\\": {\\n        \\\"authority\\\": \\\"...\\\",\\n        \\\"programId\\\": null\\n      }\\n    }\",\n      \"tags\": \"[\\\"confidentialTransferFeeConfig\\\", \\\"confidentialTransferMint\\\", \\\"metadataPointer\\\", \\\"mintCloseAuthority\\\", \\\"permanentDelegate\\\", \\\"tokenMetadata\\\", \\\"transferFeeConfig\\\", \\\"transferHook\\\"]\",\n      \"updatedEpoch\": 784,\n      \"updatedAt\": \"2025-05-09T00:04:50.745163Z\",\n      \"priceUsdc\": 2180.6421189870293,\n      \"metadata\": \"{\\n      \\\"description\\\": \\\"Description about the token\\\",\\n      \\\"image\\\": \\\"https://example.com/image.png\\\",\\n      \\\"name\\\": \\\"Name of Token\\\",\\n      \\\"risk\\\": 2,\\n      \\\"symbol\\\": \\\"TKN\\\"\\n    }\",\n      \"stats\": \"{\\\"24h\\\": {\\\"volume\\\": 1197647.1678154785}}\"\n    },\n    {\n      \"address\": \"So11111111111111111111111111111111111111112\",\n      \"mintAuthority\": \"9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM\",\n      \"supply\": 3666,\n      \"decimals\": 6,\n      \"isInitialized\": true,\n      \"freezeAuthority\": \"9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM\",\n      \"tokenProgram\": \"TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb\",\n      \"extensions\": \"{\\n      \\\"confidentialTransferFeeConfig\\\": {\\n        \\\"authority\\\": \\\"9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM\\\",\\n        \\\"harvestToMintEnabled\\\": true,\\n        \\\"withdrawWithheldAuthorityElgamalPubkey\\\": \\\"...\\\",\\n        \\\"withheldAmount\\\": \\\"...\\\"\\n      },\\n      \\\"confidentialTransferMint\\\": {\\n        \\\"auditorElgamalPubkey\\\": null,\\n        \\\"authority\\\": \\\"...\\\",\\n        \\\"autoApproveNewAccounts\\\": false\\n      },\\n      \\\"metadataPointer\\\": {\\n        \\\"authority\\\": \\\"...\\\",\\n        \\\"metadataAddress\\\": \\\"...\\\"\\n      },\\n      \\\"mintCloseAuthority\\\": {\\n        \\\"closeAuthority\\\": \\\"...\\\"\\n      },\\n      \\\"permanentDelegate\\\": {\\n        \\\"delegate\\\": \\\"...\\\"\\n      },\\n      \\\"tokenMetadata\\\": {\\n        \\\"additionalMetadata\\\": [],\\n        \\\"mint\\\": \\\"...\\\",\\n        \\\"name\\\": \\\"Name of Coin\\\",\\n        \\\"symbol\\\": \\\"Coin\\\",\\n        \\\"updateAuthority\\\": \\\"...\\\",\\n        \\\"uri\\\": \\\"https://example.com/image.json\\\"\\n      },\\n      \\\"transferFeeConfig\\\": {\\n        \\\"newerTransferFee\\\": {\\n          \\\"epoch\\\": 605,\\n          \\\"maximumFee\\\": 0,\\n          \\\"transferFeeBasisPoints\\\": 0\\n        },\\n        \\\"olderTransferFee\\\": {\\n          \\\"epoch\\\": 605,\\n          \\\"maximumFee\\\": 0,\\n          \\\"transferFeeBasisPoints\\\": 0\\n        },\\n        \\\"transferFeeConfigAuthority\\\": \\\"...\\\",\\n        \\\"withdrawWithheldAuthority\\\": \\\"...\\\",\\n        \\\"withheldAmount\\\": 0\\n      },\\n      \\\"transferHook\\\": {\\n        \\\"authority\\\": \\\"...\\\",\\n        \\\"programId\\\": null\\n      }\\n    }\",\n      \"tags\": \"[\\\"confidentialTransferFeeConfig\\\", \\\"confidentialTransferMint\\\", \\\"metadataPointer\\\", \\\"mintCloseAuthority\\\", \\\"permanentDelegate\\\", \\\"tokenMetadata\\\", \\\"transferFeeConfig\\\", \\\"transferHook\\\"]\",\n      \"updatedEpoch\": 784,\n      \"updatedAt\": \"2025-05-09T00:04:50.745163Z\",\n      \"priceUsdc\": 1810.1373985091452,\n      \"metadata\": \"{\\n      \\\"description\\\": \\\"Description about the token\\\",\\n      \\\"image\\\": \\\"https://example.com/image.png\\\",\\n      \\\"name\\\": \\\"Name of Token\\\",\\n      \\\"risk\\\": 2,\\n      \\\"symbol\\\": \\\"TKN\\\"\\n    }\",\n      \"stats\": \"{\\\"24h\\\": {\\\"volume\\\": 1197647.1678154785}}\"\n    }\n  ],\n  \"meta\": {\n    \"next\": \"string\",\n    \"previous\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c468cf6-aa66-42e0-9e4c-7deffc3650f5",
+              "name": "Bad request - Invalid search parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokens",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"inner\": \"string\",\n  \"status\": 4493\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "196c9640-efc7-4ea8-8366-34a57a0f1b4f",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokens",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"inner\": \"string\",\n  \"status\": 4493\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e85bd17d-56d5-4f1d-9bb3-f9a11b34f846",
+          "name": "Get token details by mint address",
+          "request": {
+            "name": "Get token details by mint address",
+            "description": {
+              "content": "Returns detailed information for a specific token identified by its mint address.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tokens",
+                ":mint_address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "mint_address",
+                  "description": "(Required) Token mint address"
+                },
+                {
+                  "description": "Chain identifier for the API path (This can only be one of solana)",
+                  "type": "any",
+                  "value": "{{chain}}",
+                  "key": "chain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a1452307-2ef7-4043-88af-d66ed022fff0",
+              "name": "Token details retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokens",
+                    ":mint_address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mint_address",
+                      "description": "(Required) Token mint address"
+                    },
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"address\": \"So11111111111111111111111111111111111111112\",\n    \"mintAuthority\": \"9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM\",\n    \"supply\": 8981,\n    \"decimals\": 6,\n    \"isInitialized\": true,\n    \"freezeAuthority\": \"9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM\",\n    \"tokenProgram\": \"TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb\",\n    \"extensions\": \"{\\n      \\\"confidentialTransferFeeConfig\\\": {\\n        \\\"authority\\\": \\\"9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM\\\",\\n        \\\"harvestToMintEnabled\\\": true,\\n        \\\"withdrawWithheldAuthorityElgamalPubkey\\\": \\\"...\\\",\\n        \\\"withheldAmount\\\": \\\"...\\\"\\n      },\\n      \\\"confidentialTransferMint\\\": {\\n        \\\"auditorElgamalPubkey\\\": null,\\n        \\\"authority\\\": \\\"...\\\",\\n        \\\"autoApproveNewAccounts\\\": false\\n      },\\n      \\\"metadataPointer\\\": {\\n        \\\"authority\\\": \\\"...\\\",\\n        \\\"metadataAddress\\\": \\\"...\\\"\\n      },\\n      \\\"mintCloseAuthority\\\": {\\n        \\\"closeAuthority\\\": \\\"...\\\"\\n      },\\n      \\\"permanentDelegate\\\": {\\n        \\\"delegate\\\": \\\"...\\\"\\n      },\\n      \\\"tokenMetadata\\\": {\\n        \\\"additionalMetadata\\\": [],\\n        \\\"mint\\\": \\\"...\\\",\\n        \\\"name\\\": \\\"Name of Coin\\\",\\n        \\\"symbol\\\": \\\"Coin\\\",\\n        \\\"updateAuthority\\\": \\\"...\\\",\\n        \\\"uri\\\": \\\"https://example.com/image.json\\\"\\n      },\\n      \\\"transferFeeConfig\\\": {\\n        \\\"newerTransferFee\\\": {\\n          \\\"epoch\\\": 605,\\n          \\\"maximumFee\\\": 0,\\n          \\\"transferFeeBasisPoints\\\": 0\\n        },\\n        \\\"olderTransferFee\\\": {\\n          \\\"epoch\\\": 605,\\n          \\\"maximumFee\\\": 0,\\n          \\\"transferFeeBasisPoints\\\": 0\\n        },\\n        \\\"transferFeeConfigAuthority\\\": \\\"...\\\",\\n        \\\"withdrawWithheldAuthority\\\": \\\"...\\\",\\n        \\\"withheldAmount\\\": 0\\n      },\\n      \\\"transferHook\\\": {\\n        \\\"authority\\\": \\\"...\\\",\\n        \\\"programId\\\": null\\n      }\\n    }\",\n    \"tags\": \"[\\\"confidentialTransferFeeConfig\\\", \\\"confidentialTransferMint\\\", \\\"metadataPointer\\\", \\\"mintCloseAuthority\\\", \\\"permanentDelegate\\\", \\\"tokenMetadata\\\", \\\"transferFeeConfig\\\", \\\"transferHook\\\"]\",\n    \"updatedEpoch\": 784,\n    \"updatedAt\": \"2025-05-09T00:04:50.745163Z\",\n    \"priceUsdc\": 6685.497782468493,\n    \"metadata\": \"{\\n      \\\"description\\\": \\\"Description about the token\\\",\\n      \\\"image\\\": \\\"https://example.com/image.png\\\",\\n      \\\"name\\\": \\\"Name of Token\\\",\\n      \\\"risk\\\": 2,\\n      \\\"symbol\\\": \\\"TKN\\\"\\n    }\",\n    \"stats\": \"{\\\"24h\\\": {\\\"volume\\\": 1197647.1678154785}}\"\n  },\n  \"meta\": {\n    \"next\": \"string\",\n    \"previous\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b262176b-7730-41b8-abc6-5424fc5a943e",
+              "name": "Invalid mint address format",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokens",
+                    ":mint_address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mint_address",
+                      "description": "(Required) Token mint address"
+                    },
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cb28d2b1-578f-4059-8953-2d0994378ab3",
+              "name": "Token not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokens",
+                    ":mint_address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mint_address",
+                      "description": "(Required) Token mint address"
+                    },
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a14574bb-bb51-4c95-879f-ccc78ad9d252",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokens",
+                    ":mint_address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mint_address",
+                      "description": "(Required) Token mint address"
+                    },
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Chain identifier for the API path (This can only be one of solana)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "solana",
+      "key": "chain"
+    },
+    {
+      "type": "string",
+      "value": "https://api.orca.so/v2/{{chain}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "d94570e6-852d-436e-ae5e-0087076379ad",
+    "name": "Orca Public protocol tokens API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "A list of public endpoints for Orca protocol\n\nContact Support:\n Name: Orca Team\n Email: team@orca.so",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Orca Public protocol tokens API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "tokens",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List tokens with pagination and filtering options",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.orca.so/v2/{chain}/tokens",
+            "params": [
+              {
+                "name": "next",
+                "value": "",
+                "type": "query",
+                "description": "Optional cursor for pagination (next)"
+              },
+              {
+                "name": "previous",
+                "value": "",
+                "type": "query",
+                "description": "Optional cursor for pagination (previous)"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of tokens to return (default: 50, max: 3000)"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by (default: mint_id)"
+              },
+              {
+                "name": "sort_direction",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction (default: asc)"
+              },
+              {
+                "name": "tokens",
+                "value": "",
+                "type": "query",
+                "description": "Optional filter for specific token addresses"
+              },
+              {
+                "name": "categories",
+                "value": "",
+                "type": "query",
+                "description": "Asset categories to filter by (OR semantics). Accepts a comma-separated list\nof category names (e.g. `stablecoin,memecoin`)."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of tokens with optional filtering and sorting."
+        },
+        {
+          "info": {
+            "name": "Search for tokens by query string",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.orca.so/v2/{chain}/tokens/search",
+            "params": [
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Query text to search by"
+              }
+            ]
+          },
+          "docs": "Returns a list of tokens that match the query string.\nThe query string is matched against the token name, symbol, and address.\n\n"
+        },
+        {
+          "info": {
+            "name": "Get token details by mint address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.orca.so/v2/{chain}/tokens/:mint_address",
+            "params": [
+              {
+                "name": "mint_address",
+                "value": "",
+                "type": "path",
+                "description": "Token mint address"
+              }
+            ]
+          },
+          "docs": "Returns detailed information for a specific token identified by its mint address."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

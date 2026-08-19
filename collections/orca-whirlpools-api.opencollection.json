@@ -1,0 +1,406 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Orca Public protocol whirlpools API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "whirlpools",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get locked liquidity for a given whirlpool",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.orca.so/v2/{chain}/lock/:address",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The Solana account address of the whirlpool."
+              }
+            ]
+          },
+          "docs": "This endpoint returns the locked liquidity for a given whirlpool."
+        },
+        {
+          "info": {
+            "name": "List whirlpools with optional filtering and pagination",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.orca.so/v2/{chain}/pools",
+            "params": [
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort whirlpools by"
+              },
+              {
+                "name": "sortDirection",
+                "value": "",
+                "type": "query",
+                "description": "Direction to sort whirlpools in"
+              },
+              {
+                "name": "next",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to start the next page of results"
+              },
+              {
+                "name": "previous",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to start the previous page of results"
+              },
+              {
+                "name": "hasRewards",
+                "value": "",
+                "type": "query",
+                "description": "Filter whirlpools that must have rewards"
+              },
+              {
+                "name": "hasWarning",
+                "value": "",
+                "type": "query",
+                "description": "Filter whirlpools that must have a warning"
+              },
+              {
+                "name": "hasAdaptiveFee",
+                "value": "",
+                "type": "query",
+                "description": "Whether a whirlpool must be using adaptive fee"
+              },
+              {
+                "name": "isWavebreak",
+                "value": "",
+                "type": "query",
+                "description": "Whether a whirlpool must have graduated from wavebreak"
+              },
+              {
+                "name": "minTvl",
+                "value": "",
+                "type": "query",
+                "description": "Minimum TVL of a whirlpool in USDC"
+              },
+              {
+                "name": "minVolume",
+                "value": "",
+                "type": "query",
+                "description": "Minimum volume of a whirlpool in USDC"
+              },
+              {
+                "name": "minLockedLiquidityPercent",
+                "value": "",
+                "type": "query",
+                "description": "Minimum locked liquidity percentage of a whirlpool"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Filter whirlpools containing this token"
+              },
+              {
+                "name": "tokensBothOf",
+                "value": "",
+                "type": "query",
+                "description": "Filter whirlpools containing both specified tokens"
+              },
+              {
+                "name": "addresses",
+                "value": "",
+                "type": "query",
+                "description": "Filter whirlpools with these addresses"
+              },
+              {
+                "name": "stats",
+                "value": "",
+                "type": "query",
+                "description": "Filter whirlpools with stats for these time periods"
+              },
+              {
+                "name": "includeBlocked",
+                "value": "",
+                "type": "query",
+                "description": "Include blocked whirlpools if true"
+              },
+              {
+                "name": "pairInsightsWindow",
+                "value": "",
+                "type": "query",
+                "description": "Pair-insights windows to include. Accepts a single window or a\ncomma-separated list. Pair metrics and token price trend arrays are\nreturned per-window in the response."
+              },
+              {
+                "name": "whirlpoolConfigs",
+                "value": "",
+                "type": "query",
+                "description": "Whirlpool configs to filter by. An empty list returns pools from all configs."
+              },
+              {
+                "name": "categories",
+                "value": "",
+                "type": "query",
+                "description": "Asset categories to filter by (pools where at least one token matches). Accepts a\ncomma-separated list of category names (e.g. `stablecoin,memecoin`)."
+              }
+            ]
+          },
+          "docs": "List whirlpools with optional filtering and pagination"
+        },
+        {
+          "info": {
+            "name": "Search for whirlpools by token symbols or address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.orca.so/v2/{chain}/pools/search",
+            "params": [
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Query text to search by"
+              },
+              {
+                "name": "next",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to start the next page of results"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return"
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              },
+              {
+                "name": "sortDirection",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction"
+              },
+              {
+                "name": "minTvl",
+                "value": "",
+                "type": "query",
+                "description": "Minimum TVL of a whirlpool in USDC"
+              },
+              {
+                "name": "minVolume",
+                "value": "",
+                "type": "query",
+                "description": "Minimum volume of a whirlpool in USDC"
+              },
+              {
+                "name": "stats",
+                "value": "",
+                "type": "query",
+                "description": "Filter whirlpools with stats for these time periods"
+              },
+              {
+                "name": "userTokens",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of token addresses owned by the user"
+              },
+              {
+                "name": "hasRewards",
+                "value": "",
+                "type": "query",
+                "description": "Filter for pools with rewards"
+              },
+              {
+                "name": "verifiedOnly",
+                "value": "",
+                "type": "query",
+                "description": "Filter for pools with verified tokens"
+              },
+              {
+                "name": "hasLockedLiquidity",
+                "value": "",
+                "type": "query",
+                "description": "Filter for pools with locked liquidity"
+              },
+              {
+                "name": "whirlpoolConfigs",
+                "value": "",
+                "type": "query",
+                "description": "Whirlpool configs to filter by. An empty list returns pools from all configs."
+              },
+              {
+                "name": "categories",
+                "value": "",
+                "type": "query",
+                "description": "Asset categories to filter by (pools where at least one token matches). Accepts a\ncomma-separated list of category names (e.g. `stablecoin,memecoin`)."
+              }
+            ]
+          },
+          "docs": "This endpoint allows searching for whirlpools by:\n- Token symbols (e.g., \"SOL USDC\" to find pools with both tokens)\n- Single token symbol (e.g., \"SOL\" to find all pools containing SOL)\n- Whirlpool address (single address exact match)\n\nThe search is case-insensitive and supports partial matching for token symbols."
+        },
+        {
+          "info": {
+            "name": "Get whirlpool data by address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.orca.so/v2/{chain}/pools/:address",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "Whirlpool address"
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort whirlpools by"
+              },
+              {
+                "name": "sortDirection",
+                "value": "",
+                "type": "query",
+                "description": "Direction to sort whirlpools in"
+              },
+              {
+                "name": "next",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to start the next page of results"
+              },
+              {
+                "name": "previous",
+                "value": "",
+                "type": "query",
+                "description": "Cursor to start the previous page of results"
+              },
+              {
+                "name": "hasRewards",
+                "value": "",
+                "type": "query",
+                "description": "Filter whirlpools that must have rewards"
+              },
+              {
+                "name": "hasWarning",
+                "value": "",
+                "type": "query",
+                "description": "Filter whirlpools that must have a warning"
+              },
+              {
+                "name": "hasAdaptiveFee",
+                "value": "",
+                "type": "query",
+                "description": "Whether a whirlpool must be using adaptive fee"
+              },
+              {
+                "name": "isWavebreak",
+                "value": "",
+                "type": "query",
+                "description": "Whether a whirlpool must have graduated from wavebreak"
+              },
+              {
+                "name": "minTvl",
+                "value": "",
+                "type": "query",
+                "description": "Minimum TVL of a whirlpool in USDC"
+              },
+              {
+                "name": "minVolume",
+                "value": "",
+                "type": "query",
+                "description": "Minimum volume of a whirlpool in USDC"
+              },
+              {
+                "name": "minLockedLiquidityPercent",
+                "value": "",
+                "type": "query",
+                "description": "Minimum locked liquidity percentage of a whirlpool"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Filter whirlpools containing this token"
+              },
+              {
+                "name": "tokensBothOf",
+                "value": "",
+                "type": "query",
+                "description": "Filter whirlpools containing both specified tokens"
+              },
+              {
+                "name": "addresses",
+                "value": "",
+                "type": "query",
+                "description": "Filter whirlpools with these addresses"
+              },
+              {
+                "name": "stats",
+                "value": "",
+                "type": "query",
+                "description": "Filter whirlpools with stats for these time periods"
+              },
+              {
+                "name": "includeBlocked",
+                "value": "",
+                "type": "query",
+                "description": "Include blocked whirlpools if true"
+              },
+              {
+                "name": "pairInsightsWindow",
+                "value": "",
+                "type": "query",
+                "description": "Pair-insights windows to include. Accepts a single window or a\ncomma-separated list. Pair metrics and token price trend arrays are\nreturned per-window in the response."
+              },
+              {
+                "name": "whirlpoolConfigs",
+                "value": "",
+                "type": "query",
+                "description": "Whirlpool configs to filter by. An empty list returns pools from all configs."
+              },
+              {
+                "name": "categories",
+                "value": "",
+                "type": "query",
+                "description": "Asset categories to filter by (pools where at least one token matches). Accepts a\ncomma-separated list of category names (e.g. `stablecoin,memecoin`)."
+              }
+            ]
+          },
+          "docs": "Get whirlpool data by address"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

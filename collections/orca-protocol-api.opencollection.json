@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Orca Public protocol API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "protocol",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Recent protocol stats for the Orca",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.orca.so/v2/{chain}/protocol"
+          },
+          "docs": "This endpoint returns general information about the Orca protocol including:\n- Total Value Locked (TVL) in USDC\n- 24-hour trading volume in USDC\n- 24-hour fees collected in USDC\n- 24-hour protocol revenue in USDC"
+        },
+        {
+          "info": {
+            "name": "Information about the Orca token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.orca.so/v2/{chain}/protocol/token"
+          },
+          "docs": "This endpoint returns detailed information about the Orca token, including:\n- Token symbol, name, and description\n- Token image URL\n- Current price in USDC\n- Circulating and total supply\n- 24-hour trading volume statistics\n\nThe circulating supply is calculated as the total supply minus tokens held in excluded addresses\n(treasury, grants, etc.). The data is cached to reduce RPC and database load."
+        },
+        {
+          "info": {
+            "name": "Circulating supply of the Orca protocol's token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.orca.so/v2/{chain}/protocol/token/circulating_supply"
+          },
+          "docs": "This endpoint returns the circulating supply of the protocol's token.\nThe circulating supply is calculated as the total supply minus the tokens\nheld in excluded addresses (treasury, grants, etc.)."
+        },
+        {
+          "info": {
+            "name": "Total supply of the Orca token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.orca.so/v2/{chain}/protocol/token/total_supply"
+          },
+          "docs": "This endpoint returns the total supply of the protocol's token.\nThe total supply represents all tokens that have been minted, including those\nheld in excluded addresses (treasury, grants, etc.).\n\nThe response is adjusted for token decimals (6 decimal places) and rounded up\nto the nearest whole number."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

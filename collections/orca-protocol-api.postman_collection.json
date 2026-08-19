@@ -1,0 +1,560 @@
+{
+  "item": [
+    {
+      "id": "b1cef1b0-e2af-4c09-9854-ff857cb6e199",
+      "name": "protocol",
+      "description": {
+        "content": "Orca protocol information endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0263c31b-ec1d-43fd-aac8-b9b3c8be42ce",
+          "name": "Recent protocol stats for the Orca",
+          "request": {
+            "name": "Recent protocol stats for the Orca",
+            "description": {
+              "content": "This endpoint returns general information about the Orca protocol including:\n- Total Value Locked (TVL) in USDC\n- 24-hour trading volume in USDC\n- 24-hour fees collected in USDC\n- 24-hour protocol revenue in USDC",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "protocol"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Chain identifier for the API path (This can only be one of solana)",
+                  "type": "any",
+                  "value": "{{chain}}",
+                  "key": "chain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "be85cdc3-87a7-4f9a-914b-7e92202f3cb0",
+              "name": "Protocol information retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "protocol"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"volume24hUsdc\": \"552567794.7830\",\n  \"fees24hUsdc\": \"317428.0521046\",\n  \"revenue24hUsdc\": \"41265.646773\",\n  \"tvl\": \"230551269.0085\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "72dc2674-7399-424a-a71e-b2639ddf97b4",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "protocol"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"inner\": \"string\",\n  \"status\": 8138\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "572a34aa-322d-4cbd-ba48-708c62897f2f",
+          "name": "Information about the Orca token",
+          "request": {
+            "name": "Information about the Orca token",
+            "description": {
+              "content": "This endpoint returns detailed information about the Orca token, including:\n- Token symbol, name, and description\n- Token image URL\n- Current price in USDC\n- Circulating and total supply\n- 24-hour trading volume statistics\n\nThe circulating supply is calculated as the total supply minus tokens held in excluded addresses\n(treasury, grants, etc.). The data is cached to reduce RPC and database load.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "protocol",
+                "token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Chain identifier for the API path (This can only be one of solana)",
+                  "type": "any",
+                  "value": "{{chain}}",
+                  "key": "chain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "27c63e89-36ac-4744-aa8a-a0f2d60a2977",
+              "name": "Token information retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "protocol",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"symbol\": \"ORCA\",\n  \"name\": \"Orca\",\n  \"description\": \"Orca Token\",\n  \"imageUrl\": \"https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/orcaEKTdK7LKz57vaAYr9QeNsVEPfiu6QeMU1kektZE/logo.png\",\n  \"price\": \"1.6767140\",\n  \"circulatingSupply\": \"53275182.419413\",\n  \"totalSupply\": \"99999712.243267\",\n  \"stats\": {\n    \"24h\": {\n      \"volume\": \"594947.6898176792\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8143e458-4a14-48e5-bf1a-f14b3555849c",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "protocol",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"inner\": \"string\",\n  \"status\": 8138\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f0b80af1-b960-469a-a17f-99d7b8550034",
+          "name": "Circulating supply of the Orca protocol's token",
+          "request": {
+            "name": "Circulating supply of the Orca protocol's token",
+            "description": {
+              "content": "This endpoint returns the circulating supply of the protocol's token.\nThe circulating supply is calculated as the total supply minus the tokens\nheld in excluded addresses (treasury, grants, etc.).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "protocol",
+                "token",
+                "circulating_supply"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Chain identifier for the API path (This can only be one of solana)",
+                  "type": "any",
+                  "value": "{{chain}}",
+                  "key": "chain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "26f7e04c-51c9-4449-81b5-5973e20182a5",
+              "name": "Circulating supply retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "protocol",
+                    "token",
+                    "circulating_supply"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"circulating_supply\": \"53275183\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a7cb9142-4975-4dfb-b7be-7e2bf194fc24",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "protocol",
+                    "token",
+                    "circulating_supply"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"inner\": \"string\",\n  \"status\": 8138\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5d627885-bc34-43f9-98a3-dacde72dd046",
+          "name": "Total supply of the Orca token",
+          "request": {
+            "name": "Total supply of the Orca token",
+            "description": {
+              "content": "This endpoint returns the total supply of the protocol's token.\nThe total supply represents all tokens that have been minted, including those\nheld in excluded addresses (treasury, grants, etc.).\n\nThe response is adjusted for token decimals (6 decimal places) and rounded up\nto the nearest whole number.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "protocol",
+                "token",
+                "total_supply"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Chain identifier for the API path (This can only be one of solana)",
+                  "type": "any",
+                  "value": "{{chain}}",
+                  "key": "chain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d5fa2c7b-42ff-458b-bacf-f9c0d0eb21b1",
+              "name": "Total supply retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "protocol",
+                    "token",
+                    "total_supply"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_supply\": \"99999713\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "40fa033b-6cb3-4a42-bb32-a11e64382d71",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "protocol",
+                    "token",
+                    "total_supply"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Chain identifier for the API path (This can only be one of solana)",
+                      "type": "any",
+                      "value": "{{chain}}",
+                      "key": "chain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"inner\": \"string\",\n  \"status\": 8138\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Chain identifier for the API path (This can only be one of solana)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "solana",
+      "key": "chain"
+    },
+    {
+      "type": "string",
+      "value": "https://api.orca.so/v2/{{chain}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "dafb103b-c0b2-4ac1-8603-a2cab6f9a9b8",
+    "name": "Orca Public protocol API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "A list of public endpoints for Orca protocol\n\nContact Support:\n Name: Orca Team\n Email: team@orca.so",
+      "type": "text/plain"
+    }
+  }
+}
