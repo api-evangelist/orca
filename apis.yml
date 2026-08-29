@@ -9,6 +9,17 @@ description: >-
   Whirlpools SDKs (TypeScript, Rust, and a Python option) and the read-only Orca
   Public REST API (api.orca.so) for pool, token, lock, and protocol-wide data.
 url: https://raw.githubusercontent.com/api-evangelist/orca/refs/heads/main/apis.yml
+deliveryModel:
+  model: unknown
+  open_source: false
+  commercial: false
+  callable_host: true
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: unknown
