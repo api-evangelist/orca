@@ -60,7 +60,7 @@ apis:
   humanURL: https://docs.orca.so/api-reference/overview
   baseURL: https://api.orca.so/v2/solana
   tags:
-  - Protocol
+  - protocol
   tags_raw:
   - protocol
   properties:
