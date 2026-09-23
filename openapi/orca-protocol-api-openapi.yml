@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Orca Public protocol API
+  title: Orca Public Protocol API
   description: A list of public endpoints for Orca protocol
   contact:
     name: Orca Team
@@ -18,13 +18,13 @@ servers:
       enum:
       - solana
 tags:
-- name: protocol
+- name: Protocol
   description: Orca protocol information endpoints
 paths:
   /protocol:
     get:
       tags:
-      - protocol
+      - Protocol
       summary: Recent protocol stats for the Orca
       description: 'This endpoint returns general information about the Orca protocol including:
 
@@ -52,7 +52,7 @@ paths:
   /protocol/token:
     get:
       tags:
-      - protocol
+      - Protocol
       summary: Information about the Orca token
       description: 'This endpoint returns detailed information about the Orca token, including:
 
@@ -87,7 +87,7 @@ paths:
   /protocol/token/circulating_supply:
     get:
       tags:
-      - protocol
+      - Protocol
       summary: Circulating supply of the Orca protocol's token
       description: 'This endpoint returns the circulating supply of the protocol''s token.
 
@@ -111,7 +111,7 @@ paths:
   /protocol/token/total_supply:
     get:
       tags:
-      - protocol
+      - Protocol
       summary: Total supply of the Orca token
       description: 'This endpoint returns the total supply of the protocol''s token.
 
@@ -139,16 +139,16 @@ paths:
                 $ref: '#/components/schemas/AppError'
 components:
   schemas:
-    TotalSupplyResponse:
+    CirculatingSupplyResponse:
       type: object
-      description: Total supply for the Orca token
+      description: Circulating supply response
       required:
-      - total_supply
+      - circulating_supply
       properties:
-        total_supply:
+        circulating_supply:
           type: string
-          description: Total supply for the Orca token
-          example: '99999713'
+          description: Circulating supply for the Orca token
+          example: '53275183'
     ProtocolInfoOrcaToken:
       type: object
       description: Detailed information about the protocol's token
@@ -196,25 +196,6 @@ components:
           format: float
           description: Total token supply
           example: '99999712.243267'
-    CirculatingSupplyResponse:
-      type: object
-      description: Circulating supply response
-      required:
-      - circulating_supply
-      properties:
-        circulating_supply:
-          type: string
-          description: Circulating supply for the Orca token
-          example: '53275183'
-    ProtocolInfoOrcaTokenStats:
-      type: object
-      description: Statistics for the protocol's token
-      required:
-      - 24h
-      properties:
-        24h:
-          $ref: '#/components/schemas/ProtocolInfoOrcaTokenStatsData'
-          description: 24-hour statistics
     ProtocolInfoOrcaTokenStatsData:
       type: object
       description: Daily statistics data for the protocol's token
@@ -226,21 +207,6 @@ components:
           format: float
           description: 24-hour trading volume in USD
           example: '594947.6898176792'
-    AppError:
-      type: object
-      description: Application error returned by API endpoints
-      required:
-      - inner
-      - status
-      properties:
-        inner:
-          type: string
-          description: The underlying error
-        status:
-          type: integer
-          format: int32
-          description: HTTP status code
-          minimum: 0
     ProtocolInfo:
       type: object
       description: Protocol information including TVL, volume, fees, and revenue
@@ -270,3 +236,37 @@ components:
           format: float
           description: 24-hour volume in USDC
           example: '552567794.7830'
+    AppError:
+      type: object
+      description: Application error returned by API endpoints
+      required:
+      - inner
+      - status
+      properties:
+        inner:
+          type: string
+          description: The underlying error
+        status:
+          type: integer
+          format: int32
+          description: HTTP status code
+          minimum: 0
+    ProtocolInfoOrcaTokenStats:
+      type: object
+      description: Statistics for the protocol's token
+      required:
+      - 24h
+      properties:
+        24h:
+          $ref: '#/components/schemas/ProtocolInfoOrcaTokenStatsData'
+          description: 24-hour statistics
+    TotalSupplyResponse:
+      type: object
+      description: Total supply for the Orca token
+      required:
+      - total_supply
+      properties:
+        total_supply:
+          type: string
+          description: Total supply for the Orca token
+          example: '99999713'
