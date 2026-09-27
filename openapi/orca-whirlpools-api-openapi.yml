@@ -500,40 +500,187 @@ paths:
           description: Internal server error
 components:
   schemas:
-    AdaptiveFeeVariables:
+    Whirlpool:
       type: object
+      description: A concentrated liquidity pool belonging to the Whirlpools program
       required:
-      - lastReferenceUpdateTimestamp
-      - lastMajorSwapTimestamp
-      - volatilityReference
-      - tickGroupIndexReference
-      - volatilityAccumulator
+      - address
+      - whirlpoolsConfig
+      - whirlpoolBump
+      - tickSpacing
+      - tickSpacingSeed
+      - feeRate
+      - protocolFeeRate
+      - liquidity
+      - sqrtPrice
+      - tickCurrentIndex
+      - protocolFeeOwedA
+      - protocolFeeOwedB
+      - tokenMintA
+      - tokenVaultA
+      - feeGrowthGlobalA
+      - tokenMintB
+      - tokenVaultB
+      - feeGrowthGlobalB
+      - rewardLastUpdatedTimestamp
+      - updatedAt
+      - updatedSlot
+      - writeVersion
       properties:
-        lastMajorSwapTimestamp:
+        address:
           type: string
-          format: date-time
-        lastReferenceUpdateTimestamp:
+          description: Account address
+          example: Czfq3xZZDmsdGdUyrNLtRhGc47cXcZtLG4crryfu44zE
+        feeGrowthGlobalA:
           type: string
-          format: date-time
-        tickGroupIndexReference:
+          description: Fee growth global for token A
+          example: '9554655121161208077'
+        feeGrowthGlobalB:
+          type: string
+          description: Fee growth global for token B
+          example: '1228285739014669796'
+        feeRate:
           type: integer
           format: int32
-        volatilityAccumulator:
-          type: integer
-          format: int32
+          description: 'Stored as hundredths of a basis point
+
+            u16::MAX corresponds to ~6.5%'
+          example: 400
           minimum: 0
-        volatilityReference:
+        liquidity:
+          type: string
+          description: Liquidity value for the pool
+          example: '748079040958583'
+        protocolFeeOwedA:
+          type: string
+          description: Protocol fees owed for token A
+          example: '167818699'
+        protocolFeeOwedB:
+          type: string
+          description: Protocol fees owed for token B
+          example: '13808875'
+        protocolFeeRate:
           type: integer
           format: int32
+          description: Portion of fee rate taken stored as basis points
+          example: 1300
           minimum: 0
-      additionalProperties: false
-    Pubkey:
-      type: array
-      items:
-        type: integer
-        format: int32
-        minimum: 0
-      description: A Solana pubkey
+        rewardLastUpdatedTimestamp:
+          type: string
+          description: Last time rewards were updated
+          example: '2025-05-09T03:40:08Z'
+        sqrtPrice:
+          type: string
+          description: MAX/MIN at Q32.64, but using Q64.64 for rounder bytes
+          example: '7428739679004743247'
+        tickCurrentIndex:
+          type: integer
+          format: int32
+          description: Current tick index
+          example: -18192
+        tickSpacing:
+          type: integer
+          format: int32
+          description: The desired tick spacing for the pool
+          example: 4
+          minimum: 0
+        tickSpacingSeed:
+          type: string
+          description: Seed for the pool's tick spacing -- fee_tier_index_seed
+          example: '[4, 0]'
+        tokenMintA:
+          type: string
+          description: Token A mint address
+          example: So11111111111111111111111111111111111111112
+        tokenMintB:
+          type: string
+          description: Token B mint address
+          example: EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
+        tokenVaultA:
+          $ref: '#/components/schemas/Pubkey'
+          description: Token A vault address
+        tokenVaultB:
+          type: string
+          description: Token B vault address
+          example: 2WLWEuKDgkDUccTpbwYp1GToYktiSB1cXvreHUwiSUVP
+        updatedAt:
+          type: string
+          description: Last time the pool was updated
+          example: '2025-05-09T03:40:22.210625Z'
+        updatedSlot:
+          type: integer
+          format: int64
+          description: Slot when the pool was last updated
+          example: 338786229
+        whirlpoolBump:
+          type: string
+          description: The bump value when deriving the PDA of the Whirlpool address
+          example: '[255]'
+        whirlpoolsConfig:
+          type: string
+          description: WhirlpoolsConfig account address
+          example: 2LecshUwdy9xi7meFgHtFJQNSKk4KdTrcpvaB56dP2NQ
+        writeVersion:
+          type: string
+          description: Write version for optimistic concurrency control
+          example: '1459165811157'
+    WhirlpoolRewardInfoExtDb:
+      type: object
+      description: 'The actual reward info returned by the db, retaining snake-case field names
+
+
+        Note that we can''t make use of `#[serde(flatten)]` here because of some underlying bugs in
+
+        how serde handles `rename_all` for flattened struct fields.
+
+
+        Also note that we use [`String`] for the [`Pubkey`] types since the only use for this
+
+        struct is to serialize it to a string anyway, so better to take what the db gives us
+
+        directly for performance reasons'
+      required:
+      - mint
+      - vault
+      - authority
+      - emissions_per_second_x64
+      - growth_global_x64
+      properties:
+        authority:
+          type: string
+        emissions_per_second_x64:
+          type: string
+        growth_global_x64:
+          type: string
+        mint:
+          type: string
+        vault:
+          type: string
+    AssetCategory:
+      type: string
+      enum:
+      - ai
+      - governance
+      - utility
+      - stablecoin
+      - liquid_staking_token
+      - memecoin
+      - currency
+      - security
+      - nft
+      - wrapped_token
+      - bridged_token
+      - restaked_token
+      - synthetic_asset
+      - digital_reward_asset
+      - yield_bearing
+    PairCategory:
+      type: string
+      enum:
+      - volatile_volatile
+      - stable_volatile
+      - stable_stable
+      - unknown
     UtoipaCursorMeta:
       type: object
       properties:
@@ -545,6 +692,12 @@ components:
           type:
           - string
           - 'null'
+    SortDirection:
+      type: string
+      description: Direction to sort results
+      enum:
+      - asc
+      - desc
     PublicToken:
       type: object
       description: Token information for a whirlpool
@@ -590,160 +743,27 @@ components:
           type: string
           description: Token extensions tags
           example: '["confidentialTransferFeeConfig", "confidentialTransferMint", "metadataPointer", "mintCloseAuthority", "permanentDelegate", "tokenMetadata", "transferFeeConfig", "transferHook"]'
-    TimePeriod:
-      type: string
-      description: Time period for the whirlpool stats
-      enum:
-      - 5m
-      - 15m
-      - 30m
-      - 1h
-      - 2h
-      - 4h
-      - 8h
-      - 24h
-      - 7d
-      - 30d
-    Decimal:
-      type: string
-      format: float
-    WhirlpoolRewardInfoExt:
-      allOf:
-      - $ref: '#/components/schemas/WhirlpoolRewardInfoExtDb'
-      - type: object
-        required:
-        - active
-        - emissionsPerSecond
-        properties:
-          active:
-            type: boolean
-            description: Whether the reward is active
-            example: false
-          emissionsPerSecond:
-            type: string
-            format: float
-            description: Emissions per second
-            example: '0'
-      description: Reward information for a whirlpool
-    WhirlpoolRewardInfoExtDb:
+    AdaptiveFee:
       type: object
-      description: 'The actual reward info returned by the db, retaining snake-case field names
-
-
-        Note that we can''t make use of `#[serde(flatten)]` here because of some underlying bugs in
-
-        how serde handles `rename_all` for flattened struct fields.
-
-
-        Also note that we use [`String`] for the [`Pubkey`] types since the only use for this
-
-        struct is to serialize it to a string anyway, so better to take what the db gives us
-
-        directly for performance reasons'
       required:
-      - mint
-      - vault
-      - authority
-      - emissions_per_second_x64
-      - growth_global_x64
+      - currentRate
+      - maxRate
+      - constants
+      - variables
       properties:
-        authority:
-          type: string
-        emissions_per_second_x64:
-          type: string
-        growth_global_x64:
-          type: string
-        mint:
-          type: string
-        vault:
-          type: string
-    PoolType:
-      type: string
-      description: Type of pool
-      enum:
-      - splashpool
-      - whirlpool
-    PairCategory:
-      type: string
-      enum:
-      - volatile_volatile
-      - stable_volatile
-      - stable_stable
-      - unknown
-    PublicWhirlpoolStats:
-      type: object
-      description: Statistics for a whirlpool over a time period
-      properties:
-        fees:
-          type:
-          - string
-          - 'null'
-          format: float
-          description: Fees earned in USDC
-          example: '109195.458980424000'
-        feesDelta:
-          type:
-          - string
-          - 'null'
-          format: float
-          description: Percentage change in fees vs previous window (e.g. -0.10 = -10%)
-          example: '-0.10'
-        priceDelta:
-          type:
-          - string
-          - 'null'
-          format: float
-          description: Percentage change in pool price vs previous window (e.g. -0.05 = -5%)
-          example: '-0.05'
-        rewards:
-          type:
-          - string
-          - 'null'
-          format: float
-          description: Rewards earned in USDC
-          example: '0'
-        rewardsDelta:
-          type:
-          - string
-          - 'null'
-          format: float
-          description: Percentage change in rewards vs previous window (currently populated for 24h only)
-          example: '0.40'
-        tvlDelta:
-          type:
-          - string
-          - 'null'
-          format: float
-          description: Percentage change in TVL vs previous window (e.g. 0.15 = +15%)
-          example: '0.15'
-        volume:
-          type:
-          - string
-          - 'null'
-          format: float
-          description: Trading volume in USDC
-          example: '272988647.45106000'
-        volumeDelta:
-          type:
-          - string
-          - 'null'
-          format: float
-          description: Percentage change in volume vs previous window (e.g. 0.25 = +25%)
-          example: '0.25'
-        yieldOverTvl:
-          type:
-          - string
-          - 'null'
-          format: float
-          description: Yield over TVL
-          example: '0.00305562472380393000'
-        yieldOverTvlDelta:
-          type:
-          - string
-          - 'null'
-          format: float
-          description: Percentage change in yield/TVL vs previous window (e.g. 0.50 = +50%)
-          example: '0.50'
+        constants:
+          $ref: '#/components/schemas/AdaptiveFeeConstants'
+        currentRate:
+          type: integer
+          format: int32
+          minimum: 0
+        maxRate:
+          type: integer
+          format: int32
+          minimum: 0
+        variables:
+          $ref: '#/components/schemas/AdaptiveFeeVariables'
+      additionalProperties: false
     PairMetrics:
       type: object
       required:
@@ -768,27 +788,20 @@ components:
           - type: 'null'
           - $ref: '#/components/schemas/Decimal'
       additionalProperties: false
-    AdaptiveFee:
-      type: object
-      required:
-      - currentRate
-      - maxRate
-      - constants
-      - variables
-      properties:
-        constants:
-          $ref: '#/components/schemas/AdaptiveFeeConstants'
-        currentRate:
-          type: integer
-          format: int32
-          minimum: 0
-        maxRate:
-          type: integer
-          format: int32
-          minimum: 0
-        variables:
-          $ref: '#/components/schemas/AdaptiveFeeVariables'
-      additionalProperties: false
+    TimePeriod:
+      type: string
+      description: Time period for the whirlpool stats
+      enum:
+      - 5m
+      - 15m
+      - 30m
+      - 1h
+      - 2h
+      - 4h
+      - 8h
+      - 24h
+      - 7d
+      - 30d
     UtoipaApiResponse_PublicWhirlpool:
       type: object
       required:
@@ -960,12 +973,102 @@ components:
           description: A public whirlpool with additional metadata and statistics
         meta:
           $ref: '#/components/schemas/UtoipaCursorMeta'
-    SortDirection:
+    Pubkey:
+      type: array
+      items:
+        type: integer
+        format: int32
+        minimum: 0
+      description: A Solana pubkey
+    Decimal:
       type: string
-      description: Direction to sort results
-      enum:
-      - asc
-      - desc
+      format: float
+    PublicWhirlpoolStats:
+      type: object
+      description: Statistics for a whirlpool over a time period
+      properties:
+        fees:
+          type:
+          - string
+          - 'null'
+          format: float
+          description: Fees earned in USDC
+          example: '109195.458980424000'
+        feesDelta:
+          type:
+          - string
+          - 'null'
+          format: float
+          description: Percentage change in fees vs previous window (e.g. -0.10 = -10%)
+          example: '-0.10'
+        priceDelta:
+          type:
+          - string
+          - 'null'
+          format: float
+          description: Percentage change in pool price vs previous window (e.g. -0.05 = -5%)
+          example: '-0.05'
+        rewards:
+          type:
+          - string
+          - 'null'
+          format: float
+          description: Rewards earned in USDC
+          example: '0'
+        rewardsDelta:
+          type:
+          - string
+          - 'null'
+          format: float
+          description: Percentage change in rewards vs previous window (currently populated for 24h only)
+          example: '0.40'
+        tvlDelta:
+          type:
+          - string
+          - 'null'
+          format: float
+          description: Percentage change in TVL vs previous window (e.g. 0.15 = +15%)
+          example: '0.15'
+        volume:
+          type:
+          - string
+          - 'null'
+          format: float
+          description: Trading volume in USDC
+          example: '272988647.45106000'
+        volumeDelta:
+          type:
+          - string
+          - 'null'
+          format: float
+          description: Percentage change in volume vs previous window (e.g. 0.25 = +25%)
+          example: '0.25'
+        yieldOverTvl:
+          type:
+          - string
+          - 'null'
+          format: float
+          description: Yield over TVL
+          example: '0.00305562472380393000'
+        yieldOverTvlDelta:
+          type:
+          - string
+          - 'null'
+          format: float
+          description: Percentage change in yield/TVL vs previous window (e.g. 0.50 = +50%)
+          example: '0.50'
+    MintPriceTrend:
+      type: object
+      required:
+      - normalizedPoints
+      properties:
+        normalizedPoints:
+          type: array
+          items:
+            oneOf:
+            - type: 'null'
+            - $ref: '#/components/schemas/Decimal'
+      additionalProperties: false
     SortField:
       type: string
       description: Field to sort the whirlpools by
@@ -1027,59 +1130,6 @@ components:
       - yieldovertvl7d
       - yieldovertvl30d
       - lockedliquiditypercent
-    AdaptiveFeeConstants:
-      type: object
-      required:
-      - filterPeriod
-      - decayPeriod
-      - reductionFactor
-      - adaptiveFeeControlFactor
-      - maxVolatilityAccumulator
-      - tickGroupSize
-      - majorSwapThresholdTicks
-      properties:
-        adaptiveFeeControlFactor:
-          type: integer
-          format: int32
-          minimum: 0
-        decayPeriod:
-          type: integer
-          format: int32
-          minimum: 0
-        filterPeriod:
-          type: integer
-          format: int32
-          minimum: 0
-        majorSwapThresholdTicks:
-          type: integer
-          format: int32
-          minimum: 0
-        maxVolatilityAccumulator:
-          type: integer
-          format: int32
-          minimum: 0
-        reductionFactor:
-          type: integer
-          format: int32
-          minimum: 0
-        tickGroupSize:
-          type: integer
-          format: int32
-          minimum: 0
-      additionalProperties: false
-    LockInfo:
-      type: object
-      required:
-      - name
-      properties:
-        lockedPercentage:
-          type:
-          - string
-          - 'null'
-          example: '0.7'
-        name:
-          type: string
-          example: Whirlpool-Lock
     UtoipaApiResponse_Vec_PublicWhirlpool:
       type: object
       required:
@@ -1253,157 +1303,107 @@ components:
             description: A public whirlpool with additional metadata and statistics
         meta:
           $ref: '#/components/schemas/UtoipaCursorMeta'
-    AssetCategory:
-      type: string
-      enum:
-      - ai
-      - governance
-      - utility
-      - stablecoin
-      - liquid_staking_token
-      - memecoin
-      - currency
-      - security
-      - nft
-      - wrapped_token
-      - bridged_token
-      - restaked_token
-      - synthetic_asset
-      - digital_reward_asset
-      - yield_bearing
-    MintPriceTrend:
+    AdaptiveFeeVariables:
       type: object
       required:
-      - normalizedPoints
+      - lastReferenceUpdateTimestamp
+      - lastMajorSwapTimestamp
+      - volatilityReference
+      - tickGroupIndexReference
+      - volatilityAccumulator
       properties:
-        normalizedPoints:
-          type: array
-          items:
-            oneOf:
-            - type: 'null'
-            - $ref: '#/components/schemas/Decimal'
+        lastMajorSwapTimestamp:
+          type: string
+          format: date-time
+        lastReferenceUpdateTimestamp:
+          type: string
+          format: date-time
+        tickGroupIndexReference:
+          type: integer
+          format: int32
+        volatilityAccumulator:
+          type: integer
+          format: int32
+          minimum: 0
+        volatilityReference:
+          type: integer
+          format: int32
+          minimum: 0
       additionalProperties: false
-    Whirlpool:
+    PoolType:
+      type: string
+      description: Type of pool
+      enum:
+      - splashpool
+      - whirlpool
+    AdaptiveFeeConstants:
       type: object
-      description: A concentrated liquidity pool belonging to the Whirlpools program
       required:
-      - address
-      - whirlpoolsConfig
-      - whirlpoolBump
-      - tickSpacing
-      - tickSpacingSeed
-      - feeRate
-      - protocolFeeRate
-      - liquidity
-      - sqrtPrice
-      - tickCurrentIndex
-      - protocolFeeOwedA
-      - protocolFeeOwedB
-      - tokenMintA
-      - tokenVaultA
-      - feeGrowthGlobalA
-      - tokenMintB
-      - tokenVaultB
-      - feeGrowthGlobalB
-      - rewardLastUpdatedTimestamp
-      - updatedAt
-      - updatedSlot
-      - writeVersion
+      - filterPeriod
+      - decayPeriod
+      - reductionFactor
+      - adaptiveFeeControlFactor
+      - maxVolatilityAccumulator
+      - tickGroupSize
+      - majorSwapThresholdTicks
       properties:
-        address:
-          type: string
-          description: Account address
-          example: Czfq3xZZDmsdGdUyrNLtRhGc47cXcZtLG4crryfu44zE
-        feeGrowthGlobalA:
-          type: string
-          description: Fee growth global for token A
-          example: '9554655121161208077'
-        feeGrowthGlobalB:
-          type: string
-          description: Fee growth global for token B
-          example: '1228285739014669796'
-        feeRate:
+        adaptiveFeeControlFactor:
           type: integer
           format: int32
-          description: 'Stored as hundredths of a basis point
-
-            u16::MAX corresponds to ~6.5%'
-          example: 400
           minimum: 0
-        liquidity:
-          type: string
-          description: Liquidity value for the pool
-          example: '748079040958583'
-        protocolFeeOwedA:
-          type: string
-          description: Protocol fees owed for token A
-          example: '167818699'
-        protocolFeeOwedB:
-          type: string
-          description: Protocol fees owed for token B
-          example: '13808875'
-        protocolFeeRate:
+        decayPeriod:
           type: integer
           format: int32
-          description: Portion of fee rate taken stored as basis points
-          example: 1300
           minimum: 0
-        rewardLastUpdatedTimestamp:
-          type: string
-          description: Last time rewards were updated
-          example: '2025-05-09T03:40:08Z'
-        sqrtPrice:
-          type: string
-          description: MAX/MIN at Q32.64, but using Q64.64 for rounder bytes
-          example: '7428739679004743247'
-        tickCurrentIndex:
+        filterPeriod:
           type: integer
           format: int32
-          description: Current tick index
-          example: -18192
-        tickSpacing:
-          type: integer
-          format: int32
-          description: The desired tick spacing for the pool
-          example: 4
           minimum: 0
-        tickSpacingSeed:
-          type: string
-          description: Seed for the pool's tick spacing -- fee_tier_index_seed
-          example: '[4, 0]'
-        tokenMintA:
-          type: string
-          description: Token A mint address
-          example: So11111111111111111111111111111111111111112
-        tokenMintB:
-          type: string
-          description: Token B mint address
-          example: EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
-        tokenVaultA:
-          $ref: '#/components/schemas/Pubkey'
-          description: Token A vault address
-        tokenVaultB:
-          type: string
-          description: Token B vault address
-          example: 2WLWEuKDgkDUccTpbwYp1GToYktiSB1cXvreHUwiSUVP
-        updatedAt:
-          type: string
-          description: Last time the pool was updated
-          example: '2025-05-09T03:40:22.210625Z'
-        updatedSlot:
+        majorSwapThresholdTicks:
           type: integer
-          format: int64
-          description: Slot when the pool was last updated
-          example: 338786229
-        whirlpoolBump:
+          format: int32
+          minimum: 0
+        maxVolatilityAccumulator:
+          type: integer
+          format: int32
+          minimum: 0
+        reductionFactor:
+          type: integer
+          format: int32
+          minimum: 0
+        tickGroupSize:
+          type: integer
+          format: int32
+          minimum: 0
+      additionalProperties: false
+    LockInfo:
+      type: object
+      required:
+      - name
+      properties:
+        lockedPercentage:
+          type:
+          - string
+          - 'null'
+          example: '0.7'
+        name:
           type: string
-          description: The bump value when deriving the PDA of the Whirlpool address
-          example: '[255]'
-        whirlpoolsConfig:
-          type: string
-          description: WhirlpoolsConfig account address
-          example: 2LecshUwdy9xi7meFgHtFJQNSKk4KdTrcpvaB56dP2NQ
-        writeVersion:
-          type: string
-          description: Write version for optimistic concurrency control
-          example: '1459165811157'
+          example: Whirlpool-Lock
+    WhirlpoolRewardInfoExt:
+      allOf:
+      - $ref: '#/components/schemas/WhirlpoolRewardInfoExtDb'
+      - type: object
+        required:
+        - active
+        - emissionsPerSecond
+        properties:
+          active:
+            type: boolean
+            description: Whether the reward is active
+            example: false
+          emissionsPerSecond:
+            type: string
+            format: float
+            description: Emissions per second
+            example: '0'
+      description: Reward information for a whirlpool

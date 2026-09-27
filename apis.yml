@@ -55,7 +55,7 @@ tags:
 - Crypto
 apis:
 - aid: orca:orca-protocol-api
-  name: Orca protocol API
+  name: Orca Protocol API
   description: Orca protocol information endpoints
   humanURL: https://docs.orca.so/api-reference/overview
   baseURL: https://api.orca.so/v2/solana
@@ -71,7 +71,7 @@ apis:
   - type: APIReference
     url: https://docs.orca.so/api-reference/whirlpools
 - aid: orca:orca-tokens-api
-  name: Orca tokens API
+  name: Orca Tokens API
   description: Token information endpoints
   humanURL: https://docs.orca.so/api-reference/overview
   baseURL: https://api.orca.so/v2/solana
@@ -87,7 +87,7 @@ apis:
   - type: APIReference
     url: https://docs.orca.so/api-reference/whirlpools
 - aid: orca:orca-whirlpools-api
-  name: Orca whirlpools API
+  name: Orca Whirlpools API
   description: Whirlpool information endpoints
   humanURL: https://docs.orca.so/api-reference/overview
   baseURL: https://api.orca.so/v2/solana

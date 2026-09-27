@@ -139,74 +139,16 @@ paths:
                 $ref: '#/components/schemas/AppError'
 components:
   schemas:
-    CirculatingSupplyResponse:
+    TotalSupplyResponse:
       type: object
-      description: Circulating supply response
+      description: Total supply for the Orca token
       required:
-      - circulating_supply
+      - total_supply
       properties:
-        circulating_supply:
+        total_supply:
           type: string
-          description: Circulating supply for the Orca token
-          example: '53275183'
-    ProtocolInfoOrcaToken:
-      type: object
-      description: Detailed information about the protocol's token
-      required:
-      - symbol
-      - name
-      - description
-      - imageUrl
-      - price
-      - circulatingSupply
-      - totalSupply
-      - stats
-      properties:
-        circulatingSupply:
-          type: string
-          format: float
-          description: Current circulating supply
-          example: '53275182.419413'
-        description:
-          type: string
-          description: Token description
-          example: Orca Token
-        imageUrl:
-          type: string
-          description: URL to the token's image
-          example: https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/orcaEKTdK7LKz57vaAYr9QeNsVEPfiu6QeMU1kektZE/logo.png
-        name:
-          type: string
-          description: Token name (e.g., "Orca")
-          example: Orca
-        price:
-          type: string
-          format: float
-          description: Current token price in USD
-          example: '1.6767140'
-        stats:
-          $ref: '#/components/schemas/ProtocolInfoOrcaTokenStats'
-          description: Token statistics
-        symbol:
-          type: string
-          description: Token symbol (e.g., "ORCA")
-          example: ORCA
-        totalSupply:
-          type: string
-          format: float
-          description: Total token supply
-          example: '99999712.243267'
-    ProtocolInfoOrcaTokenStatsData:
-      type: object
-      description: Daily statistics data for the protocol's token
-      required:
-      - volume
-      properties:
-        volume:
-          type: string
-          format: float
-          description: 24-hour trading volume in USD
-          example: '594947.6898176792'
+          description: Total supply for the Orca token
+          example: '99999713'
     ProtocolInfo:
       type: object
       description: Protocol information including TVL, volume, fees, and revenue
@@ -260,13 +202,71 @@ components:
         24h:
           $ref: '#/components/schemas/ProtocolInfoOrcaTokenStatsData'
           description: 24-hour statistics
-    TotalSupplyResponse:
+    ProtocolInfoOrcaTokenStatsData:
       type: object
-      description: Total supply for the Orca token
+      description: Daily statistics data for the protocol's token
       required:
-      - total_supply
+      - volume
       properties:
-        total_supply:
+        volume:
           type: string
-          description: Total supply for the Orca token
-          example: '99999713'
+          format: float
+          description: 24-hour trading volume in USD
+          example: '594947.6898176792'
+    ProtocolInfoOrcaToken:
+      type: object
+      description: Detailed information about the protocol's token
+      required:
+      - symbol
+      - name
+      - description
+      - imageUrl
+      - price
+      - circulatingSupply
+      - totalSupply
+      - stats
+      properties:
+        circulatingSupply:
+          type: string
+          format: float
+          description: Current circulating supply
+          example: '53275182.419413'
+        description:
+          type: string
+          description: Token description
+          example: Orca Token
+        imageUrl:
+          type: string
+          description: URL to the token's image
+          example: https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/orcaEKTdK7LKz57vaAYr9QeNsVEPfiu6QeMU1kektZE/logo.png
+        name:
+          type: string
+          description: Token name (e.g., "Orca")
+          example: Orca
+        price:
+          type: string
+          format: float
+          description: Current token price in USD
+          example: '1.6767140'
+        stats:
+          $ref: '#/components/schemas/ProtocolInfoOrcaTokenStats'
+          description: Token statistics
+        symbol:
+          type: string
+          description: Token symbol (e.g., "ORCA")
+          example: ORCA
+        totalSupply:
+          type: string
+          format: float
+          description: Total token supply
+          example: '99999712.243267'
+    CirculatingSupplyResponse:
+      type: object
+      description: Circulating supply response
+      required:
+      - circulating_supply
+      properties:
+        circulating_supply:
+          type: string
+          description: Circulating supply for the Orca token
+          example: '53275183'
