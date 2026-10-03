@@ -139,80 +139,6 @@ paths:
                 $ref: '#/components/schemas/AppError'
 components:
   schemas:
-    TotalSupplyResponse:
-      type: object
-      description: Total supply for the Orca token
-      required:
-      - total_supply
-      properties:
-        total_supply:
-          type: string
-          description: Total supply for the Orca token
-          example: '99999713'
-    ProtocolInfo:
-      type: object
-      description: Protocol information including TVL, volume, fees, and revenue
-      required:
-      - volume24hUsdc
-      - fees24hUsdc
-      - revenue24hUsdc
-      - tvl
-      properties:
-        fees24hUsdc:
-          type: string
-          format: float
-          description: 24-hour fees in USDC
-          example: '317428.0521046'
-        revenue24hUsdc:
-          type: string
-          format: float
-          description: 24-hour revenue in USDC
-          example: '41265.646773'
-        tvl:
-          type: string
-          format: float
-          description: Total Value Locked in USDC
-          example: '230551269.0085'
-        volume24hUsdc:
-          type: string
-          format: float
-          description: 24-hour volume in USDC
-          example: '552567794.7830'
-    AppError:
-      type: object
-      description: Application error returned by API endpoints
-      required:
-      - inner
-      - status
-      properties:
-        inner:
-          type: string
-          description: The underlying error
-        status:
-          type: integer
-          format: int32
-          description: HTTP status code
-          minimum: 0
-    ProtocolInfoOrcaTokenStats:
-      type: object
-      description: Statistics for the protocol's token
-      required:
-      - 24h
-      properties:
-        24h:
-          $ref: '#/components/schemas/ProtocolInfoOrcaTokenStatsData'
-          description: 24-hour statistics
-    ProtocolInfoOrcaTokenStatsData:
-      type: object
-      description: Daily statistics data for the protocol's token
-      required:
-      - volume
-      properties:
-        volume:
-          type: string
-          format: float
-          description: 24-hour trading volume in USD
-          example: '594947.6898176792'
     ProtocolInfoOrcaToken:
       type: object
       description: Detailed information about the protocol's token
@@ -260,6 +186,80 @@ components:
           format: float
           description: Total token supply
           example: '99999712.243267'
+    AppError:
+      type: object
+      description: Application error returned by API endpoints
+      required:
+      - inner
+      - status
+      properties:
+        inner:
+          type: string
+          description: The underlying error
+        status:
+          type: integer
+          format: int32
+          description: HTTP status code
+          minimum: 0
+    ProtocolInfo:
+      type: object
+      description: Protocol information including TVL, volume, fees, and revenue
+      required:
+      - volume24hUsdc
+      - fees24hUsdc
+      - revenue24hUsdc
+      - tvl
+      properties:
+        fees24hUsdc:
+          type: string
+          format: float
+          description: 24-hour fees in USDC
+          example: '317428.0521046'
+        revenue24hUsdc:
+          type: string
+          format: float
+          description: 24-hour revenue in USDC
+          example: '41265.646773'
+        tvl:
+          type: string
+          format: float
+          description: Total Value Locked in USDC
+          example: '230551269.0085'
+        volume24hUsdc:
+          type: string
+          format: float
+          description: 24-hour volume in USDC
+          example: '552567794.7830'
+    TotalSupplyResponse:
+      type: object
+      description: Total supply for the Orca token
+      required:
+      - total_supply
+      properties:
+        total_supply:
+          type: string
+          description: Total supply for the Orca token
+          example: '99999713'
+    ProtocolInfoOrcaTokenStatsData:
+      type: object
+      description: Daily statistics data for the protocol's token
+      required:
+      - volume
+      properties:
+        volume:
+          type: string
+          format: float
+          description: 24-hour trading volume in USD
+          example: '594947.6898176792'
+    ProtocolInfoOrcaTokenStats:
+      type: object
+      description: Statistics for the protocol's token
+      required:
+      - 24h
+      properties:
+        24h:
+          $ref: '#/components/schemas/ProtocolInfoOrcaTokenStatsData'
+          description: 24-hour statistics
     CirculatingSupplyResponse:
       type: object
       description: Circulating supply response
