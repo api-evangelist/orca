@@ -152,32 +152,6 @@ paths:
           description: Internal server error
 components:
   schemas:
-    UtoipaCursorMeta:
-      type: object
-      properties:
-        next:
-          type:
-          - string
-          - 'null'
-        previous:
-          type:
-          - string
-          - 'null'
-    AppError:
-      type: object
-      description: Application error returned by API endpoints
-      required:
-      - inner
-      - status
-      properties:
-        inner:
-          type: string
-          description: The underlying error
-        status:
-          type: integer
-          format: int32
-          description: HTTP status code
-          minimum: 0
     UtoipaApiResponse_Vec_PublicToken:
       type: object
       required:
@@ -271,31 +245,21 @@ components:
                 minimum: 0
         meta:
           $ref: '#/components/schemas/UtoipaCursorMeta'
-    AssetCategory:
-      type: string
-      enum:
-      - ai
-      - governance
-      - utility
-      - stablecoin
-      - liquid_staking_token
-      - memecoin
-      - currency
-      - security
-      - nft
-      - wrapped_token
-      - bridged_token
-      - restaked_token
-      - synthetic_asset
-      - digital_reward_asset
-      - yield_bearing
-    TokenSortField:
-      type: string
-      description: Field to sort tokens by
-      enum:
-      - address
-      - mint_id
-      - volume_24h
+    AppError:
+      type: object
+      description: Application error returned by API endpoints
+      required:
+      - inner
+      - status
+      properties:
+        inner:
+          type: string
+          description: The underlying error
+        status:
+          type: integer
+          format: int32
+          description: HTTP status code
+          minimum: 0
     UtoipaApiResponse_PublicToken:
       type: object
       required:
@@ -387,6 +351,42 @@ components:
               minimum: 0
         meta:
           $ref: '#/components/schemas/UtoipaCursorMeta'
+    AssetCategory:
+      type: string
+      enum:
+      - ai
+      - governance
+      - utility
+      - stablecoin
+      - liquid_staking_token
+      - memecoin
+      - currency
+      - security
+      - nft
+      - wrapped_token
+      - bridged_token
+      - restaked_token
+      - synthetic_asset
+      - digital_reward_asset
+      - yield_bearing
+    UtoipaCursorMeta:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+        previous:
+          type:
+          - string
+          - 'null'
+    TokenSortField:
+      type: string
+      description: Field to sort tokens by
+      enum:
+      - address
+      - mint_id
+      - volume_24h
     TokenSortDirection:
       type: string
       description: Direction to sort tokens

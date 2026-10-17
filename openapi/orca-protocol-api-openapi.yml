@@ -139,26 +139,6 @@ paths:
                 $ref: '#/components/schemas/AppError'
 components:
   schemas:
-    ProtocolInfoOrcaTokenStatsData:
-      type: object
-      description: Daily statistics data for the protocol's token
-      required:
-      - volume
-      properties:
-        volume:
-          type: string
-          format: float
-          description: 24-hour trading volume in USD
-          example: '594947.6898176792'
-    ProtocolInfoOrcaTokenStats:
-      type: object
-      description: Statistics for the protocol's token
-      required:
-      - 24h
-      properties:
-        24h:
-          $ref: '#/components/schemas/ProtocolInfoOrcaTokenStatsData'
-          description: 24-hour statistics
     ProtocolInfoOrcaToken:
       type: object
       description: Detailed information about the protocol's token
@@ -206,16 +186,6 @@ components:
           format: float
           description: Total token supply
           example: '99999712.243267'
-    CirculatingSupplyResponse:
-      type: object
-      description: Circulating supply response
-      required:
-      - circulating_supply
-      properties:
-        circulating_supply:
-          type: string
-          description: Circulating supply for the Orca token
-          example: '53275183'
     TotalSupplyResponse:
       type: object
       description: Total supply for the Orca token
@@ -270,3 +240,33 @@ components:
           format: int32
           description: HTTP status code
           minimum: 0
+    ProtocolInfoOrcaTokenStatsData:
+      type: object
+      description: Daily statistics data for the protocol's token
+      required:
+      - volume
+      properties:
+        volume:
+          type: string
+          format: float
+          description: 24-hour trading volume in USD
+          example: '594947.6898176792'
+    ProtocolInfoOrcaTokenStats:
+      type: object
+      description: Statistics for the protocol's token
+      required:
+      - 24h
+      properties:
+        24h:
+          $ref: '#/components/schemas/ProtocolInfoOrcaTokenStatsData'
+          description: 24-hour statistics
+    CirculatingSupplyResponse:
+      type: object
+      description: Circulating supply response
+      required:
+      - circulating_supply
+      properties:
+        circulating_supply:
+          type: string
+          description: Circulating supply for the Orca token
+          example: '53275183'
